@@ -7,16 +7,33 @@
   import Map from "./lib/Map.svelte";
   import SelectImportArea from "./lib/SelectImportArea.svelte";
 
-  type Imported = "nothing" | LoadingOverpass;
-  type LoadingOverpass = {
-    kind: "LoadingOverpass";
-    polygon: Polygon;
-  };
+  type Imported =
+    | "nothing"
+    | { kind: "LoadingOverpass"; polygon: Polygon }
+    | { kind: "error"; msg: string }
+    | {
+        kind: "osm2streets import";
+        boundaryPolygon: Polygon;
+        osmInput: string;
+      };
 
   let imported: Imported = "nothing";
 
-  function handlePolygon(e: CustomEvent<Polygon>) {
-    imported = { kind: "LoadingOverpass", polygon: e.detail };
+  async function handlePolygon(e: CustomEvent<Polygon>) {
+    let polygon = e.detail;
+    imported = { kind: "LoadingOverpass", polygon };
+
+    try {
+      let resp = await fetch(overpassQueryForPolygon(polygon));
+      let osmInput = await resp.text();
+      imported = {
+        kind: "osm2streets import",
+        boundaryPolygon: polygon,
+        osmInput,
+      };
+    } catch (err) {
+      imported = { kind: "error", msg: err.toString() };
+    }
   }
 </script>
 
@@ -28,6 +45,10 @@
     {:else if imported.kind === "LoadingOverpass"}
       <p>{JSON.stringify(imported)}</p>
       <p>Grab URL: {overpassQueryForPolygon(imported.polygon)}</p>
+    {:else if imported.kind === "error"}
+      <p>Error: {imported.msg}</p>
+    {:else if imported.kind === "osm2streets import"}
+      <p>got XML back! length {imported.osmInput.length}</p>
     {/if}
   </div>
   <div slot="main">
