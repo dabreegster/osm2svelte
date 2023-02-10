@@ -1,13 +1,20 @@
 <script lang="ts">
   import MapboxDraw from "@mapbox/mapbox-gl-draw";
   import type DrawCreateEvent from "mapbox__mapbox-gl-draw";
-  import { onMount, onDestroy, getContext } from "svelte";
+  import {
+    onMount,
+    onDestroy,
+    getContext,
+    createEventDispatcher,
+  } from "svelte";
 
   import "@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css";
 
   const { getMap } = getContext("map");
 
   let drawControls: MapboxDraw;
+
+  let dispatch = createEventDispatcher();
 
   onMount(async () => {
     const map = getMap();
@@ -22,8 +29,8 @@
 
     map.on("draw.create", (e: DrawCreateEvent) => {
       const feature = e.features[0];
-      console.log(`got ${JSON.stringify(feature)}`);
       drawControls.deleteAll();
+      dispatch("polygon", feature.geometry);
     });
   });
 

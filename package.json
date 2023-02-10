@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "@mapbox/mapbox-gl-draw": "^1.4.0",
-    "maplibre-gl": "^2.4.0"
+    "maplibre-gl": "^2.4.0",
+    "osm2streets-js": "^0.1.2"
   }
 }
