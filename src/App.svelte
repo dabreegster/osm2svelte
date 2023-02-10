@@ -8,6 +8,8 @@
   import Layout from "./lib/Layout.svelte";
   import Map from "./lib/Map.svelte";
   import SelectImportArea from "./lib/SelectImportArea.svelte";
+  import Osm2streetsSettings from "./lib/Osm2streetsSettings.svelte";
+
   import RenderIntersectionPolygons from "./lib/layers/RenderIntersectionPolygons.svelte";
   import RenderIntersectionMarkings from "./lib/layers/RenderIntersectionMarkings.svelte";
   import RenderLanePolygons from "./lib/layers/RenderLanePolygons.svelte";
@@ -33,6 +35,9 @@
       };
 
   let imported: Imported = { kind: "nothing" };
+
+  // TODO When these change, should we automatically re-import?
+  let settings;
 
   onMount(async () => {
     await init();
@@ -72,16 +77,7 @@
       geometry: boundaryPolygon,
       properties: {},
     };
-    return [
-      new JsStreetNetwork(osmXML, JSON.stringify(gj), {
-        debug_each_step: false,
-        dual_carriageway_experiment: false,
-        cycletrack_snapping_experiment: false,
-        inferred_sidewalks: false,
-        osm2lanes: false,
-      }),
-      gj,
-    ];
+    return [new JsStreetNetwork(osmXML, JSON.stringify(gj), settings), gj];
   }
 
   async function importSampleArea() {
@@ -107,20 +103,20 @@
 <Layout>
   <div slot="left">
     <h1>osm2streets + Svelte</h1>
+    <Osm2streetsSettings bind:settings />
     <button type="button" on:click={importSampleArea}
       >Import built-in sample area</button
     >
     {#if imported.kind === "nothing"}
       <p>Use the polygon tool to select an area to import</p>
     {:else if imported.kind === "LoadingOverpass"}
-      <p>{JSON.stringify(imported)}</p>
-      <p>Grab URL: {overpassQueryForPolygon(imported.polygon)}</p>
+      <p>Loading from Overpass...</p>
     {:else if imported.kind === "error"}
       <p>Error: {imported.msg}</p>
     {:else if imported.kind === "osm2streets import"}
-      <p>got XML back! length {imported.osmInput.length}</p>
+      <p>Importing with osm2streets...</p>
     {:else if imported.kind === "done"}
-      <p>Got the network! {imported.network.toGeojsonPlain()}</p>
+      <p>Success!</p>
     {/if}
   </div>
   <div slot="main">
