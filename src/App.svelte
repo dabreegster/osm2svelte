@@ -8,12 +8,13 @@
   import Layout from "./lib/Layout.svelte";
   import Map from "./lib/Map.svelte";
   import SelectImportArea from "./lib/SelectImportArea.svelte";
+  import RenderStreets from "./lib/RenderStreets.svelte";
 
   import sampleOsmInputUrl from "../assets/input.osm?url";
   import sampleBoundaryGeojson from "../assets/boundary.json?raw";
 
   type Imported =
-    | "nothing"
+    | { kind: "nothing" }
     | { kind: "LoadingOverpass"; polygon: Polygon }
     | { kind: "error"; msg: string }
     | {
@@ -27,7 +28,7 @@
         network: JsStreetNetwork;
       };
 
-  let imported: Imported = "nothing";
+  let imported: Imported = { kind: "nothing" };
 
   onMount(async () => {
     await init();
@@ -102,7 +103,7 @@
     <button type="button" on:click={importSampleArea}
       >Import built-in sample area</button
     >
-    {#if imported === "nothing"}
+    {#if imported.kind === "nothing"}
       <p>Use the polygon tool to select an area to import</p>
     {:else if imported.kind === "LoadingOverpass"}
       <p>{JSON.stringify(imported)}</p>
@@ -118,6 +119,9 @@
   <div slot="main">
     <Map>
       <SelectImportArea on:polygon={handlePolygon} />
+      {#if imported.kind === "done"}
+        <RenderStreets network={imported.network} />
+      {/if}
     </Map>
   </div>
 </Layout>
