@@ -9,6 +9,9 @@
   import Map from "./lib/Map.svelte";
   import SelectImportArea from "./lib/SelectImportArea.svelte";
 
+  import sampleOsmInputUrl from "../assets/input.osm?url";
+  import sampleBoundaryGeojson from "../assets/boundary.json?raw";
+
   type Imported =
     | "nothing"
     | { kind: "LoadingOverpass"; polygon: Polygon }
@@ -72,11 +75,33 @@
       osm2lanes: false,
     });
   }
+
+  async function importSampleArea() {
+    let polygon = JSON.parse(sampleBoundaryGeojson);
+
+    // TODO Go through all the same states?
+    try {
+      let resp = await fetch(sampleOsmInputUrl);
+      let osmInput = await resp.text();
+      let network = importOSM(polygon, osmInput);
+
+      imported = {
+        kind: "done",
+        boundaryPolygon: polygon,
+        network,
+      };
+    } catch (err) {
+      imported = { kind: "error", msg: err.toString() };
+    }
+  }
 </script>
 
 <Layout>
   <div slot="left">
     <h1>osm2streets + Svelte</h1>
+    <button type="button" on:click={importSampleArea}
+      >Import built-in sample area</button
+    >
     {#if imported === "nothing"}
       <p>Use the polygon tool to select an area to import</p>
     {:else if imported.kind === "LoadingOverpass"}
