@@ -8,7 +8,10 @@
   import Layout from "./lib/Layout.svelte";
   import Map from "./lib/Map.svelte";
   import SelectImportArea from "./lib/SelectImportArea.svelte";
-  import RenderStreets from "./lib/RenderStreets.svelte";
+  import RenderIntersectionPolygons from "./lib/layers/RenderIntersectionPolygons.svelte";
+  import RenderIntersectionMarkings from "./lib/layers/RenderIntersectionMarkings.svelte";
+  import RenderLanePolygons from "./lib/layers/RenderLanePolygons.svelte";
+  import RenderLaneMarkings from "./lib/layers/RenderLaneMarkings.svelte";
 
   import sampleOsmInputUrl from "../assets/input.osm?url";
   import sampleBoundaryGeojson from "../assets/boundary.json?raw";
@@ -120,7 +123,11 @@
     <Map>
       <SelectImportArea on:polygon={handlePolygon} />
       {#if imported.kind === "done"}
-        <RenderStreets network={imported.network} />
+        <RenderIntersectionPolygons network={imported.network} />
+        <RenderIntersectionMarkings network={imported.network} />
+
+        <RenderLanePolygons network={imported.network} />
+        <RenderLaneMarkings network={imported.network} />
       {/if}
     </Map>
   </div>

@@ -1,11 +1,12 @@
 <script lang="ts">
   import type { JsStreetNetwork } from "osm2streets-js";
-  import Layer from "./Layer.svelte";
+  import Layer from "../Layer.svelte";
+  import { caseHelper } from "../../style.js";
 
   export let network: JsStreetNetwork;
 
-  let lanePolygonGJ = JSON.parse(network.toLanePolygonsGeojson());
-  let lanePolygonStyle = {
+  let gj = JSON.parse(network.toLanePolygonsGeojson());
+  let layerStyle = {
     type: "fill",
     paint: {
       "fill-color": caseHelper(
@@ -31,24 +32,6 @@
       "fill-opacity": 0.9,
     },
   };
-
-  function caseHelper(
-    getKey: string,
-    map: Map<string, string>,
-    backup: string
-  ): string[] {
-    let x = ["case"];
-    for (let [key, value] of Object.entries(map)) {
-      x.push(["==", ["get", getKey], key]);
-      x.push(value);
-    }
-    x.push(backup);
-    return x;
-  }
 </script>
 
-<Layer
-  source="lane-polygons"
-  gj={lanePolygonGJ}
-  layerStyle={lanePolygonStyle}
-/>
+<Layer source="lane-polygons" {gj} {layerStyle} />
