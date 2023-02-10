@@ -1,5 +1,13 @@
 <script lang="ts">
-  import Counter from "./lib/Counter.svelte";
+  import Layout from "./lib/Layout.svelte";
+  import Map from "./lib/Map.svelte";
 </script>
 
-<Counter />
+<Layout>
+  <div slot="left">
+    <h1>osm2streets + Svelte</h1>
+  </div>
+  <div slot="main">
+    <Map />
+  </div>
+</Layout>
