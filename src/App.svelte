@@ -1,6 +1,6 @@
 <script lang="ts">
   // TODO I never added this to package.json, it's a transitive dep!
-  import type { Polygon } from "geojson";
+  import type { Feature, Polygon } from "geojson";
   import { overpassQueryForPolygon } from "./overpass.js";
   import init, { JsStreetNetwork } from "osm2streets-js";
   import { onMount } from "svelte";
@@ -12,6 +12,7 @@
   import RenderIntersectionMarkings from "./lib/layers/RenderIntersectionMarkings.svelte";
   import RenderLanePolygons from "./lib/layers/RenderLanePolygons.svelte";
   import RenderLaneMarkings from "./lib/layers/RenderLaneMarkings.svelte";
+  import RenderBoundary from "./lib/layers/RenderBoundary.svelte";
 
   import sampleOsmInputUrl from "../assets/input.osm?url";
   import sampleBoundaryGeojson from "../assets/boundary.json?raw";
@@ -27,7 +28,7 @@
       }
     | {
         kind: "done";
-        boundaryPolygon: Polygon;
+        boundaryGJ: Feature;
         network: JsStreetNetwork;
       };
 
@@ -51,10 +52,10 @@
         osmInput,
       };
 
-      let network = importOSM(polygon, osmInput);
+      let [network, boundaryGJ] = importOSM(polygon, osmInput);
       imported = {
         kind: "done",
-        boundaryPolygon: polygon,
+        boundaryGJ,
         network,
       };
     } catch (err) {
@@ -65,19 +66,22 @@
   function importOSM(
     boundaryPolygon: Polygon,
     osmXML: string
-  ): JsStreetNetwork {
+  ): [JsStreetNetwork, Feature] {
     let gj = {
       type: "Feature",
       geometry: boundaryPolygon,
       properties: {},
     };
-    return new JsStreetNetwork(osmXML, JSON.stringify(gj), {
-      debug_each_step: false,
-      dual_carriageway_experiment: false,
-      cycletrack_snapping_experiment: false,
-      inferred_sidewalks: false,
-      osm2lanes: false,
-    });
+    return [
+      new JsStreetNetwork(osmXML, JSON.stringify(gj), {
+        debug_each_step: false,
+        dual_carriageway_experiment: false,
+        cycletrack_snapping_experiment: false,
+        inferred_sidewalks: false,
+        osm2lanes: false,
+      }),
+      gj,
+    ];
   }
 
   async function importSampleArea() {
@@ -87,11 +91,11 @@
     try {
       let resp = await fetch(sampleOsmInputUrl);
       let osmInput = await resp.text();
-      let network = importOSM(polygon, osmInput);
+      let [network, boundaryGJ] = importOSM(polygon, osmInput);
 
       imported = {
         kind: "done",
-        boundaryPolygon: polygon,
+        boundaryGJ,
         network,
       };
     } catch (err) {
@@ -123,6 +127,8 @@
     <Map>
       <SelectImportArea on:polygon={handlePolygon} />
       {#if imported.kind === "done"}
+        <RenderBoundary gj={imported.boundaryGJ} />
+
         <RenderIntersectionPolygons network={imported.network} />
         <RenderIntersectionMarkings network={imported.network} />
 

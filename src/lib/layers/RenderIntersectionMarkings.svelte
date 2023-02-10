@@ -6,7 +6,6 @@
   export let network: JsStreetNetwork;
 
   let gj = JSON.parse(network.toIntersectionMarkingsGeojson());
-  console.log(JSON.stringify(gj));
   let layerStyle = {
     type: "fill",
     paint: {

@@ -11,14 +11,13 @@
   import "@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css";
 
   const { getMap } = getContext("map");
+  let map = getMap();
 
   let drawControls: MapboxDraw;
 
   let dispatch = createEventDispatcher();
 
   onMount(async () => {
-    const map = getMap();
-
     drawControls = new MapboxDraw({
       displayControlsDefault: false,
       controls: {
@@ -35,7 +34,6 @@
   });
 
   onDestroy(() => {
-    const map = getMap();
     map.removeControl(drawControls);
   });
 </script>
