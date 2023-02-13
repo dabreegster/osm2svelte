@@ -12,3 +12,16 @@ export function caseHelper(
   x.push(backup);
   return x;
 }
+
+export function featureStateToggle(
+  key: string,
+  falseCase: number,
+  trueCase: number
+): any[] {
+  return [
+    "case",
+    ["boolean", ["feature-state", key], false],
+    trueCase,
+    falseCase,
+  ];
+}

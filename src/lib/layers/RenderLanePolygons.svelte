@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { JsStreetNetwork } from "osm2streets-js";
-  import Layer from "../Layer.svelte";
-  import { caseHelper } from "../../style.js";
+  import InteractiveLayer from "../InteractiveLayer.svelte";
+  import { caseHelper, featureStateToggle } from "../../style.js";
 
   export let network: JsStreetNetwork;
 
@@ -29,9 +29,9 @@
         },
         "red"
       ),
-      "fill-opacity": 0.9,
+      "fill-opacity": featureStateToggle("hover", 0.9, 0.4),
     },
   };
 </script>
 
-<Layer source="lane-polygons" {gj} {layerStyle} />
+<InteractiveLayer source="lane-polygons" {gj} {layerStyle} />
