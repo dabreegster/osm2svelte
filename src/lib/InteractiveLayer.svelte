@@ -11,19 +11,16 @@
   export let source: string;
   export let show = true;
   export let gj: GeoJSON;
-  // The caller should do something with ["feature-state", "hover"]
+  // The caller should do something with ["feature-state", "hover"] and ["feature-state", "clicked"]
   export let layerStyle;
 
   // Output
   export let hoveredFeature: Feature | undefined;
+  export let clickedFeature: Feature | undefined;
 
   // An ID assigned by MapLibre
   let hoverId: number | undefined;
-  function unhover() {
-    if (hoverId !== undefined) {
-      map.setFeatureState({ source, id: hoverId }, { hover: false });
-    }
-  }
+  let clickedId: number | undefined;
 
   let layer = `${source}-layer`;
 
@@ -43,6 +40,7 @@
       map.setLayoutProperty(layer, "visibility", "none");
     }
 
+    // Configure hovering
     map.on("mousemove", layer, (e) => {
       if (e.features.length > 0 && hoverId != e.features[0].id) {
         unhover();
@@ -55,6 +53,23 @@
       unhover();
       hoveredFeature = undefined;
       hoverId = undefined;
+    });
+
+    // Configure clicking
+    map.on("click", (e) => {
+      if (clickedFeature !== undefined) {
+        map.setFeatureState({ source, id: clickedId }, { clicked: false });
+      }
+
+      let features = map.queryRenderedFeatures(e.point, { layers: [layer] });
+      if (features.length == 1) {
+        clickedFeature = features[0];
+        clickedId = features[0].id;
+        map.setFeatureState({ source, id: clickedId }, { clicked: true });
+      } else {
+        clickedFeature = undefined;
+        clickedId = undefined;
+      }
     });
   });
 
@@ -70,6 +85,12 @@
   $: {
     if (map.getLayer(layer)) {
       map.setLayoutProperty(layer, "visibility", show ? "visible" : "none");
+    }
+  }
+
+  function unhover() {
+    if (hoverId !== undefined) {
+      map.setFeatureState({ source, id: hoverId }, { hover: false });
     }
   }
 </script>

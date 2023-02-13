@@ -3,7 +3,11 @@
   import InteractiveLayer from "../InteractiveLayer.svelte";
   import { caseHelper, featureStateToggle } from "../../style.js";
 
+  // Input
   export let network: JsStreetNetwork;
+
+  // Output
+  export let clickedFeature;
 
   let gj = JSON.parse(network.toLanePolygonsGeojson());
   let layerStyle = {
@@ -34,4 +38,9 @@
   };
 </script>
 
-<InteractiveLayer source="lane-polygons" {gj} {layerStyle} />
+<InteractiveLayer
+  source="lane-polygons"
+  {gj}
+  {layerStyle}
+  bind:clickedFeature
+/>

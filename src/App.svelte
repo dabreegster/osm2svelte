@@ -19,11 +19,16 @@
 
   import InfoMode from "./lib/modes/InfoMode.svelte";
   import ThickenRoadsMode from "./lib/modes/ThickenRoadsMode.svelte";
-  import LtnMode from "./lib/modes/LtnMode.svelte";
-  import FifteenMinMode from "./lib/modes/FifteenMinMode.svelte";
+  import EditLanesMode from "./lib/modes/EditLanesMode.svelte";
 
   import sampleOsmInputUrl from "../assets/input.osm?url";
   import sampleBoundaryGeojson from "../assets/boundary.json?raw";
+
+  // TODO Maybe a store or context is easier to plumb this around
+  let clickedFeature: Feature | undefined;
+
+  // TODO We get changes here, but they're not plumbed down to InfoMode
+  $: console.log(`clicked ${JSON.stringify(clickedFeature)}`);
 
   type Imported =
     | { kind: "nothing" }
@@ -130,9 +135,9 @@
       tabs={[
         { label: "Info", content: InfoMode },
         { label: "Thicken roads", content: ThickenRoadsMode },
-        { label: "LTN", content: LtnMode },
-        { label: "15m", content: FifteenMinMode },
+        { label: "Edit lanes", content: EditLanesMode },
       ]}
+      extraProps={clickedFeature}
     />
   </div>
   <div slot="main">
@@ -144,7 +149,7 @@
         <RenderIntersectionPolygons network={imported.network} />
         <RenderIntersectionMarkings network={imported.network} />
 
-        <RenderLanePolygons network={imported.network} />
+        <RenderLanePolygons network={imported.network} bind:clickedFeature />
         <RenderLaneMarkings network={imported.network} />
       {/if}
     </Map>
