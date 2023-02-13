@@ -9,12 +9,18 @@
   import Map from "./lib/Map.svelte";
   import SelectImportArea from "./lib/SelectImportArea.svelte";
   import Osm2streetsSettings from "./lib/Osm2streetsSettings.svelte";
+  import Tabs from "./lib/Tabs.svelte";
 
   import RenderIntersectionPolygons from "./lib/layers/RenderIntersectionPolygons.svelte";
   import RenderIntersectionMarkings from "./lib/layers/RenderIntersectionMarkings.svelte";
   import RenderLanePolygons from "./lib/layers/RenderLanePolygons.svelte";
   import RenderLaneMarkings from "./lib/layers/RenderLaneMarkings.svelte";
   import RenderBoundary from "./lib/layers/RenderBoundary.svelte";
+
+  import InfoMode from "./lib/modes/InfoMode.svelte";
+  import ThickenRoadsMode from "./lib/modes/ThickenRoadsMode.svelte";
+  import LtnMode from "./lib/modes/LtnMode.svelte";
+  import FifteenMinMode from "./lib/modes/FifteenMinMode.svelte";
 
   import sampleOsmInputUrl from "../assets/input.osm?url";
   import sampleBoundaryGeojson from "../assets/boundary.json?raw";
@@ -103,6 +109,7 @@
 <Layout>
   <div slot="left">
     <h1>osm2streets + Svelte</h1>
+
     <Osm2streetsSettings bind:settings />
     <button type="button" on:click={importSampleArea}
       >Import built-in sample area</button
@@ -118,6 +125,15 @@
     {:else if imported.kind === "done"}
       <p>Success!</p>
     {/if}
+
+    <Tabs
+      tabs={[
+        { label: "Info", content: InfoMode },
+        { label: "Thicken roads", content: ThickenRoadsMode },
+        { label: "LTN", content: LtnMode },
+        { label: "15m", content: FifteenMinMode },
+      ]}
+    />
   </div>
   <div slot="main">
     <Map>
