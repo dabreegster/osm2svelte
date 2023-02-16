@@ -11,6 +11,7 @@
   import Osm2streetsSettings from "./lib/Osm2streetsSettings.svelte";
   import Tabs from "./lib/Tabs.svelte";
   import VectorTileControls from "./lib/VectorTileControls.svelte";
+  import HoverBasemap from "./lib/HoverBasemap.svelte";
 
   import RenderIntersectionPolygons from "./lib/layers/RenderIntersectionPolygons.svelte";
   import RenderIntersectionMarkings from "./lib/layers/RenderIntersectionMarkings.svelte";
@@ -154,6 +155,7 @@
         <RenderLaneMarkings network={imported.network} />
       {/if}
       <VectorTileControls />
+      <HoverBasemap />
     </Map>
   </div>
 </Layout>
