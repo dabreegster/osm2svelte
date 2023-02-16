@@ -10,6 +10,7 @@
   import SelectImportArea from "./lib/SelectImportArea.svelte";
   import Osm2streetsSettings from "./lib/Osm2streetsSettings.svelte";
   import Tabs from "./lib/Tabs.svelte";
+  import VectorTileControls from "./lib/VectorTileControls.svelte";
 
   import RenderIntersectionPolygons from "./lib/layers/RenderIntersectionPolygons.svelte";
   import RenderIntersectionMarkings from "./lib/layers/RenderIntersectionMarkings.svelte";
@@ -152,6 +153,7 @@
         <RenderLanePolygons network={imported.network} bind:clickedFeature />
         <RenderLaneMarkings network={imported.network} />
       {/if}
+      <VectorTileControls />
     </Map>
   </div>
 </Layout>
