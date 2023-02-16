@@ -141,6 +141,8 @@
       ]}
       extraProps={clickedFeature}
     />
+
+    <VectorTileControls />
   </div>
   <div slot="main">
     <Map>
@@ -154,7 +156,6 @@
         <RenderLanePolygons network={imported.network} bind:clickedFeature />
         <RenderLaneMarkings network={imported.network} />
       {/if}
-      <VectorTileControls />
       <HoverBasemap />
     </Map>
   </div>

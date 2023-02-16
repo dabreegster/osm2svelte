@@ -1,42 +1,34 @@
 <script lang="ts">
-  import { getContext } from "svelte";
+  import { mapStore } from "../store.js";
 
-  const { getMap } = getContext("map");
-  let map = getMap();
+  // TODO Ew, this is horrible too, need to wait for it be loaded
+  let map;
+  mapStore.subscribe((m) => {
+    map = m;
+  });
 
   let showRoads = true;
   let showBuildings = true;
 
   $: {
-    let visible = showRoads ? "visible" : "none";
-    for (let layer of map.getStyle().layers) {
-      if (layer.id.startsWith("road_")) {
-        map.setLayoutProperty(layer.id, "visibility", visible);
+    if (map) {
+      let visible = showRoads ? "visible" : "none";
+      for (let layer of map.getStyle().layers) {
+        if (layer.id.startsWith("road_")) {
+          map.setLayoutProperty(layer.id, "visibility", visible);
+        }
       }
     }
   }
 
   $: {
-    let visible = showBuildings ? "visible" : "none";
-    map.setLayoutProperty("building", "visibility", visible);
-    map.setLayoutProperty("building-3d", "visibility", visible);
+    if (map) {
+      let visible = showBuildings ? "visible" : "none";
+      map.setLayoutProperty("building", "visibility", visible);
+      map.setLayoutProperty("building-3d", "visibility", visible);
+    }
   }
-
-  // TODO I want the controls to be in the sidebar, not a div, but I guess then we need to nest things differently or use a store
 </script>
 
-<div>
-  <input type="checkbox" bind:checked={showRoads} />Show/hide roads
-  <input type="checkbox" bind:checked={showBuildings} />Show/hide buildings
-</div>
-
-<style>
-  div {
-    z-index: 1;
-    position: absolute;
-    bottom: 40px;
-    right: 10px;
-    background: white;
-    padding: 10px;
-  }
-</style>
+<input type="checkbox" bind:checked={showRoads} />Show/hide roads
+<input type="checkbox" bind:checked={showBuildings} />Show/hide buildings
