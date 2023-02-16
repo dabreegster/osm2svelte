@@ -1,11 +1,9 @@
 <script lang="ts">
-  import type { Feature } from "geojson";
-
-  export let clickedFeature: Feature | undefined;
+  import { clickedFeatureStore } from "../../store.js";
 </script>
 
-{#if clickedFeature === undefined}
-  <p>Click something</p>
+{#if $clickedFeatureStore}
+  <pre>{JSON.stringify($clickedFeatureStore.properties)}</pre>
 {:else}
-  <pre>{JSON.stringify(clickedFeature.properties)}</pre>
+  <p>Click something</p>
 {/if}

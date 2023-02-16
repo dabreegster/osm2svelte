@@ -1,6 +1,5 @@
 <script lang="ts">
   export let tabs = [];
-  export let extraProps = {};
 
   let activeTab = 0;
 </script>
@@ -17,7 +16,7 @@
 
 {#each tabs as tab, idx}
   {#if idx == activeTab}
-    <svelte:component this={tab.content} {...extraProps} />
+    <svelte:component this={tab.content} />
   {/if}
 {/each}
 

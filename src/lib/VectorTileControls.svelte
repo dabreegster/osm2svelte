@@ -30,5 +30,7 @@
   }
 </script>
 
-<input type="checkbox" bind:checked={showRoads} />Show/hide roads
-<input type="checkbox" bind:checked={showBuildings} />Show/hide buildings
+<div>
+  <input type="checkbox" bind:checked={showRoads} />Show/hide roads
+  <input type="checkbox" bind:checked={showBuildings} />Show/hide buildings
+</div>

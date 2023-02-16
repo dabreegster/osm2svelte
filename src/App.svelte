@@ -26,12 +26,6 @@
   import sampleOsmInputUrl from "../assets/input.osm?url";
   import sampleBoundaryGeojson from "../assets/boundary.json?raw";
 
-  // TODO Maybe a store or context is easier to plumb this around
-  let clickedFeature: Feature | undefined;
-
-  // TODO We get changes here, but they're not plumbed down to InfoMode
-  $: console.log(`clicked ${JSON.stringify(clickedFeature)}`);
-
   type Imported =
     | { kind: "nothing" }
     | { kind: "LoadingOverpass"; polygon: Polygon }
@@ -139,7 +133,6 @@
         { label: "Thicken roads", content: ThickenRoadsMode },
         { label: "Edit lanes", content: EditLanesMode },
       ]}
-      extraProps={clickedFeature}
     />
 
     <VectorTileControls />
@@ -153,7 +146,7 @@
         <RenderIntersectionPolygons network={imported.network} />
         <RenderIntersectionMarkings network={imported.network} />
 
-        <RenderLanePolygons network={imported.network} bind:clickedFeature />
+        <RenderLanePolygons network={imported.network} />
         <RenderLaneMarkings network={imported.network} />
       {/if}
       <HoverBasemap />

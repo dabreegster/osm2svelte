@@ -2,12 +2,13 @@
   import type { JsStreetNetwork } from "osm2streets-js";
   import InteractiveLayer from "../InteractiveLayer.svelte";
   import { caseHelper, featureStateToggle } from "../../style.js";
+  import { clickedFeatureStore } from "../../store.js";
 
   // Input
   export let network: JsStreetNetwork;
 
-  // Output
-  export let clickedFeature;
+  let clickedFeature;
+  $: clickedFeatureStore.set(clickedFeature);
 
   let gj = JSON.parse(network.toLanePolygonsGeojson());
   let layerStyle = {
