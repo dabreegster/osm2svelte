@@ -23,8 +23,18 @@
     });
   });
 
-  // TODO Teardown this event
-  $map.on("mousemove", (e: MapMouseEvent) => {
+  $map.on("mousemove", onMouseMove);
+
+  onDestroy(() => {
+    $map.off("mousemove", onMouseMove);
+
+    if ($map.getLayer(layer)) {
+      $map.removeLayer(layer);
+    }
+    $map.removeSource(source);
+  });
+
+  function onMouseMove(e: MapMouseEvent) {
     let gj = emptyGeojson();
     for (let feature of $map.queryRenderedFeatures(e.point)) {
       if (feature.layer.id == "building-3d") {
@@ -32,12 +42,5 @@
       }
     }
     ($map.getSource(source) as GeoJSONSource).setData(gj);
-  });
-
-  onDestroy(() => {
-    if ($map.getLayer(layer)) {
-      $map.removeLayer(layer);
-    }
-    $map.removeSource(source);
-  });
+  }
 </script>

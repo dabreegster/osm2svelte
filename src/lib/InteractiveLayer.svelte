@@ -40,45 +40,54 @@
     }
 
     // Configure hovering
-    $map.on("mousemove", layer, (e: MapLayerMouseEvent) => {
-      if (e.features.length > 0 && hoverId != e.features[0].id) {
-        unhover();
-        hoveredFeature = e.features[0];
-        hoverId = e.features[0].id;
-        $map.setFeatureState({ source, id: hoverId }, { hover: true });
-      }
-    });
-    $map.on("mouseleave", layer, () => {
-      unhover();
-      hoveredFeature = undefined;
-      hoverId = undefined;
-    });
-
+    $map.on("mousemove", layer, onMouseMove);
+    $map.on("mouseleave", layer, onMouseLeave);
     // Configure clicking
-    $map.on("click", (e: MapMouseEvent) => {
-      if (clickedFeature !== undefined) {
-        $map.setFeatureState({ source, id: clickedId }, { clicked: false });
-      }
-
-      let features = $map.queryRenderedFeatures(e.point, { layers: [layer] });
-      if (features.length == 1) {
-        clickedFeature = features[0];
-        clickedId = features[0].id;
-        $map.setFeatureState({ source, id: clickedId }, { clicked: true });
-      } else {
-        clickedFeature = undefined;
-        clickedId = undefined;
-      }
-    });
+    $map.on("click", onClick);
   });
 
   onDestroy(() => {
+    $map.off("mousemove", onMouseMove);
+    $map.off("mouseleave", onMouseLeave);
+    $map.off("click", onClick);
+
     unhover();
     if ($map.getLayer(layer)) {
       $map.removeLayer(layer);
     }
     $map.removeSource(source);
   });
+
+  function onMouseMove(e: MapLayerMouseEvent) {
+    if (e.features.length > 0 && hoverId != e.features[0].id) {
+      unhover();
+      hoveredFeature = e.features[0];
+      hoverId = e.features[0].id;
+      $map.setFeatureState({ source, id: hoverId }, { hover: true });
+    }
+  }
+
+  function onMouseLeave() {
+    unhover();
+    hoveredFeature = undefined;
+    hoverId = undefined;
+  }
+
+  function onClick(e: MapMouseEvent) {
+    if (clickedFeature !== undefined) {
+      $map.setFeatureState({ source, id: clickedId }, { clicked: false });
+    }
+
+    let features = $map.queryRenderedFeatures(e.point, { layers: [layer] });
+    if (features.length == 1) {
+      clickedFeature = features[0];
+      clickedId = features[0].id;
+      $map.setFeatureState({ source, id: clickedId }, { clicked: true });
+    } else {
+      clickedFeature = undefined;
+      clickedId = undefined;
+    }
+  }
 
   // Show/hide
   $: {
