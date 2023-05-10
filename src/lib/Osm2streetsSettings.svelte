@@ -2,7 +2,7 @@
   export let settings = {
     debug_each_step: false,
     dual_carriageway_experiment: false,
-    cycletrack_snapping_experiment: false,
+    sidepath_zipping_experiment: false,
     inferred_sidewalks: false,
     osm2lanes: false,
   };
@@ -23,8 +23,8 @@
   <label>
     <input
       type="checkbox"
-      bind:checked={settings.cycletrack_snapping_experiment}
-    />Enable cycletrack snapping experiment
+      bind:checked={settings.sidepath_zipping_experiment}
+    />Enable sidepath zipping experiment
   </label>
   <label>
     <input type="checkbox" bind:checked={settings.osm2lanes} />Enable osm2lanes

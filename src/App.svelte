@@ -4,6 +4,7 @@
   import { overpassQueryForPolygon } from "./overpass";
   import init, { JsStreetNetwork } from "osm2streets-js";
   import { onMount } from "svelte";
+  import { streetNetwork } from "./store";
 
   import Layout from "./lib/Layout.svelte";
   import Map from "./lib/Map.svelte";
@@ -22,6 +23,7 @@
   import InfoMode from "./lib/modes/InfoMode.svelte";
   import ThickenRoadsMode from "./lib/modes/ThickenRoadsMode.svelte";
   import EditLanesMode from "./lib/modes/EditLanesMode.svelte";
+  import RouteProfileMode from "./lib/modes/RouteProfileMode.svelte";
 
   import sampleOsmInputUrl from "../assets/input.osm?url";
   import sampleBoundaryGeojson from "../assets/boundary.json?raw";
@@ -49,6 +51,12 @@
   onMount(async () => {
     await init();
   });
+
+  $: {
+    if (imported.kind == "done") {
+      streetNetwork.set(imported.network);
+    }
+  }
 
   async function handlePolygon(e: CustomEvent<Polygon>) {
     let polygon = e.detail;
@@ -132,6 +140,7 @@
         { label: "Info", content: InfoMode },
         { label: "Thicken roads", content: ThickenRoadsMode },
         { label: "Edit lanes", content: EditLanesMode },
+        { label: "Route profiles", content: RouteProfileMode },
       ]}
     />
 
