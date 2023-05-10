@@ -44,6 +44,7 @@
       };
 
   let imported: Imported = { kind: "nothing" };
+  let currentTabLabel: string;
 
   // TODO When these change, should we automatically re-import?
   let settings;
@@ -142,6 +143,7 @@
         { label: "Edit lanes", content: EditLanesMode },
         { label: "Route profiles", content: RouteProfileMode },
       ]}
+      bind:currentTabLabel
     />
 
     <VectorTileControls />
@@ -152,13 +154,17 @@
       {#if imported.kind === "done"}
         <RenderBoundary gj={imported.boundaryGJ} />
 
-        <RenderIntersectionPolygons network={imported.network} />
-        <RenderIntersectionMarkings network={imported.network} />
+        {#if currentTabLabel != "Route profiles"}
+          <RenderIntersectionPolygons network={imported.network} />
+          <RenderIntersectionMarkings network={imported.network} />
 
-        <RenderLanePolygons network={imported.network} />
-        <RenderLaneMarkings network={imported.network} />
+          <RenderLanePolygons network={imported.network} />
+          <RenderLaneMarkings network={imported.network} />
+        {/if}
       {/if}
-      <HoverBasemap />
+      {#if currentTabLabel != "Route profiles"}
+        <HoverBasemap />
+      {/if}
     </Map>
   </div>
 </Layout>

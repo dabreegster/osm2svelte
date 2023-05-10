@@ -1,7 +1,10 @@
 <script lang="ts">
   export let tabs = [];
+  export let currentTabLabel: string;
 
   let activeTab = 0;
+
+  $: currentTabLabel = tabs[activeTab].label;
 </script>
 
 {#each tabs as tab, idx}

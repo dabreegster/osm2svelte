@@ -23,6 +23,7 @@
     });
   });
 
+  // TODO Teardown this event
   $map.on("mousemove", (e: MapMouseEvent) => {
     let gj = emptyGeojson();
     for (let feature of $map.queryRenderedFeatures(e.point)) {

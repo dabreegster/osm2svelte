@@ -1,19 +1,15 @@
 <script lang="ts">
+  import type { FeatureCollection } from "geojson";
   import type { GeoJSONSource } from "maplibre-gl";
   import { onDestroy } from "svelte";
-  import { clickedFeatureStore, map, streetNetwork } from "../../store";
-  import { emptyGeojson } from "../../style";
+  import { streetNetwork } from "../../store";
+  import { emptyGeojson, featureStateToggle } from "../../style";
+  import InteractiveLayer from "../InteractiveLayer.svelte";
 
-  let source = "road-weights";
-  let layer = `${source}-layer`;
+  let clickedFeature;
 
-  $map.addSource(source, {
-    type: "geojson",
-    data: emptyGeojson(),
-  });
-  $map.addLayer({
-    id: layer,
-    source,
+  let gj = setupRoadWeights();
+  let layerStyle = {
     type: "fill",
     paint: {
       "fill-color": [
@@ -33,9 +29,9 @@
         1,
         "red",
       ],
+      "fill-opacity": featureStateToggle("hover", 0.8, 0.4),
     },
-  });
-  setupRoadWeights();
+  };
 
   interface Road {
     highway_type: string;
@@ -46,7 +42,7 @@
     lane_specs_ltr: any[];
   }
 
-  function setupRoadWeights() {
+  function setupRoadWeights(): FeatureCollection {
     let gj = emptyGeojson();
 
     let polygons = JSON.parse($streetNetwork.toGeojsonPlain());
@@ -74,7 +70,7 @@
       });
     }
 
-    ($map.getSource(source) as GeoJSONSource).setData(gj);
+    return gj;
   }
 
   function calculateWeight(road: Road): number {
@@ -83,15 +79,12 @@
     }
     return 0.3;
   }
-
-  onDestroy(() => {
-    if ($map) {
-      if ($map.getLayer(layer)) {
-        $map.removeLayer(layer);
-      }
-      $map.removeSource(source);
-    }
-  });
 </script>
 
-<p>Click a road to see its details</p>
+<InteractiveLayer source="road-weights" {gj} {layerStyle} bind:clickedFeature />
+
+{#if clickedFeature}
+  <pre>{JSON.stringify(clickedFeature.properties, null, "  ")}</pre>
+{:else}
+  <p>Click a road to see its details</p>
+{/if}
