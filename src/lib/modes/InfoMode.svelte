@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { clickedFeatureStore } from "../../store.js";
+  import { clickedFeatureStore } from "../../store";
 </script>
 
 {#if $clickedFeatureStore}

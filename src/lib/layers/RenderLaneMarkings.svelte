@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { JsStreetNetwork } from "osm2streets-js";
   import Layer from "../Layer.svelte";
-  import { caseHelper } from "../../style.js";
+  import { caseHelper } from "../../style";
 
   export let network: JsStreetNetwork;
 

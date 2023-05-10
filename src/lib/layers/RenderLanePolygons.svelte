@@ -1,8 +1,8 @@
 <script lang="ts">
   import type { JsStreetNetwork } from "osm2streets-js";
   import InteractiveLayer from "../InteractiveLayer.svelte";
-  import { caseHelper, featureStateToggle } from "../../style.js";
-  import { clickedFeatureStore } from "../../store.js";
+  import { caseHelper, featureStateToggle } from "../../style";
+  import { clickedFeatureStore } from "../../store";
 
   // Input
   export let network: JsStreetNetwork;

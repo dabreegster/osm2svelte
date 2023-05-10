@@ -2,7 +2,7 @@
   import { onMount, onDestroy, setContext } from "svelte";
   import { Map, NavigationControl, ScaleControl } from "maplibre-gl";
   import "maplibre-gl/dist/maplibre-gl.css";
-  import { mapStore } from "../store.js";
+  import { map as mapStore } from "../store";
 
   // Before creating the map, check if there's a hash, because one will get set below
   let setCamera = !window.location.hash;

@@ -1,7 +1,7 @@
 <script lang="ts">
   // TODO I never added this to package.json, it's a transitive dep!
   import type { Feature, Polygon } from "geojson";
-  import { overpassQueryForPolygon } from "./overpass.js";
+  import { overpassQueryForPolygon } from "./overpass";
   import init, { JsStreetNetwork } from "osm2streets-js";
   import { onMount } from "svelte";
 

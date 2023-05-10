@@ -1,32 +1,25 @@
 <script lang="ts">
-  import type { Map } from "maplibre-gl";
-  import { mapStore } from "../store.js";
-
-  // TODO Ew, this is horrible too, need to wait for it be loaded
-  let map: Map;
-  mapStore.subscribe((m) => {
-    map = m;
-  });
+  import { map } from "../store";
 
   let showRoads = true;
   let showBuildings = true;
 
   $: {
-    if (map) {
+    if ($map) {
       let visible = showRoads ? "visible" : "none";
-      for (let layer of map.getStyle().layers) {
+      for (let layer of $map.getStyle().layers) {
         if (layer.id.startsWith("road_")) {
-          map.setLayoutProperty(layer.id, "visibility", visible);
+          $map.setLayoutProperty(layer.id, "visibility", visible);
         }
       }
     }
   }
 
   $: {
-    if (map) {
+    if ($map) {
       let visible = showBuildings ? "visible" : "none";
-      map.setLayoutProperty("building", "visibility", visible);
-      map.setLayoutProperty("building-3d", "visibility", visible);
+      $map.setLayoutProperty("building", "visibility", visible);
+      $map.setLayoutProperty("building-3d", "visibility", visible);
     }
   }
 </script>
