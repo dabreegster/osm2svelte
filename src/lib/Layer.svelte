@@ -1,9 +1,7 @@
 <script lang="ts">
-  import { getContext, onMount, onDestroy } from "svelte";
+  import { onMount, onDestroy } from "svelte";
   import type { GeoJSON } from "geojson";
-
-  const { getMap } = getContext("map");
-  let map = getMap();
+  import { map } from "../store";
 
   // Input
   export let source: string;
@@ -14,31 +12,31 @@
   let layer = `${source}-layer`;
 
   onMount(() => {
-    map.addSource(source, {
+    $map.addSource(source, {
       type: "geojson",
       data: gj,
     });
-    map.addLayer({
+    $map.addLayer({
       id: layer,
       source,
       ...layerStyle,
     });
     // We may need to hide initially
     if (!show) {
-      map.setLayoutProperty(layer, "visibility", "none");
+      $map.setLayoutProperty(layer, "visibility", "none");
     }
   });
 
   onDestroy(() => {
-    if (map.getLayer(layer)) {
-      map.removeLayer(layer);
+    if ($map.getLayer(layer)) {
+      $map.removeLayer(layer);
     }
-    map.removeSource(source);
+    $map.removeSource(source);
   });
 
   $: {
-    if (map.getLayer(layer)) {
-      map.setLayoutProperty(layer, "visibility", show ? "visible" : "none");
+    if ($map.getLayer(layer)) {
+      $map.setLayoutProperty(layer, "visibility", show ? "visible" : "none");
     }
   }
 </script>

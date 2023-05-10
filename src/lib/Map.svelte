@@ -1,18 +1,12 @@
 <script lang="ts">
-  import { onMount, onDestroy, setContext } from "svelte";
+  import { onMount, onDestroy } from "svelte";
   import { Map, NavigationControl, ScaleControl } from "maplibre-gl";
   import "maplibre-gl/dist/maplibre-gl.css";
   import { map as mapStore } from "../store";
 
-  // Before creating the map, check if there's a hash, because one will get set below
-  let setCamera = !window.location.hash;
-
   let map: Map;
   let mapContainer: HTMLDivElement;
   let loaded = false;
-
-  // TODO Supposed to use a phantom type, not a string, as the key
-  setContext("map", { getMap: () => map, setCamera });
 
   onMount(() => {
     map = new Map({
