@@ -5,6 +5,7 @@
   import InteractiveLayer from "../InteractiveLayer.svelte";
 
   let clickedFeature;
+  let hoveredFeature;
 
   let gj = setupRoadWeights();
   let layerStyle = {
@@ -79,10 +80,38 @@
   }
 </script>
 
-<InteractiveLayer source="road-weights" {gj} {layerStyle} bind:clickedFeature />
+<InteractiveLayer
+  source="road-weights"
+  {gj}
+  {layerStyle}
+  bind:clickedFeature
+  bind:hoveredFeature
+/>
 
-{#if clickedFeature}
-  <pre>{JSON.stringify(clickedFeature.properties, null, "  ")}</pre>
+{#if clickedFeature || hoveredFeature}
+  {@const f = clickedFeature || hoveredFeature}
+  <br />
+  <a
+    href={`http://openstreetmap.org/way/${f.properties.osm_id}`}
+    target="_blank">Open OSM way {f.properties.osm_id}</a
+  >
+  <br />
+  Weight: {f.properties.weight}
+  <br />
+  Tags:
+  <pre>{JSON.stringify(JSON.parse(f.properties.osm_tags), null, "  ")}</pre>
+  Lanes:
+  <pre>{JSON.stringify(
+      JSON.parse(f.properties.lane_specs_ltr),
+      null,
+      "  "
+    )}</pre>
 {:else}
-  <p>Click a road to see its details</p>
+  <p>Hover on a road to see its details</p>
 {/if}
+
+<style>
+  pre {
+    white-space: pre-wrap;
+  }
+</style>

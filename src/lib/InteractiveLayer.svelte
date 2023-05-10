@@ -14,6 +14,7 @@
   export let layerStyle;
 
   // Output
+  // Per https://maplibre.org/maplibre-gl-js-docs/api/map/#map#queryrenderedfeatures, array and object properties don't work
   export let hoveredFeature: Feature | undefined;
   export let clickedFeature: Feature | undefined;
 
