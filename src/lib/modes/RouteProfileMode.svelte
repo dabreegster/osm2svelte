@@ -1,7 +1,5 @@
 <script lang="ts">
   import type { FeatureCollection } from "geojson";
-  import type { GeoJSONSource } from "maplibre-gl";
-  import { onDestroy } from "svelte";
   import { streetNetwork } from "../../store";
   import { emptyGeojson, featureStateToggle } from "../../style";
   import InteractiveLayer from "../InteractiveLayer.svelte";

@@ -1,4 +1,5 @@
-import type { FeatureCollection } from "geojson";
+import type { GeoJSON, FeatureCollection } from "geojson";
+import turfBbox from "@turf/bbox";
 
 // Helper for https://docs.mapbox.com/mapbox-gl-js/style-spec/expressions/#case based on one property
 export function caseHelper(
@@ -33,4 +34,9 @@ export function emptyGeojson(): FeatureCollection {
     type: "FeatureCollection",
     features: [],
   };
+}
+
+// Suitable for passing to map.fitBounds. Work around https://github.com/Turfjs/turf/issues/1807.
+export function bbox(gj: GeoJSON): [number, number, number, number] {
+  return turfBbox(gj) as [number, number, number, number];
 }

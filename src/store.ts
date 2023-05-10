@@ -1,6 +1,6 @@
 import { writable, type Writable } from "svelte/store";
 import type { Map } from "maplibre-gl";
-import { type JsStreetNetwork } from "osm2streets-js";
+import type { JsStreetNetwork } from "osm2streets-js";
 
 // A global singleton, containing a loaded map
 export const map: Writable<Map | null> = writable(null);

@@ -1,7 +1,7 @@
 <script lang="ts">
   import Layer from "../Layer.svelte";
   import type { Feature } from "geojson";
-  import bbox from "@turf/bbox";
+  import { bbox } from "../../style";
   import { map } from "../../store";
 
   export let gj: Feature;
