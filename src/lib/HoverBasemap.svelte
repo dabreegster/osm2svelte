@@ -1,5 +1,7 @@
 <script lang="ts">
+  import type { MapMouseEvent } from "maplibre-gl";
   import { getContext, onMount, onDestroy } from "svelte";
+  import { emptyGeojson } from "../style";
 
   const { getMap } = getContext("map");
   let map = getMap();
@@ -22,7 +24,7 @@
     });
   });
 
-  map.on("mousemove", (e) => {
+  map.on("mousemove", (e: MapMouseEvent) => {
     let gj = emptyGeojson();
     for (let feature of map.queryRenderedFeatures(e.point)) {
       if (feature.layer.id == "building-3d") {
@@ -38,11 +40,4 @@
     }
     map.removeSource(source);
   });
-
-  function emptyGeojson() {
-    return {
-      type: "FeatureCollection",
-      features: [],
-    };
-  }
 </script>

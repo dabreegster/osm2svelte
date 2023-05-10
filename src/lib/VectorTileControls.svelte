@@ -1,8 +1,9 @@
 <script lang="ts">
+  import type { Map } from "maplibre-gl";
   import { mapStore } from "../store.js";
 
   // TODO Ew, this is horrible too, need to wait for it be loaded
-  let map;
+  let map: Map;
   mapStore.subscribe((m) => {
     map = m;
   });

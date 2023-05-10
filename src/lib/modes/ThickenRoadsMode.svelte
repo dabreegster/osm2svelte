@@ -1,12 +1,14 @@
 <script lang="ts">
+  import type { Map, GeoJSONSource } from "maplibre-gl";
   import { onDestroy } from "svelte";
   import { clickedFeatureStore, mapStore } from "../../store.js";
+  import { emptyGeojson } from "../../style";
 
   let source = "building-hitboxes";
   let layer = `${source}-layer`;
   let gj = emptyGeojson();
 
-  let map;
+  let map: Map;
   mapStore.subscribe((m) => {
     map = m;
 
@@ -34,7 +36,7 @@
         }
       }
     }
-    map.getSource(source).setData(gj);
+    (map.getSource(source) as GeoJSONSource).setData(gj);
   }
 
   onDestroy(() => {
@@ -45,13 +47,6 @@
       map.removeSource(source);
     }
   });
-
-  function emptyGeojson() {
-    return {
-      type: "FeatureCollection",
-      features: [],
-    };
-  }
 </script>
 
 {#if $clickedFeatureStore}

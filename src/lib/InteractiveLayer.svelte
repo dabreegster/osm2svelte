@@ -3,6 +3,7 @@
   // now, simpler to experiment separately.
   import { getContext, onMount, onDestroy } from "svelte";
   import type { GeoJSON, Feature } from "geojson";
+  import type { MapMouseEvent, MapLayerMouseEvent } from "maplibre-gl";
 
   const { getMap } = getContext("map");
   let map = getMap();
@@ -41,7 +42,7 @@
     }
 
     // Configure hovering
-    map.on("mousemove", layer, (e) => {
+    map.on("mousemove", layer, (e: MapLayerMouseEvent) => {
       if (e.features.length > 0 && hoverId != e.features[0].id) {
         unhover();
         hoveredFeature = e.features[0];
@@ -56,7 +57,7 @@
     });
 
     // Configure clicking
-    map.on("click", (e) => {
+    map.on("click", (e: MapMouseEvent) => {
       if (clickedFeature !== undefined) {
         map.setFeatureState({ source, id: clickedId }, { clicked: false });
       }

@@ -1,10 +1,12 @@
+import type { FeatureCollection } from "geojson";
+
 // Helper for https://docs.mapbox.com/mapbox-gl-js/style-spec/expressions/#case based on one property
 export function caseHelper(
   getKey: string,
-  map: Map<string, string>,
+  map: { [name: string]: string },
   backup: string
-): string[] {
-  let x = ["case"];
+): any[] {
+  let x: any[] = ["case"];
   for (let [key, value] of Object.entries(map)) {
     x.push(["==", ["get", getKey], key]);
     x.push(value);
@@ -24,4 +26,11 @@ export function featureStateToggle(
     trueCase,
     falseCase,
   ];
+}
+
+export function emptyGeojson(): FeatureCollection {
+  return {
+    type: "FeatureCollection",
+    features: [],
+  };
 }

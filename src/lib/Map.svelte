@@ -27,7 +27,7 @@
     map.on("load", () => {
       loaded = true;
       // Debugging
-      window.map = map;
+      //window.map = map;
       mapStore.set(map);
     });
 
