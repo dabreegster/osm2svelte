@@ -2,7 +2,6 @@
 
 Stay tuned
 
-
 ## Design patterns
 
 ### Map and sidebar interactions
