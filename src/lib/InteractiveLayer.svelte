@@ -12,6 +12,7 @@
   export let gj: GeoJSON;
   // The caller should do something with ["feature-state", "hover"] and ["feature-state", "clicked"]
   export let layerStyle;
+  export let downloadable: boolean;
 
   // Output
   // Per https://maplibre.org/maplibre-gl-js-docs/api/map/#map#queryrenderedfeatures, array and object properties don't work
@@ -102,4 +103,26 @@
       $map.setFeatureState({ source, id: hoverId }, { hover: false });
     }
   }
+
+  function download() {
+    // TODO Plumb down a name/label for this layer?
+    downloadGeneratedFile("layer.geojson", JSON.stringify(gj));
+  }
+
+  // TODO Why can't I find an NPM package to do this?
+  function downloadGeneratedFile(filename: string, textInput: string) {
+    var element = document.createElement("a");
+    element.setAttribute(
+      "href",
+      "data:text/plain;charset=utf-8, " + encodeURIComponent(textInput)
+    );
+    element.setAttribute("download", filename);
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+  }
 </script>
+
+{#if downloadable}
+  <button type="button" on:click={download}>Download</button>
+{/if}

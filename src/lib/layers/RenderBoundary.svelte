@@ -5,7 +5,9 @@
   import { map } from "../../store";
 
   export let gj: Feature;
-  export let show = true;
+  // TODO Is there a way to plumb a bunch of generic Layer props like this?
+  export let show: boolean;
+  export let downloadable: boolean;
 
   let layerStyle = {
     type: "fill",
@@ -19,4 +21,4 @@
   $map.fitBounds(bbox(gj), { animate: false, padding: 200 });
 </script>
 
-<Layer source="boundary" {gj} {layerStyle} bind:show />
+<Layer source="boundary" {gj} {layerStyle} bind:show {downloadable} />

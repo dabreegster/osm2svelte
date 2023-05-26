@@ -4,7 +4,8 @@
   import { caseHelper } from "../../style";
 
   export let network: JsStreetNetwork;
-  export let show = true;
+  export let show: boolean;
+  export let downloadable: boolean;
 
   let gj = JSON.parse(network.toIntersectionMarkingsGeojson());
   let layerStyle = {
@@ -22,4 +23,10 @@
   };
 </script>
 
-<Layer source="intersection-markings" {gj} {layerStyle} bind:show />
+<Layer
+  source="intersection-markings"
+  {gj}
+  {layerStyle}
+  bind:show
+  {downloadable}
+/>

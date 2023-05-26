@@ -153,7 +153,7 @@
     <Map>
       <SelectImportArea on:polygon={handlePolygon} />
       {#if imported.kind === "done"}
-        <RenderBoundary gj={imported.boundaryGJ} />
+        <RenderBoundary gj={imported.boundaryGJ} show downloadable />
 
         {#if currentTabLabel != "Route profiles"}
           <LayerGroup

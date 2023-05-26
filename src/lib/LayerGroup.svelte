@@ -14,10 +14,15 @@
 
 <div>
   {#each layers as layer}
-    <svelte:component this={layer.content} {network} bind:show={layer.show} />
     <label>
       <input type="checkbox" bind:checked={layer.show} />
       Show {layer.label}
+      <svelte:component
+        this={layer.content}
+        {network}
+        bind:show={layer.show}
+        downloadable
+      />
     </label>
     <br />
   {/each}
