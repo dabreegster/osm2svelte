@@ -1,5 +1,12 @@
 <script lang="ts">
-  export let tabs = [];
+  import type { ComponentType } from "svelte";
+
+  interface TabSpec {
+    label: string;
+    content: ComponentType;
+  }
+
+  export let tabs: TabSpec[];
   export let currentTabLabel: string;
 
   let activeTab = 0;

@@ -93,7 +93,8 @@
   <br />
   <a
     href={`http://openstreetmap.org/way/${f.properties.osm_id}`}
-    target="_blank">Open OSM way {f.properties.osm_id}</a
+    target="_blank"
+    rel="noreferrer">Open OSM way {f.properties.osm_id}</a
   >
   <br />
   Weight: {f.properties.weight}

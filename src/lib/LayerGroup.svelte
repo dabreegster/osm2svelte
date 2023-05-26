@@ -1,8 +1,15 @@
 <script lang="ts">
   import type { JsStreetNetwork } from "osm2streets-js";
+  import type { ComponentType } from "svelte";
+
+  interface LayerSpec {
+    label: string;
+    show: boolean;
+    content: ComponentType;
+  }
 
   export let network: JsStreetNetwork;
-  export let layers;
+  export let layers: LayerSpec[];
 </script>
 
 <div>
