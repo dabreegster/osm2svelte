@@ -6,6 +6,7 @@
 
   // Input
   export let network: JsStreetNetwork;
+  export let show = true;
 
   let clickedFeature;
   $: clickedFeatureStore.set(clickedFeature);
@@ -44,4 +45,5 @@
   {gj}
   {layerStyle}
   bind:clickedFeature
+  bind:show
 />

@@ -5,6 +5,7 @@
   import { map } from "../../store";
 
   export let gj: Feature;
+  export let show = true;
 
   let layerStyle = {
     type: "fill",
@@ -18,4 +19,4 @@
   $map.fitBounds(bbox(gj), { animate: false, padding: 200 });
 </script>
 
-<Layer source="boundary" {gj} {layerStyle} />
+<Layer source="boundary" {gj} {layerStyle} bind:show />

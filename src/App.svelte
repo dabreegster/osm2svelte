@@ -13,6 +13,7 @@
   import Tabs from "./lib/Tabs.svelte";
   import VectorTileControls from "./lib/VectorTileControls.svelte";
   import HoverBasemap from "./lib/HoverBasemap.svelte";
+  import LayerGroup from "./lib/LayerGroup.svelte";
 
   import RenderIntersectionPolygons from "./lib/layers/RenderIntersectionPolygons.svelte";
   import RenderIntersectionMarkings from "./lib/layers/RenderIntersectionMarkings.svelte";
@@ -155,11 +156,31 @@
         <RenderBoundary gj={imported.boundaryGJ} />
 
         {#if currentTabLabel != "Route profiles"}
-          <RenderIntersectionPolygons network={imported.network} />
-          <RenderIntersectionMarkings network={imported.network} />
-
-          <RenderLanePolygons network={imported.network} />
-          <RenderLaneMarkings network={imported.network} />
+          <LayerGroup
+            network={imported.network}
+            layers={[
+              {
+                label: "Intersection polygons",
+                show: true,
+                content: RenderIntersectionPolygons,
+              },
+              {
+                label: "Intersection markings",
+                show: true,
+                content: RenderIntersectionMarkings,
+              },
+              {
+                label: "Lane polygons",
+                show: true,
+                content: RenderLanePolygons,
+              },
+              {
+                label: "Lane markings",
+                show: true,
+                content: RenderLaneMarkings,
+              },
+            ]}
+          />
         {/if}
       {/if}
       {#if currentTabLabel != "Route profiles"}
