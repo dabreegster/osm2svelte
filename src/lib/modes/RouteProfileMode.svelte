@@ -43,10 +43,13 @@
 
   function setupRoadWeights(): FeatureCollection {
     let gj = emptyGeojson();
+    if (!$network) {
+      return gj;
+    }
 
     let polygons = JSON.parse($network.toGeojsonPlain());
-    let network = JSON.parse($network.toJson());
-    for (let [id, road] of $network.roads) {
+    let jsonNetwork = JSON.parse($network.toJson());
+    for (let [id, road] of jsonNetwork.roads) {
       let properties = {
         highway_type: road.highway_type,
         lane_specs_ltr: road.lane_specs_ltr,
