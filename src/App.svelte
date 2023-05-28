@@ -132,7 +132,7 @@
     boundaryPolygon: Polygon,
     osmXML: string
   ): [JsStreetNetwork, Feature<Polygon>] {
-    let gj = {
+    let gj: Feature<Polygon> = {
       type: "Feature",
       geometry: boundaryPolygon,
       properties: {},

@@ -1,4 +1,5 @@
 <script lang="ts">
+  // TODO When this mode is active, we want to hide some of the base layers!
   import type { FeatureCollection, Feature } from "geojson";
   import { network } from "../../store";
   import { emptyGeojson, featureStateToggle } from "../../style";
@@ -47,7 +48,7 @@
       return gj;
     }
 
-    let polygons = JSON.parse($network.toGeojsonPlain());
+    let polygons: FeatureCollection = JSON.parse($network.toGeojsonPlain());
     let jsonNetwork = JSON.parse($network.toJson());
     for (let [id, road] of jsonNetwork.roads) {
       let properties = {
