@@ -1,11 +1,13 @@
 <script lang="ts">
   import type { LayerSpec } from "./types";
 
+  // TODO Can we have a UUID per layer? We need a keyed each block, but the
+  // entire GJ is expensive memory-wise to store?
   export let layers: LayerSpec[];
 </script>
 
 <div>
-  {#each layers as layer}
+  {#each layers as layer (JSON.stringify(layer.gj))}
     <label>
       <input type="checkbox" bind:checked={layer.show} />
       Show {layer.label}
