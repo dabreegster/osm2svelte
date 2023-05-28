@@ -15,6 +15,7 @@
   import VectorTileControls from "./lib/VectorTileControls.svelte";
   import LayerGroup from "./lib/LayerGroup.svelte";
   import ImportControls from "./lib/ImportControls.svelte";
+  import BuiltinImporter from "./lib/BuiltinImporter.svelte";
 
   import RenderIntersectionPolygons from "./lib/layers/RenderIntersectionPolygons.svelte";
   import RenderIntersectionMarkings from "./lib/layers/RenderIntersectionMarkings.svelte";
@@ -25,9 +26,6 @@
   import InfoMode from "./lib/modes/InfoMode.svelte";
   import ThickenRoadsMode from "./lib/modes/ThickenRoadsMode.svelte";
   import RouteProfileMode from "./lib/modes/RouteProfileMode.svelte";
-
-  import sampleOsmInputUrl from "../assets/input.osm?url";
-  import sampleBoundaryGeojson from "../assets/boundary.json?raw";
 
   let imported: Imported = { kind: "nothing" };
   let currentTabLabel: string;
@@ -115,26 +113,6 @@
     };
     return [new JsStreetNetwork(osmXML, JSON.stringify(gj), settings), gj];
   }
-
-  async function importSampleArea() {
-    let polygon = JSON.parse(sampleBoundaryGeojson);
-
-    // TODO Go through all the same states?
-    try {
-      let resp = await fetch(sampleOsmInputUrl);
-      let osmInput = await resp.text();
-      let [network, boundaryGJ] = importOSM(polygon, osmInput);
-
-      imported = {
-        kind: "done",
-        boundaryGJ,
-        network,
-        osmInput,
-      };
-    } catch (err) {
-      imported = { kind: "error", msg: err.toString() };
-    }
-  }
 </script>
 
 <Layout>
@@ -142,9 +120,7 @@
     <h1>osm2streets + Svelte</h1>
 
     <Osm2streetsSettings bind:settings />
-    <button type="button" on:click={importSampleArea}
-      >Import built-in sample area</button
-    >
+    <BuiltinImporter bind:imported {settings} />
     <ImportControls {imported} />
 
     <Tabs
