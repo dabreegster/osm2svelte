@@ -4,7 +4,8 @@
   import { overpassQueryForPolygon } from "./overpass";
   import init, { JsStreetNetwork } from "osm2streets-js";
   import { onMount } from "svelte";
-  import { streetNetwork } from "./store";
+  import { network, boundaryGJ } from "./store";
+  import type { LayerSpec } from "./lib/types";
 
   import Layout from "./lib/Layout.svelte";
   import Map from "./lib/Map.svelte";
@@ -29,6 +30,7 @@
   import sampleOsmInputUrl from "../assets/input.osm?url";
   import sampleBoundaryGeojson from "../assets/boundary.json?raw";
 
+  // TODO Maybe this is what's in the store?
   type Imported =
     | { kind: "nothing" }
     | { kind: "LoadingOverpass"; polygon: Polygon }
@@ -50,13 +52,46 @@
   // TODO When these change, should we automatically re-import?
   let settings;
 
+  let layers: LayerSpec[] = [];
+
   onMount(async () => {
     await init();
   });
 
   $: {
     if (imported.kind == "done") {
-      streetNetwork.set(imported.network);
+      network.set(imported.network);
+      boundaryGJ.set(imported.boundaryGJ);
+
+      // Set layers
+      layers = [
+        {
+          label: "Boundary",
+          show: true,
+          // TODO Ideally we could curry here and at least pass in gj, instead of needing stores
+          content: RenderBoundary,
+        },
+        {
+          label: "Intersection polygons",
+          show: true,
+          content: RenderIntersectionPolygons,
+        },
+        {
+          label: "Intersection markings",
+          show: true,
+          content: RenderIntersectionMarkings,
+        },
+        {
+          label: "Lane polygons",
+          show: true,
+          content: RenderLanePolygons,
+        },
+        {
+          label: "Lane markings",
+          show: true,
+          content: RenderLaneMarkings,
+        },
+      ];
     }
   }
 
@@ -152,37 +187,7 @@
   <div slot="main">
     <Map>
       <SelectImportArea on:polygon={handlePolygon} />
-      {#if imported.kind === "done"}
-        <RenderBoundary gj={imported.boundaryGJ} show downloadable />
-
-        {#if currentTabLabel != "Route profiles"}
-          <LayerGroup
-            network={imported.network}
-            layers={[
-              {
-                label: "Intersection polygons",
-                show: true,
-                content: RenderIntersectionPolygons,
-              },
-              {
-                label: "Intersection markings",
-                show: true,
-                content: RenderIntersectionMarkings,
-              },
-              {
-                label: "Lane polygons",
-                show: true,
-                content: RenderLanePolygons,
-              },
-              {
-                label: "Lane markings",
-                show: true,
-                content: RenderLaneMarkings,
-              },
-            ]}
-          />
-        {/if}
-      {/if}
+      <LayerGroup {layers} />
       {#if currentTabLabel != "Route profiles"}
         <HoverBasemap />
       {/if}

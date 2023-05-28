@@ -1,13 +1,12 @@
 <script lang="ts">
-  import type { JsStreetNetwork } from "osm2streets-js";
   import Layer from "../Layer.svelte";
   import { caseHelper } from "../../style";
+  import { network } from "../../store";
 
-  export let network: JsStreetNetwork;
   export let show: boolean;
   export let downloadable: boolean;
 
-  let gj = JSON.parse(network.toLaneMarkingsGeojson());
+  let gj = JSON.parse($network.toLaneMarkingsGeojson());
   let layerStyle = {
     type: "fill",
     paint: {

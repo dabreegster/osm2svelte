@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { FeatureCollection } from "geojson";
-  import { streetNetwork } from "../../store";
+  import { network } from "../../store";
   import { emptyGeojson, featureStateToggle } from "../../style";
   import InteractiveLayer from "../InteractiveLayer.svelte";
 
@@ -44,8 +44,8 @@
   function setupRoadWeights(): FeatureCollection {
     let gj = emptyGeojson();
 
-    let polygons = JSON.parse($streetNetwork.toGeojsonPlain());
-    let network = JSON.parse($streetNetwork.toJson());
+    let polygons = JSON.parse($network.toGeojsonPlain());
+    let network = JSON.parse($network.toJson());
     for (let [id, road] of network.roads) {
       let properties = {
         highway_type: road.highway_type,
@@ -57,7 +57,7 @@
       if (road.osm_ids.length == 1) {
         properties.osm_id = road.osm_ids[0];
         properties.osm_tags = JSON.parse(
-          $streetNetwork.getOsmTagsForWay(BigInt(properties.osm_id))
+          $network.getOsmTagsForWay(BigInt(properties.osm_id))
         );
       }
       properties.weight = calculateWeight(properties);

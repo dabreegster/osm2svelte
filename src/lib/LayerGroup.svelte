@@ -1,14 +1,6 @@
 <script lang="ts">
-  import type { JsStreetNetwork } from "osm2streets-js";
-  import type { ComponentType } from "svelte";
+  import type { LayerSpec } from "./types";
 
-  interface LayerSpec {
-    label: string;
-    show: boolean;
-    content: ComponentType;
-  }
-
-  export let network: JsStreetNetwork;
   export let layers: LayerSpec[];
 </script>
 
@@ -19,7 +11,6 @@
       Show {layer.label}
       <svelte:component
         this={layer.content}
-        {network}
         bind:show={layer.show}
         downloadable
       />

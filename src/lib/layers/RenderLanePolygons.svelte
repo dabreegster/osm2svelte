@@ -1,18 +1,16 @@
 <script lang="ts">
-  import type { JsStreetNetwork } from "osm2streets-js";
   import InteractiveLayer from "../InteractiveLayer.svelte";
   import { caseHelper, featureStateToggle } from "../../style";
-  import { clickedFeatureStore } from "../../store";
+  import { network, clickedFeatureStore } from "../../store";
 
   // Input
-  export let network: JsStreetNetwork;
   export let show: boolean;
   export let downloadable: boolean;
 
   let clickedFeature;
   $: clickedFeatureStore.set(clickedFeature);
 
-  let gj = JSON.parse(network.toLanePolygonsGeojson());
+  let gj = JSON.parse($network.toLanePolygonsGeojson());
   let layerStyle = {
     type: "fill",
     paint: {
