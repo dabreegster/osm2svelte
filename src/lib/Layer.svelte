@@ -2,6 +2,7 @@
   import { onMount, onDestroy } from "svelte";
   import type { GeoJSON } from "geojson";
   import { map } from "../store";
+  import { downloadGeneratedFile } from "../utils";
 
   // Input
   export let source: string;
@@ -44,19 +45,6 @@
   function download() {
     // TODO Plumb down a name/label for this layer?
     downloadGeneratedFile("layer.geojson", JSON.stringify(gj));
-  }
-
-  // TODO Why can't I find an NPM package to do this?
-  function downloadGeneratedFile(filename: string, textInput: string) {
-    var element = document.createElement("a");
-    element.setAttribute(
-      "href",
-      "data:text/plain;charset=utf-8, " + encodeURIComponent(textInput)
-    );
-    element.setAttribute("download", filename);
-    document.body.appendChild(element);
-    element.click();
-    document.body.removeChild(element);
   }
 </script>
 

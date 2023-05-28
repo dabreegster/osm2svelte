@@ -5,7 +5,7 @@
   import init, { JsStreetNetwork } from "osm2streets-js";
   import { onMount } from "svelte";
   import { network, boundaryGJ } from "./store";
-  import type { LayerSpec } from "./lib/types";
+  import type { Imported, LayerSpec } from "./lib/types";
 
   import Layout from "./lib/Layout.svelte";
   import Map from "./lib/Map.svelte";
@@ -15,6 +15,7 @@
   import VectorTileControls from "./lib/VectorTileControls.svelte";
   import HoverBasemap from "./lib/HoverBasemap.svelte";
   import LayerGroup from "./lib/LayerGroup.svelte";
+  import ImportControls from "./lib/ImportControls.svelte";
 
   import RenderIntersectionPolygons from "./lib/layers/RenderIntersectionPolygons.svelte";
   import RenderIntersectionMarkings from "./lib/layers/RenderIntersectionMarkings.svelte";
@@ -29,22 +30,6 @@
 
   import sampleOsmInputUrl from "../assets/input.osm?url";
   import sampleBoundaryGeojson from "../assets/boundary.json?raw";
-
-  // TODO Maybe this is what's in the store?
-  type Imported =
-    | { kind: "nothing" }
-    | { kind: "LoadingOverpass"; polygon: Polygon }
-    | { kind: "error"; msg: string }
-    | {
-        kind: "osm2streets import";
-        boundaryPolygon: Polygon;
-        osmInput: string;
-      }
-    | {
-        kind: "done";
-        boundaryGJ: Feature;
-        network: JsStreetNetwork;
-      };
 
   let imported: Imported = { kind: "nothing" };
   let currentTabLabel: string;
@@ -114,6 +99,7 @@
         kind: "done",
         boundaryGJ,
         network,
+        osmInput,
       };
     } catch (err) {
       imported = { kind: "error", msg: err.toString() };
@@ -123,7 +109,7 @@
   function importOSM(
     boundaryPolygon: Polygon,
     osmXML: string
-  ): [JsStreetNetwork, Feature] {
+  ): [JsStreetNetwork, Feature<Polygon>] {
     let gj = {
       type: "Feature",
       geometry: boundaryPolygon,
@@ -145,6 +131,7 @@
         kind: "done",
         boundaryGJ,
         network,
+        osmInput,
       };
     } catch (err) {
       imported = { kind: "error", msg: err.toString() };
@@ -160,17 +147,7 @@
     <button type="button" on:click={importSampleArea}
       >Import built-in sample area</button
     >
-    {#if imported.kind === "nothing"}
-      <p>Use the polygon tool to select an area to import</p>
-    {:else if imported.kind === "LoadingOverpass"}
-      <p>Loading from Overpass...</p>
-    {:else if imported.kind === "error"}
-      <p>Error: {imported.msg}</p>
-    {:else if imported.kind === "osm2streets import"}
-      <p>Importing with osm2streets...</p>
-    {:else if imported.kind === "done"}
-      <p>Success!</p>
-    {/if}
+    <ImportControls {imported} />
 
     <Tabs
       tabs={[

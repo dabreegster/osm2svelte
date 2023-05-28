@@ -46,7 +46,7 @@
 
     let polygons = JSON.parse($network.toGeojsonPlain());
     let network = JSON.parse($network.toJson());
-    for (let [id, road] of network.roads) {
+    for (let [id, road] of $network.roads) {
       let properties = {
         highway_type: road.highway_type,
         lane_specs_ltr: road.lane_specs_ltr,
