@@ -1,4 +1,4 @@
-import type { Feature, Polygon } from "geojson";
+import type { Feature, Polygon, GeoJSON } from "geojson";
 import type { ComponentType } from "svelte";
 import type { JsStreetNetwork } from "osm2streets-js";
 
@@ -6,6 +6,7 @@ export interface LayerSpec {
   label: string;
   show: boolean;
   content: ComponentType;
+  gj: GeoJSON;
 }
 
 // TODO Maybe this is what's in the store? Right now, derived stuff is in there

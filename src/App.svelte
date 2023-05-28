@@ -49,28 +49,32 @@
         {
           label: "Boundary",
           show: true,
-          // TODO Ideally we could curry here and at least pass in gj, instead of needing stores
           content: RenderBoundary,
+          gj: $boundaryGJ,
         },
         {
           label: "Intersection polygons",
           show: true,
           content: RenderIntersectionPolygons,
+          gj: JSON.parse($network.toGeojsonPlain()),
         },
         {
           label: "Intersection markings",
           show: true,
           content: RenderIntersectionMarkings,
+          gj: JSON.parse($network.toIntersectionMarkingsGeojson()),
         },
         {
           label: "Lane polygons",
           show: true,
           content: RenderLanePolygons,
+          gj: JSON.parse($network.toLanePolygonsGeojson()),
         },
         {
           label: "Lane markings",
           show: true,
           content: RenderLaneMarkings,
+          gj: JSON.parse($network.toLaneMarkingsGeojson()),
         },
       ];
     }

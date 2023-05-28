@@ -1,16 +1,17 @@
 <script lang="ts">
+  import type { GeoJSON } from "geojson";
   import InteractiveLayer from "../InteractiveLayer.svelte";
   import { caseHelper, featureStateToggle } from "../../style";
-  import { network, clickedFeatureStore } from "../../store";
+  import { clickedFeatureStore } from "../../store";
 
   // Input
+  export let gj: GeoJSON;
   export let show: boolean;
   export let downloadable: boolean;
 
   let clickedFeature;
   $: clickedFeatureStore.set(clickedFeature);
 
-  let gj = JSON.parse($network.toLanePolygonsGeojson());
   let layerStyle = {
     type: "fill",
     paint: {

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import type { Feature, Polygon } from "geojson";
   import type { Imported } from "./types";
   import { onMount } from "svelte";
   import listUrl from "../../assets/tests.json?url";

@@ -11,6 +11,7 @@
       Show {layer.label}
       <svelte:component
         this={layer.content}
+        gj={layer.gj}
         bind:show={layer.show}
         downloadable
       />

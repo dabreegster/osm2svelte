@@ -1,12 +1,12 @@
 <script lang="ts">
+  import type { GeoJSON } from "geojson";
   import Layer from "../Layer.svelte";
   import { caseHelper } from "../../style";
-  import { network } from "../../store";
 
+  export let gj: GeoJSON;
   export let show: boolean;
   export let downloadable: boolean;
 
-  let gj = JSON.parse($network.toGeojsonPlain());
   let layerStyle = {
     type: "fill",
     filter: ["==", ["get", "type"], "intersection"],
