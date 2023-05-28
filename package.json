@@ -14,7 +14,6 @@
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^2.4.1",
     "@tsconfig/svelte": "^4.0.1",
-    "@types/mapbox__mapbox-gl-draw": "^1.4.0",
     "@types/uuid": "^9.0.1",
     "prettier": "^2.8.8",
     "prettier-plugin-svelte": "^2.10.1",

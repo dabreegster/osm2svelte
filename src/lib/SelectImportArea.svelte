@@ -1,6 +1,6 @@
 <script lang="ts">
+  import type { IControl } from "maplibre-gl";
   import MapboxDraw from "@mapbox/mapbox-gl-draw";
-  import type DrawCreateEvent from "mapbox__mapbox-gl-draw";
   import { onMount, onDestroy, createEventDispatcher } from "svelte";
   import { map } from "../store";
 
@@ -17,9 +17,10 @@
         polygon: true,
       },
     });
-    $map.addControl(drawControls);
+    // Hack around TS errors that don't matter at runtime
+    $map.addControl(drawControls as unknown as IControl);
 
-    $map.on("draw.create", (e: DrawCreateEvent) => {
+    $map.on("draw.create", (e) => {
       const feature = e.features[0];
       drawControls.deleteAll();
       dispatch("polygon", feature.geometry);
@@ -27,7 +28,7 @@
   });
 
   onDestroy(() => {
-    $map.removeControl(drawControls);
+    $map.removeControl(drawControls as unknown as IControl);
   });
 </script>
 
