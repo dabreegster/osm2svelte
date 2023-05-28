@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { GeoJSON } from "geojson";
-  import InteractiveLayer from "../InteractiveLayer.svelte";
+  import Layer from "../Layer.svelte";
   import { caseHelper, featureStateToggle } from "../../style";
   import { clickedLane, hoveredLane } from "../../store";
 
@@ -37,10 +37,11 @@
   };
 </script>
 
-<InteractiveLayer
+<Layer
   source="lane-polygons"
   {gj}
   {layerStyle}
+  interactive
   bind:clickedFeature={$clickedLane}
   bind:hoveredFeature={$hoveredLane}
   bind:show

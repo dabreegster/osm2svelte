@@ -2,7 +2,7 @@
   import type { FeatureCollection, Feature } from "geojson";
   import { network } from "../../store";
   import { emptyGeojson, featureStateToggle } from "../../style";
-  import InteractiveLayer from "../InteractiveLayer.svelte";
+  import Layer from "../Layer.svelte";
 
   let clickedFeature: Feature | null;
   let hoveredFeature: Feature | null;
@@ -83,10 +83,11 @@
   }
 </script>
 
-<InteractiveLayer
+<Layer
   source="road-weights"
   {gj}
   {layerStyle}
+  interactive
   bind:clickedFeature
   bind:hoveredFeature
 />
