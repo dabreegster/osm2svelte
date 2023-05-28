@@ -18,8 +18,8 @@
 
   // Output
   // Per https://maplibre.org/maplibre-gl-js-docs/api/map/#map#queryrenderedfeatures, array and object properties don't work
-  export let hoveredFeature: Feature | undefined;
-  export let clickedFeature: Feature | undefined;
+  export let hoveredFeature: Feature | null;
+  export let clickedFeature: Feature | null;
 
   // An ID assigned by MapLibre
   let hoverId: number | undefined;
@@ -76,12 +76,12 @@
 
   function onMouseLeave() {
     unhover();
-    hoveredFeature = undefined;
+    hoveredFeature = null;
     hoverId = undefined;
   }
 
   function onClick(e: MapMouseEvent) {
-    if (clickedFeature !== undefined) {
+    if (clickedFeature !== null) {
       $map.setFeatureState({ source, id: clickedId }, { clicked: false });
     }
 
@@ -91,7 +91,7 @@
       clickedId = features[0].id;
       $map.setFeatureState({ source, id: clickedId }, { clicked: true });
     } else {
-      clickedFeature = undefined;
+      clickedFeature = null;
       clickedId = undefined;
     }
   }

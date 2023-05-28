@@ -2,15 +2,12 @@
   import type { GeoJSON } from "geojson";
   import InteractiveLayer from "../InteractiveLayer.svelte";
   import { caseHelper, featureStateToggle } from "../../style";
-  import { clickedFeatureStore } from "../../store";
+  import { clickedFeatureStore, hoveredFeatureStore } from "../../store";
 
   // Input
   export let gj: GeoJSON;
   export let show: boolean;
   export let downloadable: boolean;
-
-  let clickedFeature;
-  $: clickedFeatureStore.set(clickedFeature);
 
   let layerStyle = {
     type: "fill",
@@ -44,7 +41,8 @@
   source="lane-polygons"
   {gj}
   {layerStyle}
-  bind:clickedFeature
+  bind:clickedFeature={$clickedFeatureStore}
+  bind:hoveredFeature={$hoveredFeatureStore}
   bind:show
   {downloadable}
 />

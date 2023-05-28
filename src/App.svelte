@@ -5,6 +5,7 @@
   import init, { JsStreetNetwork } from "osm2streets-js";
   import { onMount } from "svelte";
   import { network, boundaryGJ } from "./store";
+  import { emptyGeojson } from "./style";
   import type { Imported, LayerSpec } from "./lib/types";
 
   import Layout from "./lib/Layout.svelte";
@@ -22,6 +23,7 @@
   import RenderLanePolygons from "./lib/layers/RenderLanePolygons.svelte";
   import RenderLaneMarkings from "./lib/layers/RenderLaneMarkings.svelte";
   import RenderBoundary from "./lib/layers/RenderBoundary.svelte";
+  import DynamicMovementArrows from "./lib/layers/DynamicMovementArrows.svelte";
 
   import InfoMode from "./lib/modes/InfoMode.svelte";
   import ThickenRoadsMode from "./lib/modes/ThickenRoadsMode.svelte";
@@ -75,6 +77,12 @@
           show: true,
           content: RenderLaneMarkings,
           gj: JSON.parse($network.toLaneMarkingsGeojson()),
+        },
+        {
+          label: "Movement arrows",
+          show: true,
+          content: DynamicMovementArrows,
+          gj: emptyGeojson(),
         },
       ];
     }

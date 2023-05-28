@@ -7,5 +7,6 @@ import type { Feature, Polygon } from "geojson";
 export const map: Writable<Map | null> = writable(null);
 
 export const clickedFeatureStore = writable(null);
+export const hoveredFeatureStore = writable(null);
 export const network: Writable<JsStreetNetwork | null> = writable(null);
 export const boundaryGJ: Writable<Feature<Polygon> | null> = writable(null);
