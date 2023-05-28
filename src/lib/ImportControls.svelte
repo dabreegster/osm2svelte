@@ -12,7 +12,7 @@
   }
 
   function resetView() {
-    $map.fitBounds(bbox(imported.boundaryGJ), { animate: false, padding: 200 });
+    $map.fitBounds(bbox(imported.boundaryGJ), { animate: false, padding: 10 });
   }
 </script>
 

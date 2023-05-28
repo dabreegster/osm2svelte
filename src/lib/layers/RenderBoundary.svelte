@@ -18,7 +18,7 @@
   };
 
   // Initially zoom to fit the imported boundary
-  $map.fitBounds(bbox(gj), { animate: false, padding: 200 });
+  $map.fitBounds(bbox(gj), { animate: false, padding: 10 });
 </script>
 
 <Layer source="boundary" {gj} {layerStyle} bind:show {downloadable} />
