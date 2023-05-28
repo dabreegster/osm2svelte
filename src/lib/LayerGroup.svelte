@@ -2,6 +2,9 @@
   import type { LayerSpec } from "./types";
 
   export let layers: LayerSpec[];
+
+  // TODO Some of the components don't take gj or downloadable props. It shows
+  // up as a runtime warning only.
 </script>
 
 <div>

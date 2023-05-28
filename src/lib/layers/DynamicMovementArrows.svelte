@@ -1,14 +1,10 @@
 <script lang="ts">
-  import type { GeoJSON } from "geojson";
+  import type { FeatureCollection } from "geojson";
   import Layer from "../Layer.svelte";
   import { network, hoveredLane } from "../../store";
   import { emptyGeojson } from "../../style";
 
-  // Ignore this, actually
-  export let gj: GeoJSON;
   export let show: boolean;
-  // Ignore
-  export let downloadable: boolean;
 
   let layerStyle = {
     type: "fill",
@@ -17,6 +13,8 @@
       "fill-opacity": 0.5,
     },
   };
+
+  let gj: FeatureCollection = emptyGeojson();
 
   $: {
     // TODO Layer can't update GJ data; we have to forcibly recreate the whole Layer
@@ -31,5 +29,5 @@
 </script>
 
 {#if gj.features.length}
-  <Layer source="movements" {gj} {layerStyle} bind:show downloadable={false} />
+  <Layer source="movements" {gj} {layerStyle} bind:show />
 {/if}
