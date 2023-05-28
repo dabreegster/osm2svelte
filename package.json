@@ -12,23 +12,23 @@
     "list-tests": "./assets/list_tests.sh"
   },
   "devDependencies": {
-    "@sveltejs/vite-plugin-svelte": "^2.0.2",
-    "@tsconfig/svelte": "^3.0.0",
-    "@types/mapbox__mapbox-gl-draw": "^1.3.3",
+    "@sveltejs/vite-plugin-svelte": "^2.4.1",
+    "@tsconfig/svelte": "^4.0.1",
+    "@types/mapbox__mapbox-gl-draw": "^1.4.0",
     "@types/uuid": "^9.0.1",
-    "prettier": "^2.8.2",
-    "prettier-plugin-svelte": "^2.9.0",
-    "svelte": "^3.55.1",
-    "svelte-check": "^2.10.3",
-    "tslib": "^2.5.0",
-    "typescript": "^4.9.3",
-    "vite": "^4.1.0",
+    "prettier": "^2.8.8",
+    "prettier-plugin-svelte": "^2.10.1",
+    "svelte": "^3.59.1",
+    "svelte-check": "^3.4.3",
+    "tslib": "^2.5.2",
+    "typescript": "^5.0.4",
+    "vite": "^4.3.9",
     "vite-plugin-wasm-pack": "0.1.11"
   },
   "dependencies": {
     "@mapbox/mapbox-gl-draw": "^1.4.1",
     "@turf/bbox": "^6.5.0",
-    "maplibre-gl": "^2.4.0",
+    "maplibre-gl": "^3.0.0",
     "osm2streets-js": "^0.1.3",
     "uuid": "^9.0.0"
   }
