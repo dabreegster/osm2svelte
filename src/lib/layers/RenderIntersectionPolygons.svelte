@@ -1,11 +1,15 @@
 <script lang="ts">
   import type { GeoJSON } from "geojson";
-  import Layer from "../Layer.svelte";
-  import { caseHelper } from "../../style";
+  import InteractiveLayer from "../InteractiveLayer.svelte";
+  import { caseHelper, featureStateToggle } from "../../style";
+  import { hoveredIntersection } from "../../store";
 
   export let gj: GeoJSON;
   export let show: boolean;
   export let downloadable: boolean;
+
+  // Just to not break InteractiveLayer. Doesn't do anything.
+  let clickedFeature = null;
 
   let layerStyle = {
     type: "fill",
@@ -21,15 +25,17 @@
         },
         "#666"
       ),
-      "fill-opacity": 0.9,
+      "fill-opacity": featureStateToggle("hover", 0.9, 0.4),
     },
   };
 </script>
 
-<Layer
+<InteractiveLayer
   source="intersection-polygons"
   {gj}
   {layerStyle}
+  bind:clickedFeature
+  bind:hoveredFeature={$hoveredIntersection}
   bind:show
   {downloadable}
 />

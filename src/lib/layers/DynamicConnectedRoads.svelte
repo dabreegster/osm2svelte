@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { GeoJSON } from "geojson";
   import Layer from "../Layer.svelte";
-  import { map, network, hoveredLane } from "../../store";
+  import { map, network, hoveredIntersection } from "../../store";
   import { emptyGeojson } from "../../style";
 
   // Ignore this, actually
@@ -21,15 +21,22 @@
   $: {
     // TODO Layer can't update GJ data; we have to forcibly recreate the whole Layer
     gj = emptyGeojson();
-    if ($hoveredLane) {
-      let props = $hoveredLane.properties;
+    if ($hoveredIntersection) {
       gj = JSON.parse(
-        $network.debugMovementsFromLaneGeojson(props.road, props.index)
+        $network.debugRoadsConnectedToIntersectionGeojson(
+          $hoveredIntersection.properties.id
+        )
       );
     }
   }
 </script>
 
 {#if gj.features.length}
-  <Layer source="movements" {gj} {layerStyle} bind:show downloadable={false} />
+  <Layer
+    source="connected-roads"
+    {gj}
+    {layerStyle}
+    bind:show
+    downloadable={false}
+  />
 {/if}

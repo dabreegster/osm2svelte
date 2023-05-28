@@ -1,9 +1,9 @@
 <script lang="ts">
-  import { clickedFeatureStore } from "../../store";
+  import { clickedLane } from "../../store";
 </script>
 
-{#if $clickedFeatureStore}
-  <pre>{JSON.stringify($clickedFeatureStore.properties)}</pre>
+{#if $clickedLane}
+  <pre>{JSON.stringify($clickedLane.properties)}</pre>
 {:else}
   <p>Click something</p>
 {/if}

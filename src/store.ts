@@ -6,7 +6,8 @@ import type { Feature, Polygon } from "geojson";
 // A global singleton, containing a loaded map
 export const map: Writable<Map | null> = writable(null);
 
-export const clickedFeatureStore = writable(null);
-export const hoveredFeatureStore = writable(null);
+export const clickedLane = writable(null);
+export const hoveredLane = writable(null);
+export const hoveredIntersection = writable(null);
 export const network: Writable<JsStreetNetwork | null> = writable(null);
 export const boundaryGJ: Writable<Feature<Polygon> | null> = writable(null);

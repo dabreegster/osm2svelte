@@ -3,6 +3,7 @@ import type { ComponentType } from "svelte";
 import type { JsStreetNetwork } from "osm2streets-js";
 
 export interface LayerSpec {
+  uuid: string;
   label: string;
   show: boolean;
   content: ComponentType;

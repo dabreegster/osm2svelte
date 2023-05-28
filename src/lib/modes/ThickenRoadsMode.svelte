@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { GeoJSONSource } from "maplibre-gl";
   import { onDestroy } from "svelte";
-  import { clickedFeatureStore, map } from "../../store";
+  import { clickedLane, map } from "../../store";
   import { emptyGeojson } from "../../style";
 
   let source = "building-hitboxes";
@@ -23,7 +23,7 @@
 
   $: {
     gj = emptyGeojson();
-    if ($clickedFeatureStore) {
+    if ($clickedLane) {
       // Everything onscreen
       for (let feature of $map.queryRenderedFeatures()) {
         if (feature.layer.id == "building-3d") {
@@ -44,7 +44,7 @@
   });
 </script>
 
-{#if $clickedFeatureStore}
+{#if $clickedLane}
   <p>{gj.features.length} buildings onscreen</p>
 {:else}
   <p>Click a road</p>

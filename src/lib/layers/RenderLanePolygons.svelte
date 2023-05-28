@@ -2,7 +2,7 @@
   import type { GeoJSON } from "geojson";
   import InteractiveLayer from "../InteractiveLayer.svelte";
   import { caseHelper, featureStateToggle } from "../../style";
-  import { clickedFeatureStore, hoveredFeatureStore } from "../../store";
+  import { clickedLane, hoveredLane } from "../../store";
 
   // Input
   export let gj: GeoJSON;
@@ -41,8 +41,8 @@
   source="lane-polygons"
   {gj}
   {layerStyle}
-  bind:clickedFeature={$clickedFeatureStore}
-  bind:hoveredFeature={$hoveredFeatureStore}
+  bind:clickedFeature={$clickedLane}
+  bind:hoveredFeature={$hoveredLane}
   bind:show
   {downloadable}
 />
