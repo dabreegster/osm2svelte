@@ -13,7 +13,6 @@
   import Osm2streetsSettings from "./lib/Osm2streetsSettings.svelte";
   import Tabs from "./lib/Tabs.svelte";
   import VectorTileControls from "./lib/VectorTileControls.svelte";
-  import HoverBasemap from "./lib/HoverBasemap.svelte";
   import LayerGroup from "./lib/LayerGroup.svelte";
   import ImportControls from "./lib/ImportControls.svelte";
 
@@ -25,7 +24,6 @@
 
   import InfoMode from "./lib/modes/InfoMode.svelte";
   import ThickenRoadsMode from "./lib/modes/ThickenRoadsMode.svelte";
-  import EditLanesMode from "./lib/modes/EditLanesMode.svelte";
   import RouteProfileMode from "./lib/modes/RouteProfileMode.svelte";
 
   import sampleOsmInputUrl from "../assets/input.osm?url";
@@ -153,7 +151,6 @@
       tabs={[
         { label: "Info", content: InfoMode },
         { label: "Thicken roads", content: ThickenRoadsMode },
-        { label: "Edit lanes", content: EditLanesMode },
         { label: "Route profiles", content: RouteProfileMode },
       ]}
       bind:currentTabLabel
@@ -165,9 +162,6 @@
     <Map>
       <SelectImportArea on:polygon={handlePolygon} />
       <LayerGroup {layers} />
-      {#if currentTabLabel != "Route profiles"}
-        <HoverBasemap />
-      {/if}
     </Map>
   </div>
 </Layout>
