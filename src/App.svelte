@@ -158,13 +158,13 @@
       ]}
       bind:currentTabLabel
     />
-
-    <VectorTileControls />
   </div>
   <div slot="main">
     <Map>
       <SelectImportArea on:polygon={handlePolygon} />
-      <LayerGroup {layers} />
+      <LayerGroup {layers}>
+        <VectorTileControls />
+      </LayerGroup>
     </Map>
   </div>
 </Layout>

@@ -18,6 +18,11 @@
     </label>
     <br />
   {/each}
+
+  {#if layers.length}
+    <hr />
+  {/if}
+  <slot />
 </div>
 
 <style>

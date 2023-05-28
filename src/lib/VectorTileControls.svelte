@@ -24,7 +24,12 @@
   }
 </script>
 
-<div>
-  <input type="checkbox" bind:checked={showRoads} />Show/hide roads
-  <input type="checkbox" bind:checked={showBuildings} />Show/hide buildings
-</div>
+<label>
+  <input type="checkbox" bind:checked={showRoads} />
+  Basemap roads
+</label>
+<br />
+<label>
+  <input type="checkbox" bind:checked={showBuildings} />
+  Basemap buildings
+</label>
