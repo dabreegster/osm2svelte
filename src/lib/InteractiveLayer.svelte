@@ -5,6 +5,7 @@
   import type { GeoJSON, Feature } from "geojson";
   import type { MapMouseEvent, MapLayerMouseEvent } from "maplibre-gl";
   import { map } from "../store";
+  import { getLayerZorder } from "../style";
   import { downloadGeneratedFile } from "../utils";
 
   // Input
@@ -32,11 +33,14 @@
       data: gj,
       generateId: true,
     });
-    $map.addLayer({
-      id: layer,
-      source,
-      ...layerStyle,
-    });
+    $map.addLayer(
+      {
+        id: layer,
+        source,
+        ...layerStyle,
+      },
+      getLayerZorder(layer)
+    );
     // We may need to hide initially
     if (!show) {
       $map.setLayoutProperty(layer, "visibility", "none");

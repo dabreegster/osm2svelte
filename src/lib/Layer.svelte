@@ -2,6 +2,7 @@
   import { onMount, onDestroy } from "svelte";
   import type { GeoJSON } from "geojson";
   import { map } from "../store";
+  import { getLayerZorder } from "../style";
   import { downloadGeneratedFile } from "../utils";
 
   // Input
@@ -18,11 +19,14 @@
       type: "geojson",
       data: gj,
     });
-    $map.addLayer({
-      id: layer,
-      source,
-      ...layerStyle,
-    });
+    $map.addLayer(
+      {
+        id: layer,
+        source,
+        ...layerStyle,
+      },
+      getLayerZorder(layer)
+    );
     // We may need to hide initially
     if (!show) {
       $map.setLayoutProperty(layer, "visibility", "none");
