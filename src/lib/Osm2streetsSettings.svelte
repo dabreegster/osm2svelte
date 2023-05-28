@@ -11,24 +11,26 @@
 <details>
   <summary>Processing Options</summary>
   <label>
-    <input type="checkbox" bind:checked={settings.debug_each_step} />Debug each
-    transformation step
+    <input type="checkbox" bind:checked={settings.debug_each_step} />
+    Debug each transformation step
   </label>
   <label>
     <input
       type="checkbox"
       bind:checked={settings.dual_carriageway_experiment}
-    />Enable dual carriageway experiment
+    />
+    Enable dual carriageway experiment
   </label>
   <label>
     <input
       type="checkbox"
       bind:checked={settings.sidepath_zipping_experiment}
-    />Enable sidepath zipping experiment
+    />
+    Enable sidepath zipping experiment
   </label>
   <label>
-    <input type="checkbox" bind:checked={settings.osm2lanes} />Enable osm2lanes
-    experiment
+    <input type="checkbox" bind:checked={settings.osm2lanes} />
+    Enable osm2lanes experiment
   </label>
   <div>
     Sidewalks:
@@ -37,14 +39,16 @@
         type="radio"
         bind:group={settings.inferred_sidewalks}
         value={false}
-      />use mapped footways
+      />
+      use mapped footways
     </label>
     <label>
       <input
         type="radio"
         bind:group={settings.inferred_sidewalks}
         value={true}
-      />infer on roads
+      />
+      infer on roads
     </label>
   </div>
 </details>

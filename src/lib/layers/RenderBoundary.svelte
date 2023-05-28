@@ -10,10 +10,10 @@
   export let downloadable: boolean;
 
   let layerStyle = {
-    type: "fill",
+    type: "line",
     paint: {
-      "fill-color": "blue",
-      "fill-opacity": 0.5,
+      "line-color": "blue",
+      "line-width": 4,
     },
   };
 
