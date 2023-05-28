@@ -26,3 +26,11 @@ export type Imported =
       osmInput: string;
       network: JsStreetNetwork;
     };
+
+export interface Settings {
+  debug_each_step: boolean;
+  dual_carriageway_experiment: boolean;
+  sidepath_zipping_experiment: boolean;
+  inferred_sidewalks: boolean;
+  osm2lanes: boolean;
+}

@@ -1,12 +1,12 @@
 <script lang="ts">
   import type { Feature, Polygon } from "geojson";
-  import type { Imported } from "./types";
+  import type { Imported, Settings } from "./types";
   import { onMount } from "svelte";
   import listUrl from "../../assets/tests.json?url";
   import { JsStreetNetwork } from "osm2streets-js";
 
   export let imported: Imported;
-  export let settings;
+  export let settings: Settings;
 
   let choice = "none";
   let list = [];

@@ -1,11 +1,11 @@
 <script lang="ts">
-  import type { FeatureCollection } from "geojson";
+  import type { FeatureCollection, Feature } from "geojson";
   import { network } from "../../store";
   import { emptyGeojson, featureStateToggle } from "../../style";
   import InteractiveLayer from "../InteractiveLayer.svelte";
 
-  let clickedFeature;
-  let hoveredFeature;
+  let clickedFeature: Feature | null;
+  let hoveredFeature: Feature | null;
 
   let gj = setupRoadWeights();
   let layerStyle = {

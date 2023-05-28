@@ -69,7 +69,8 @@
     if (e.features.length > 0 && hoverId != e.features[0].id) {
       unhover();
       hoveredFeature = e.features[0];
-      hoverId = e.features[0].id;
+      // generateId means this'll be a number
+      hoverId = e.features[0].id as number;
       $map.setFeatureState({ source, id: hoverId }, { hover: true });
     }
   }
@@ -88,7 +89,7 @@
     let features = $map.queryRenderedFeatures(e.point, { layers: [layer] });
     if (features.length == 1) {
       clickedFeature = features[0];
-      clickedId = features[0].id;
+      clickedId = features[0].id as number;
       $map.setFeatureState({ source, id: clickedId }, { clicked: true });
     } else {
       clickedFeature = null;

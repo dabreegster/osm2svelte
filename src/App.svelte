@@ -6,7 +6,7 @@
   import { onMount } from "svelte";
   import { network, boundaryGJ } from "./store";
   import { emptyGeojson } from "./style";
-  import type { Imported, LayerSpec } from "./lib/types";
+  import type { Imported, LayerSpec, Settings } from "./lib/types";
   import { v4 as uuidv4 } from "uuid";
 
   import Layout from "./lib/Layout.svelte";
@@ -34,8 +34,7 @@
   let imported: Imported = { kind: "nothing" };
   let currentTabLabel: string;
 
-  // TODO When these change, should we automatically re-import?
-  let settings;
+  let settings: Settings;
 
   let layers: LayerSpec[] = [];
 

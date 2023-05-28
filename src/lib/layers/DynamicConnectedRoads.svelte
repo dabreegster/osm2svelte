@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { GeoJSON } from "geojson";
   import Layer from "../Layer.svelte";
-  import { map, network, hoveredIntersection } from "../../store";
+  import { network, hoveredIntersection } from "../../store";
   import { emptyGeojson } from "../../style";
 
   // Ignore this, actually

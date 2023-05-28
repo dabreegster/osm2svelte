@@ -53,7 +53,7 @@ export function getLayerZorder(layer: string): string | undefined {
   //
   // Find the last layer currently in the map that should be on top of this new
   // layer.
-  let beforeId;
+  let beforeId: string | undefined;
   let found = false;
   for (let i = layerZorder.length - 1; i >= 0; i--) {
     let id = layerZorder[i];

@@ -7,12 +7,20 @@
   export let imported: Imported;
 
   function download() {
-    // TODO If we have a name for the imported area, use that
-    downloadGeneratedFile("osm.xml", imported.osmInput);
+    // This type-check is always true; the button only appears sometimes
+    if (imported.kind === "done") {
+      // TODO If we have a name for the imported area, use that
+      downloadGeneratedFile("osm.xml", imported.osmInput);
+    }
   }
 
   function resetView() {
-    $map.fitBounds(bbox(imported.boundaryGJ), { animate: false, padding: 10 });
+    if (imported.kind === "done") {
+      $map.fitBounds(bbox(imported.boundaryGJ), {
+        animate: false,
+        padding: 10,
+      });
+    }
   }
 </script>
 
