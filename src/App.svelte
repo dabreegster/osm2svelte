@@ -16,6 +16,7 @@
   import Tabs from "./lib/Tabs.svelte";
   import VectorTileControls from "./lib/VectorTileControls.svelte";
   import LayerGroup from "./lib/LayerGroup.svelte";
+  import SequentialLayerGroup from "./lib/SequentialLayerGroup.svelte";
   import ImportControls from "./lib/ImportControls.svelte";
   import BuiltinImporter from "./lib/BuiltinImporter.svelte";
 
@@ -37,6 +38,7 @@
   let settings: Settings;
 
   let layers: LayerSpec[] = [];
+  let debugLayers: LayerSpec[] = [];
 
   onMount(async () => {
     await init();
@@ -99,6 +101,25 @@
           gj: emptyGeojson(),
         },
       ];
+
+      // TODO Some bizarre syntax error
+      /*debugLayers = debugSteps.map((step) => {
+          uuid: uuidv4(),
+          label: `${step.getLabel()}: Intersection polygons`,
+          show: true,
+          content: RenderIntersectionPolygons,
+          gj: JSON.parse(step.getNetwork().toGeojsonPlain()),
+      });
+      debugLayers = [];
+      for (let step of $network.getDebugSteps()) {
+        debugLayers.push({
+          uuid: uuidv4(),
+          label: `${step.getLabel()}: Intersection polygons`,
+          show: true,
+          content: RenderIntersectionPolygons,
+          gj: JSON.parse(step.getNetwork().toGeojsonPlain()),
+        });
+      }*/
     }
   }
 
@@ -162,6 +183,7 @@
     <Map>
       <SelectImportArea on:polygon={handlePolygon} />
       <LayerGroup {layers}>
+        <SequentialLayerGroup layers={debugLayers} />
         <VectorTileControls />
       </LayerGroup>
     </Map>
