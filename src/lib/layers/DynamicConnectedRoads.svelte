@@ -21,7 +21,7 @@
     gj = emptyGeojson();
     if ($hoveredIntersection) {
       gj = JSON.parse(
-        $network.debugRoadsConnectedToIntersectionGeojson(
+        $network!.debugRoadsConnectedToIntersectionGeojson(
           $hoveredIntersection.properties.id
         )
       );

@@ -16,7 +16,7 @@
 
   function resetView() {
     if (imported.kind === "done") {
-      $map.fitBounds(bbox(imported.boundaryGJ), {
+      $map!.fitBounds(bbox(imported.boundaryGJ), {
         animate: false,
         padding: 10,
       });

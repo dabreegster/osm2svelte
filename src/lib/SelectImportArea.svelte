@@ -18,9 +18,9 @@
       },
     });
     // Hack around TS errors that don't matter at runtime
-    $map.addControl(drawControls as unknown as IControl);
+    $map!.addControl(drawControls as unknown as IControl);
 
-    $map.on("draw.create", (e) => {
+    $map!.on("draw.create", (e) => {
       const feature = e.features[0];
       drawControls.deleteAll();
       dispatch("polygon", feature.geometry);
@@ -28,7 +28,7 @@
   });
 
   onDestroy(() => {
-    $map.removeControl(drawControls as unknown as IControl);
+    $map!.removeControl(drawControls as unknown as IControl);
   });
 </script>
 

@@ -9,7 +9,7 @@
   export let settings: Settings;
 
   let choice = "none";
-  let list = [];
+  let list: string[] = [];
 
   onMount(async () => {
     let resp = await fetch(listUrl);

@@ -29,12 +29,12 @@
   let layer = `${source}-layer`;
 
   onMount(() => {
-    $map.addSource(source, {
+    $map!.addSource(source, {
       type: "geojson",
       data: gj,
       generateId: true,
     });
-    $map.addLayer(
+    $map!.addLayer(
       {
         id: layer,
         source,
@@ -44,30 +44,30 @@
     );
     // We may need to hide initially
     if (!show) {
-      $map.setLayoutProperty(layer, "visibility", "none");
+      $map!.setLayoutProperty(layer, "visibility", "none");
     }
 
     if (interactive) {
       // Configure hovering
-      $map.on("mousemove", layer, onMouseMove);
-      $map.on("mouseleave", layer, onMouseLeave);
+      $map!.on("mousemove", layer, onMouseMove);
+      $map!.on("mouseleave", layer, onMouseLeave);
       // Configure clicking
-      $map.on("click", onClick);
+      $map!.on("click", onClick);
     }
   });
 
   onDestroy(() => {
     if (interactive) {
-      $map.off("mousemove", onMouseMove);
-      $map.off("mouseleave", onMouseLeave);
-      $map.off("click", onClick);
+      $map!.off("mousemove", onMouseMove);
+      $map!.off("mouseleave", onMouseLeave);
+      $map!.off("click", onClick);
       unhover();
     }
 
-    if ($map.getLayer(layer)) {
-      $map.removeLayer(layer);
+    if ($map!.getLayer(layer)) {
+      $map!.removeLayer(layer);
     }
-    $map.removeSource(source);
+    $map!.removeSource(source);
   });
 
   function onMouseMove(e: MapLayerMouseEvent) {
@@ -76,7 +76,7 @@
       hoveredFeature = e.features[0];
       // generateId means this'll be a number
       hoverId = e.features[0].id as number;
-      $map.setFeatureState({ source, id: hoverId }, { hover: true });
+      $map!.setFeatureState({ source, id: hoverId }, { hover: true });
     }
   }
 
@@ -88,14 +88,14 @@
 
   function onClick(e: MapMouseEvent) {
     if (clickedFeature !== null) {
-      $map.setFeatureState({ source, id: clickedId }, { clicked: false });
+      $map!.setFeatureState({ source, id: clickedId }, { clicked: false });
     }
 
-    let features = $map.queryRenderedFeatures(e.point, { layers: [layer] });
+    let features = $map!.queryRenderedFeatures(e.point, { layers: [layer] });
     if (features.length == 1) {
       clickedFeature = features[0];
       clickedId = features[0].id as number;
-      $map.setFeatureState({ source, id: clickedId }, { clicked: true });
+      $map!.setFeatureState({ source, id: clickedId }, { clicked: true });
     } else {
       clickedFeature = null;
       clickedId = undefined;
@@ -104,14 +104,14 @@
 
   // Show/hide
   $: {
-    if ($map.getLayer(layer)) {
-      $map.setLayoutProperty(layer, "visibility", show ? "visible" : "none");
+    if ($map!.getLayer(layer)) {
+      $map!.setLayoutProperty(layer, "visibility", show ? "visible" : "none");
     }
   }
 
   function unhover() {
     if (hoverId !== undefined) {
-      $map.setFeatureState({ source, id: hoverId }, { hover: false });
+      $map!.setFeatureState({ source, id: hoverId }, { hover: false });
     }
   }
 

@@ -63,28 +63,28 @@
           label: "Intersection polygons",
           show: true,
           content: RenderIntersectionPolygons,
-          gj: JSON.parse($network.toGeojsonPlain()),
+          gj: JSON.parse($network!.toGeojsonPlain()),
         },
         {
           uuid: uuidv4(),
           label: "Intersection markings",
           show: true,
           content: RenderIntersectionMarkings,
-          gj: JSON.parse($network.toIntersectionMarkingsGeojson()),
+          gj: JSON.parse($network!.toIntersectionMarkingsGeojson()),
         },
         {
           uuid: uuidv4(),
           label: "Lane polygons",
           show: true,
           content: RenderLanePolygons,
-          gj: JSON.parse($network.toLanePolygonsGeojson()),
+          gj: JSON.parse($network!.toLanePolygonsGeojson()),
         },
         {
           uuid: uuidv4(),
           label: "Lane markings",
           show: true,
           content: RenderLaneMarkings,
-          gj: JSON.parse($network.toLaneMarkingsGeojson()),
+          gj: JSON.parse($network!.toLaneMarkingsGeojson()),
         },
         {
           uuid: uuidv4(),
@@ -111,7 +111,7 @@
           gj: JSON.parse(step.getNetwork().toGeojsonPlain()),
       });
       debugLayers = [];
-      for (let step of $network.getDebugSteps()) {
+      for (let step of $network!.getDebugSteps()) {
         debugLayers.push({
           uuid: uuidv4(),
           label: `${step.getLabel()}: Intersection polygons`,
