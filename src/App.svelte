@@ -27,6 +27,7 @@
   import RenderBoundary from "./lib/layers/RenderBoundary.svelte";
   import DynamicMovementArrows from "./lib/layers/DynamicMovementArrows.svelte";
   import DynamicConnectedRoads from "./lib/layers/DynamicConnectedRoads.svelte";
+  import DynamicRoadOrdering from "./lib/layers/DynamicRoadOrdering.svelte";
 
   import InfoMode from "./lib/modes/InfoMode.svelte";
   import ThickenRoadsMode from "./lib/modes/ThickenRoadsMode.svelte";
@@ -98,6 +99,13 @@
           label: "Roads connected to intersection",
           show: true,
           content: DynamicConnectedRoads,
+          gj: emptyGeojson(),
+        },
+        {
+          uuid: uuidv4(),
+          label: "Clockwise ordering of roads",
+          show: false,
+          content: DynamicRoadOrdering,
           gj: emptyGeojson(),
         },
       ];
