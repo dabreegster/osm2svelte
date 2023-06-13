@@ -16,8 +16,7 @@
   import ImportControls from "../lib/import/ImportControls.svelte";
   import Osm2streetsSettings from "../lib/import/Osm2streetsSettings.svelte";
   import SelectImportArea from "../lib/import/SelectImportArea.svelte";
-  import InfoMode from "../lib/modes/InfoMode.svelte";
-  import Tabs from "../lib/Tabs.svelte";
+  import InfoMode from "../lib/InfoMode.svelte";
   import { boundaryGJ, network } from "../store";
   import type { LayerSpec } from "../types";
 
@@ -25,8 +24,6 @@
   let settings: Settings;
   let layers: LayerSpec[] = [];
   let debugLayers: LayerSpec[] = [];
-
-  let currentTabLabel: string;
 
   onMount(async () => {
     await init();
@@ -52,7 +49,7 @@
     <BuiltinImporter bind:imported {settings} />
     <ImportControls {imported} />
 
-    <Tabs tabs={[{ label: "Info", content: InfoMode }]} bind:currentTabLabel />
+    <InfoMode />
   </div>
   <div slot="main">
     <Map>

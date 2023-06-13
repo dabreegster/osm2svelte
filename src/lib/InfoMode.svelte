@@ -1,5 +1,7 @@
 <script lang="ts">
-  import { clickedLane } from "../../store";
+  import { clickedLane } from "../store";
+
+  // TODO Tooltips, actually
 </script>
 
 {#if $clickedLane}
