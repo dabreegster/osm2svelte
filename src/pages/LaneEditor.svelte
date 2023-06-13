@@ -1,25 +1,13 @@
 <script lang="ts">
   import init from "osm2streets-js";
   import { onMount } from "svelte";
-  import {
-    importPolygon,
-    mainLayers,
-    type Imported,
-    type Settings,
-  } from "../import";
+  import { importPolygon, mainLayers, type Imported } from "../import";
   import BuiltinImporter from "../lib/BuiltinImporter.svelte";
   import ImportControls from "../lib/ImportControls.svelte";
   import LayerGroup from "../lib/LayerGroup.svelte";
   import Layout from "../lib/Layout.svelte";
   import Map from "../lib/Map.svelte";
-  import InfoMode from "../lib/modes/InfoMode.svelte";
-  import RouteProfileMode from "../lib/modes/RouteProfileMode.svelte";
-  import ThickenRoadsMode from "../lib/modes/ThickenRoadsMode.svelte";
-  import Osm2streetsSettings from "../lib/Osm2streetsSettings.svelte";
   import SelectImportArea from "../lib/SelectImportArea.svelte";
-  import SequentialLayerGroup from "../lib/SequentialLayerGroup.svelte";
-  import Tabs from "../lib/Tabs.svelte";
-  import VectorTileControls from "../lib/VectorTileControls.svelte";
   import { boundaryGJ, network } from "../store";
   import type { LayerSpec } from "../types";
 
