@@ -11,6 +11,7 @@ export default defineConfig({
         main: resolve(__dirname, "index.html"),
         nested: resolve(__dirname, "lane_editor.html"),
         nested2: resolve(__dirname, "thicken_roads.html"),
+        nested3: resolve(__dirname, "route_profile.html"),
       },
     },
   },

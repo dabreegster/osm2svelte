@@ -1,14 +1,14 @@
 <script lang="ts">
   // TODO When this mode is active, we want to hide some of the base layers!
   import type { Feature, FeatureCollection } from "geojson";
-  import { network } from "../../store";
-  import { emptyGeojson, featureStateToggle } from "../../style";
-  import Layer from "../common/Layer.svelte";
+  import { network } from "../store";
+  import { emptyGeojson, featureStateToggle } from "../style";
+  import Layer from "./common/Layer.svelte";
 
   let clickedFeature: Feature | null;
   let hoveredFeature: Feature | null;
 
-  let gj = setupRoadWeights();
+  let gj = emptyGeojson();
   let layerStyle = {
     type: "fill",
     paint: {
@@ -32,6 +32,9 @@
       "fill-opacity": featureStateToggle("hover", 0.8, 0.4),
     },
   };
+
+  // TODO Isn't recalculating
+  $: gj = setupRoadWeights();
 
   interface Road {
     highway_type: string;
