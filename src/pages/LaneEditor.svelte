@@ -2,6 +2,7 @@
   import init from "osm2streets-js";
   import { onMount } from "svelte";
   import { importPolygon, mainLayers, type Imported } from "../import";
+  import AppSwitcher from "../lib/common/AppSwitcher.svelte";
   import LayerGroup from "../lib/common/LayerGroup.svelte";
   import Layout from "../lib/common/Layout.svelte";
   import Map from "../lib/common/Map.svelte";
@@ -39,6 +40,7 @@
 <Layout>
   <div slot="left">
     <h1>osm2streets lane editor</h1>
+    <AppSwitcher />
 
     <BuiltinImporter bind:imported {settings} />
     <ImportControls {imported} />

@@ -7,6 +7,7 @@
     type Imported,
     type Settings,
   } from "../import";
+  import AppSwitcher from "../lib/common/AppSwitcher.svelte";
   import LayerGroup from "../lib/common/LayerGroup.svelte";
   import Layout from "../lib/common/Layout.svelte";
   import Map from "../lib/common/Map.svelte";
@@ -40,6 +41,7 @@
 <Layout>
   <div slot="left">
     <h1>osm2streets road width tool</h1>
+    <AppSwitcher />
 
     <Osm2streetsSettings bind:settings />
     <BuiltinImporter bind:imported {settings} />
