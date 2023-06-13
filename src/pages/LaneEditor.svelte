@@ -23,13 +23,16 @@
   import { boundaryGJ, network } from "../store";
   import type { LayerSpec } from "../types";
 
+  let settings = {
+    debug_each_step: false,
+    dual_carriageway_experiment: false,
+    sidepath_zipping_experiment: false,
+    inferred_sidewalks: false,
+    osm2lanes: false,
+  };
+
   let imported: Imported = { kind: "nothing" };
-  let currentTabLabel: string;
-
-  let settings: Settings;
-
   let layers: LayerSpec[] = [];
-  let debugLayers: LayerSpec[] = [];
 
   onMount(async () => {
     await init();
@@ -47,30 +50,27 @@
 
 <Layout>
   <div slot="left">
-    <h1>osm2streets + Svelte</h1>
+    <h1>osm2streets lane editor</h1>
 
-    <Osm2streetsSettings bind:settings />
     <BuiltinImporter bind:imported {settings} />
     <ImportControls {imported} />
 
-    <Tabs
-      tabs={[
-        { label: "Info", content: InfoMode },
-        { label: "Thicken roads", content: ThickenRoadsMode },
-        { label: "Route profiles", content: RouteProfileMode },
-      ]}
-      bind:currentTabLabel
-    />
+    <div>
+      <strong>Warnings:</strong>
+      <ul>
+        <li><strong>This tool is an early experiment</strong></li>
+        <li>Don't use this tool without understanding OSM tagging</li>
+        <li>Be careful around sidepaths, footways, and dual carriageways</li>
+        <li>Don't edit a way that's partly clipped</li>
+      </ul>
+    </div>
   </div>
   <div slot="main">
     <Map>
       <SelectImportArea
         on:polygon={(e) => importPolygon(e, imported, settings)}
       />
-      <LayerGroup {layers}>
-        <SequentialLayerGroup layers={debugLayers} />
-        <VectorTileControls />
-      </LayerGroup>
+      <LayerGroup {layers} />
     </Map>
   </div>
 </Layout>
