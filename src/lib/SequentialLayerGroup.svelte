@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { LayerSpec } from "./types";
+  import type { LayerSpec } from "../types";
 
   // TODO Should be a LayerGroup, that's lazy
   export let layers: LayerSpec[];

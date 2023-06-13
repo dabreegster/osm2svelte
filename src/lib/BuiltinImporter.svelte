@@ -3,7 +3,7 @@
   import { JsStreetNetwork } from "osm2streets-js";
   import { onMount } from "svelte";
   import listUrl from "../../assets/tests.json?url";
-  import type { Imported, Settings } from "./types";
+  import type { Imported, Settings } from "../import";
 
   export let imported: Imported;
   export let settings: Settings;

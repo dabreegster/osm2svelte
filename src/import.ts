@@ -10,8 +10,33 @@ import RenderIntersectionMarkings from "./lib/layers/RenderIntersectionMarkings.
 import RenderIntersectionPolygons from "./lib/layers/RenderIntersectionPolygons.svelte";
 import RenderLaneMarkings from "./lib/layers/RenderLaneMarkings.svelte";
 import RenderLanePolygons from "./lib/layers/RenderLanePolygons.svelte";
-import type { Imported, LayerSpec, Settings } from "./lib/types";
 import { emptyGeojson } from "./style";
+import type { LayerSpec } from "./types";
+
+// TODO Maybe this is what's in the store? Right now, derived stuff is in there
+export type Imported =
+  | { kind: "nothing" }
+  | { kind: "LoadingOverpass"; polygon: Polygon }
+  | { kind: "error"; msg: string }
+  | {
+      kind: "osm2streets import";
+      boundaryPolygon: Polygon;
+      osmInput: string;
+    }
+  | {
+      kind: "done";
+      boundaryGJ: Feature<Polygon>;
+      osmInput: string;
+      network: JsStreetNetwork;
+    };
+
+export interface Settings {
+  debug_each_step: boolean;
+  dual_carriageway_experiment: boolean;
+  sidepath_zipping_experiment: boolean;
+  inferred_sidewalks: boolean;
+  osm2lanes: boolean;
+}
 
 export function allLayers(
   network: JsStreetNetwork,

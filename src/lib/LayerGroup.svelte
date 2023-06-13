@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { LayerSpec } from "./types";
+  import type { LayerSpec } from "../types";
 
   export let layers: LayerSpec[];
 

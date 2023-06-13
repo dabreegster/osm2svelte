@@ -3,7 +3,12 @@
   import type { Feature, Polygon } from "geojson";
   import init, { JsStreetNetwork } from "osm2streets-js";
   import { onMount } from "svelte";
-  import { allLayers, importPolygon } from "../import";
+  import {
+    allLayers,
+    importPolygon,
+    type Imported,
+    type Settings,
+  } from "../import";
   import BuiltinImporter from "../lib/BuiltinImporter.svelte";
   import ImportControls from "../lib/ImportControls.svelte";
   import LayerGroup from "../lib/LayerGroup.svelte";
@@ -16,9 +21,9 @@
   import SelectImportArea from "../lib/SelectImportArea.svelte";
   import SequentialLayerGroup from "../lib/SequentialLayerGroup.svelte";
   import Tabs from "../lib/Tabs.svelte";
-  import type { Imported, LayerSpec, Settings } from "../lib/types";
   import VectorTileControls from "../lib/VectorTileControls.svelte";
   import { boundaryGJ, network } from "../store";
+  import type { LayerSpec } from "../types";
 
   let imported: Imported = { kind: "nothing" };
   let currentTabLabel: string;
