@@ -3,7 +3,6 @@
   import { onMount } from "svelte";
   import {
     importPolygon,
-    interactiveLayers,
     mainLayers,
     type Imported,
     type Settings,
@@ -13,21 +12,16 @@
   import LayerGroup from "../lib/LayerGroup.svelte";
   import Layout from "../lib/Layout.svelte";
   import Map from "../lib/Map.svelte";
-  import InfoMode from "../lib/modes/InfoMode.svelte";
-  import RouteProfileMode from "../lib/modes/RouteProfileMode.svelte";
   import Osm2streetsSettings from "../lib/Osm2streetsSettings.svelte";
   import SelectImportArea from "../lib/SelectImportArea.svelte";
-  import SequentialLayerGroup from "../lib/SequentialLayerGroup.svelte";
-  import Tabs from "../lib/Tabs.svelte";
-  import { boundaryGJ, network } from "../store";
+  import ThickenRoadsMode from "../lib/ThickenRoadsMode.svelte";
+  import VectorTileControls from "../lib/VectorTileControls.svelte";
+  import { boundaryGJ, map, network } from "../store";
   import type { LayerSpec } from "../types";
 
   let imported: Imported = { kind: "nothing" };
   let settings: Settings;
   let layers: LayerSpec[] = [];
-  let debugLayers: LayerSpec[] = [];
-
-  let currentTabLabel: string;
 
   onMount(async () => {
     await init();
@@ -38,28 +32,22 @@
       network.set(imported.network);
       boundaryGJ.set(imported.boundaryGJ);
 
-      layers = mainLayers(imported.network, imported.boundaryGJ).concat(
-        interactiveLayers(imported.network)
-      );
+      layers = mainLayers(imported.network, imported.boundaryGJ);
     }
   }
 </script>
 
 <Layout>
   <div slot="left">
-    <h1>osm2streets Street Explorer</h1>
+    <h1>osm2streets road width tool</h1>
 
     <Osm2streetsSettings bind:settings />
     <BuiltinImporter bind:imported {settings} />
     <ImportControls {imported} />
 
-    <Tabs
-      tabs={[
-        { label: "Info", content: InfoMode },
-        { label: "Route profiles", content: RouteProfileMode },
-      ]}
-      bind:currentTabLabel
-    />
+    {#if $map}
+      <ThickenRoadsMode />
+    {/if}
   </div>
   <div slot="main">
     <Map>
@@ -67,7 +55,7 @@
         on:polygon={(e) => importPolygon(e, imported, settings)}
       />
       <LayerGroup {layers}>
-        <SequentialLayerGroup layers={debugLayers} />
+        <VectorTileControls />
       </LayerGroup>
     </Map>
   </div>

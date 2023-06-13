@@ -1,8 +1,8 @@
 <script lang="ts">
   import type { GeoJSONSource } from "maplibre-gl";
   import { onDestroy } from "svelte";
-  import { clickedLane, map } from "../../store";
-  import { emptyGeojson } from "../../style";
+  import { clickedLane, map } from "../store";
+  import { emptyGeojson } from "../style";
 
   let source = "building-hitboxes";
   let layer = `${source}-layer`;
