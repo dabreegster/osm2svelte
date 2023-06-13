@@ -2,12 +2,13 @@
   import type { LayerSpec } from "../types";
 
   export let layers: LayerSpec[];
+  export let showControls = true;
 
   // TODO Some of the components don't take gj or downloadable props. It shows
   // up as a runtime warning only.
 </script>
 
-<div>
+<div style:display={showControls ? "block" : "none"}>
   {#each layers as layer (layer.uuid)}
     <label>
       <input type="checkbox" bind:checked={layer.show} />

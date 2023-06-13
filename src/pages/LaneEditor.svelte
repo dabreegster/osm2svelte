@@ -70,7 +70,7 @@
       <SelectImportArea
         on:polygon={(e) => importPolygon(e, imported, settings)}
       />
-      <LayerGroup {layers} />
+      <LayerGroup {layers} showControls={false} />
     </Map>
   </div>
 </Layout>
