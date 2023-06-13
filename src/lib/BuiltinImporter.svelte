@@ -1,9 +1,9 @@
 <script lang="ts">
   import type { Feature, Polygon } from "geojson";
-  import type { Imported, Settings } from "./types";
+  import { JsStreetNetwork } from "osm2streets-js";
   import { onMount } from "svelte";
   import listUrl from "../../assets/tests.json?url";
-  import { JsStreetNetwork } from "osm2streets-js";
+  import type { Imported, Settings } from "./types";
 
   export let imported: Imported;
   export let settings: Settings;

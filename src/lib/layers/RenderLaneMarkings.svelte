@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { GeoJSON } from "geojson";
-  import Layer from "../Layer.svelte";
   import { caseHelper } from "../../style";
+  import Layer from "../Layer.svelte";
 
   export let gj: GeoJSON;
   export let show: boolean;

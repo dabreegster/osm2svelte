@@ -1,6 +1,6 @@
-import type { Feature, Polygon, GeoJSON } from "geojson";
-import type { ComponentType } from "svelte";
+import type { Feature, GeoJSON, Polygon } from "geojson";
 import type { JsStreetNetwork } from "osm2streets-js";
+import type { ComponentType } from "svelte";
 
 export interface LayerSpec {
   uuid: string;

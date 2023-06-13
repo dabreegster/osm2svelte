@@ -1,8 +1,8 @@
 <script lang="ts">
   import type { FeatureCollection } from "geojson";
-  import Layer from "../Layer.svelte";
-  import { network, hoveredIntersection } from "../../store";
+  import { hoveredIntersection, network } from "../../store";
   import { emptyGeojson } from "../../style";
+  import Layer from "../Layer.svelte";
 
   export let show: boolean;
 

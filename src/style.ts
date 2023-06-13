@@ -1,7 +1,7 @@
-import type { GeoJSON, FeatureCollection } from "geojson";
 import turfBbox from "@turf/bbox";
-import { map as mapStore } from "./store";
+import type { FeatureCollection, GeoJSON } from "geojson";
 import { get } from "svelte/store";
+import { map as mapStore } from "./store";
 
 // Helper for https://docs.mapbox.com/mapbox-gl-js/style-spec/expressions/#case based on one property
 export function caseHelper(

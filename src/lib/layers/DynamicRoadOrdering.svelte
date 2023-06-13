@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Popup } from "maplibre-gl";
-  import { map, network, hoveredIntersection } from "../../store";
+  import { hoveredIntersection, map, network } from "../../store";
 
   export let show: boolean;
 

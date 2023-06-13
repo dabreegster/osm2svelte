@@ -1,8 +1,8 @@
 <script lang="ts">
   import type { GeoJSON } from "geojson";
-  import Layer from "../Layer.svelte";
-  import { caseHelper, featureStateToggle } from "../../style";
   import { hoveredIntersection } from "../../store";
+  import { caseHelper, featureStateToggle } from "../../style";
+  import Layer from "../Layer.svelte";
 
   export let gj: GeoJSON;
   export let show: boolean;

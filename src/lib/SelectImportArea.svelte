@@ -1,9 +1,8 @@
 <script lang="ts">
-  import type { IControl } from "maplibre-gl";
   import MapboxDraw from "@mapbox/mapbox-gl-draw";
-  import { onMount, onDestroy, createEventDispatcher } from "svelte";
+  import type { IControl } from "maplibre-gl";
+  import { createEventDispatcher, onDestroy, onMount } from "svelte";
   import { map } from "../store";
-
   import "@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css";
 
   let drawControls: MapboxDraw;

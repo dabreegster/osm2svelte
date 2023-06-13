@@ -1,7 +1,7 @@
-import { writable, type Writable } from "svelte/store";
+import type { Feature, Polygon } from "geojson";
 import type { Map } from "maplibre-gl";
 import type { JsStreetNetwork } from "osm2streets-js";
-import type { Feature, Polygon } from "geojson";
+import { writable, type Writable } from "svelte/store";
 
 // A global singleton, containing a loaded map
 export const map: Writable<Map | null> = writable(null);

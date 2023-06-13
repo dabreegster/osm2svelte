@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { onMount, onDestroy } from "svelte";
-  import type { GeoJSON, Feature } from "geojson";
-  import type { MapMouseEvent, MapLayerMouseEvent } from "maplibre-gl";
+  import type { Feature, GeoJSON } from "geojson";
+  import type { MapLayerMouseEvent, MapMouseEvent } from "maplibre-gl";
+  import { onDestroy, onMount } from "svelte";
   import { map } from "../store";
   import { getLayerZorder } from "../style";
   import { downloadGeneratedFile } from "../utils";

@@ -1,8 +1,8 @@
 <script lang="ts">
-  import type { Imported } from "./types";
   import { map } from "../store";
-  import { downloadGeneratedFile } from "../utils";
   import { bbox } from "../style";
+  import { downloadGeneratedFile } from "../utils";
+  import type { Imported } from "./types";
 
   export let imported: Imported;
 

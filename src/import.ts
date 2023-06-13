@@ -1,16 +1,16 @@
+// TODO I never added this to package.json, it's a transitive dep!
+import type { Feature, Polygon } from "geojson";
 import { JsStreetNetwork } from "osm2streets-js";
 import { v4 as uuidv4 } from "uuid";
-// TODO I never added this to package.json, it's a transitive dep!
-import type { Imported, LayerSpec, Settings } from "./lib/types";
-import type { Feature, Polygon } from "geojson";
-import RenderIntersectionPolygons from "./lib/layers/RenderIntersectionPolygons.svelte";
-import RenderIntersectionMarkings from "./lib/layers/RenderIntersectionMarkings.svelte";
-import RenderLanePolygons from "./lib/layers/RenderLanePolygons.svelte";
-import RenderLaneMarkings from "./lib/layers/RenderLaneMarkings.svelte";
-import RenderBoundary from "./lib/layers/RenderBoundary.svelte";
-import DynamicMovementArrows from "./lib/layers/DynamicMovementArrows.svelte";
 import DynamicConnectedRoads from "./lib/layers/DynamicConnectedRoads.svelte";
+import DynamicMovementArrows from "./lib/layers/DynamicMovementArrows.svelte";
 import DynamicRoadOrdering from "./lib/layers/DynamicRoadOrdering.svelte";
+import RenderBoundary from "./lib/layers/RenderBoundary.svelte";
+import RenderIntersectionMarkings from "./lib/layers/RenderIntersectionMarkings.svelte";
+import RenderIntersectionPolygons from "./lib/layers/RenderIntersectionPolygons.svelte";
+import RenderLaneMarkings from "./lib/layers/RenderLaneMarkings.svelte";
+import RenderLanePolygons from "./lib/layers/RenderLanePolygons.svelte";
+import type { Imported, LayerSpec, Settings } from "./lib/types";
 import { emptyGeojson } from "./style";
 
 export function allLayers(

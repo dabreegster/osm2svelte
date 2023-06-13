@@ -1,6 +1,6 @@
 <script lang="ts">
   // TODO When this mode is active, we want to hide some of the base layers!
-  import type { FeatureCollection, Feature } from "geojson";
+  import type { Feature, FeatureCollection } from "geojson";
   import { network } from "../../store";
   import { emptyGeojson, featureStateToggle } from "../../style";
   import Layer from "../Layer.svelte";
