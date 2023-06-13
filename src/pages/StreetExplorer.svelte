@@ -1,37 +1,37 @@
 <script lang="ts">
   // TODO I never added this to package.json, it's a transitive dep!
   import type { Feature, Polygon } from "geojson";
-  import { overpassQueryForPolygon } from "./overpass";
+  import { overpassQueryForPolygon } from "../overpass";
   import init, { JsStreetNetwork } from "osm2streets-js";
   import { onMount } from "svelte";
-  import { network, boundaryGJ } from "./store";
-  import { emptyGeojson } from "./style";
-  import type { Imported, LayerSpec, Settings } from "./lib/types";
+  import { network, boundaryGJ } from "../store";
+  import { emptyGeojson } from "../style";
+  import type { Imported, LayerSpec, Settings } from "../lib/types";
   import { v4 as uuidv4 } from "uuid";
 
-  import Layout from "./lib/Layout.svelte";
-  import Map from "./lib/Map.svelte";
-  import SelectImportArea from "./lib/SelectImportArea.svelte";
-  import Osm2streetsSettings from "./lib/Osm2streetsSettings.svelte";
-  import Tabs from "./lib/Tabs.svelte";
-  import VectorTileControls from "./lib/VectorTileControls.svelte";
-  import LayerGroup from "./lib/LayerGroup.svelte";
-  import SequentialLayerGroup from "./lib/SequentialLayerGroup.svelte";
-  import ImportControls from "./lib/ImportControls.svelte";
-  import BuiltinImporter from "./lib/BuiltinImporter.svelte";
+  import Layout from "../lib/Layout.svelte";
+  import Map from "../lib/Map.svelte";
+  import SelectImportArea from "../lib/SelectImportArea.svelte";
+  import Osm2streetsSettings from "../lib/Osm2streetsSettings.svelte";
+  import Tabs from "../lib/Tabs.svelte";
+  import VectorTileControls from "../lib/VectorTileControls.svelte";
+  import LayerGroup from "../lib/LayerGroup.svelte";
+  import SequentialLayerGroup from "../lib/SequentialLayerGroup.svelte";
+  import ImportControls from "../lib/ImportControls.svelte";
+  import BuiltinImporter from "../lib/BuiltinImporter.svelte";
 
-  import RenderIntersectionPolygons from "./lib/layers/RenderIntersectionPolygons.svelte";
-  import RenderIntersectionMarkings from "./lib/layers/RenderIntersectionMarkings.svelte";
-  import RenderLanePolygons from "./lib/layers/RenderLanePolygons.svelte";
-  import RenderLaneMarkings from "./lib/layers/RenderLaneMarkings.svelte";
-  import RenderBoundary from "./lib/layers/RenderBoundary.svelte";
-  import DynamicMovementArrows from "./lib/layers/DynamicMovementArrows.svelte";
-  import DynamicConnectedRoads from "./lib/layers/DynamicConnectedRoads.svelte";
-  import DynamicRoadOrdering from "./lib/layers/DynamicRoadOrdering.svelte";
+  import RenderIntersectionPolygons from "../lib/layers/RenderIntersectionPolygons.svelte";
+  import RenderIntersectionMarkings from "../lib/layers/RenderIntersectionMarkings.svelte";
+  import RenderLanePolygons from "../lib/layers/RenderLanePolygons.svelte";
+  import RenderLaneMarkings from "../lib/layers/RenderLaneMarkings.svelte";
+  import RenderBoundary from "../lib/layers/RenderBoundary.svelte";
+  import DynamicMovementArrows from "../lib/layers/DynamicMovementArrows.svelte";
+  import DynamicConnectedRoads from "../lib/layers/DynamicConnectedRoads.svelte";
+  import DynamicRoadOrdering from "../lib/layers/DynamicRoadOrdering.svelte";
 
-  import InfoMode from "./lib/modes/InfoMode.svelte";
-  import ThickenRoadsMode from "./lib/modes/ThickenRoadsMode.svelte";
-  import RouteProfileMode from "./lib/modes/RouteProfileMode.svelte";
+  import InfoMode from "../lib/modes/InfoMode.svelte";
+  import ThickenRoadsMode from "../lib/modes/ThickenRoadsMode.svelte";
+  import RouteProfileMode from "../lib/modes/RouteProfileMode.svelte";
 
   let imported: Imported = { kind: "nothing" };
   let currentTabLabel: string;

@@ -3,14 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>osm2streets + Svelte</title>
+    <title>StreetExplorer</title>
   </head>
   <body>
     <div id="app"></div>
     <script type="module">
-      import App from "./src/App.svelte";
+      import StreetExplorer from "./src/pages/StreetExplorer.svelte";
 
-      new App({
+      new StreetExplorer({
         target: document.getElementById("app"),
       });
     </script>
