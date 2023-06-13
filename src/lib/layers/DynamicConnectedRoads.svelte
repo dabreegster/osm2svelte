@@ -2,7 +2,7 @@
   import type { FeatureCollection } from "geojson";
   import { hoveredIntersection, network } from "../../store";
   import { emptyGeojson } from "../../style";
-  import Layer from "../Layer.svelte";
+  import Layer from "../common/Layer.svelte";
 
   export let show: boolean;
 

@@ -2,7 +2,7 @@
   import { Map, NavigationControl, ScaleControl } from "maplibre-gl";
   import { onDestroy, onMount } from "svelte";
   import "maplibre-gl/dist/maplibre-gl.css";
-  import { map as mapStore } from "../store";
+  import { map as mapStore } from "../../store";
 
   let map: Map;
   let mapContainer: HTMLDivElement;

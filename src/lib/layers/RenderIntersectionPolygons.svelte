@@ -2,7 +2,7 @@
   import type { GeoJSON } from "geojson";
   import { hoveredIntersection } from "../../store";
   import { caseHelper, featureStateToggle } from "../../style";
-  import Layer from "../Layer.svelte";
+  import Layer from "../common/Layer.svelte";
 
   export let gj: GeoJSON;
   export let show: boolean;

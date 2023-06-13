@@ -2,12 +2,12 @@
   import init from "osm2streets-js";
   import { onMount } from "svelte";
   import { importPolygon, mainLayers, type Imported } from "../import";
-  import BuiltinImporter from "../lib/BuiltinImporter.svelte";
-  import ImportControls from "../lib/ImportControls.svelte";
-  import LayerGroup from "../lib/LayerGroup.svelte";
-  import Layout from "../lib/Layout.svelte";
-  import Map from "../lib/Map.svelte";
-  import SelectImportArea from "../lib/SelectImportArea.svelte";
+  import LayerGroup from "../lib/common/LayerGroup.svelte";
+  import Layout from "../lib/common/Layout.svelte";
+  import Map from "../lib/common/Map.svelte";
+  import BuiltinImporter from "../lib/import/BuiltinImporter.svelte";
+  import ImportControls from "../lib/import/ImportControls.svelte";
+  import SelectImportArea from "../lib/import/SelectImportArea.svelte";
   import { boundaryGJ, network } from "../store";
   import type { LayerSpec } from "../types";
 

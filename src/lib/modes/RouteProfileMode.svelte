@@ -3,7 +3,7 @@
   import type { Feature, FeatureCollection } from "geojson";
   import { network } from "../../store";
   import { emptyGeojson, featureStateToggle } from "../../style";
-  import Layer from "../Layer.svelte";
+  import Layer from "../common/Layer.svelte";
 
   let clickedFeature: Feature | null;
   let hoveredFeature: Feature | null;

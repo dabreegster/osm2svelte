@@ -7,13 +7,13 @@
     type Imported,
     type Settings,
   } from "../import";
-  import BuiltinImporter from "../lib/BuiltinImporter.svelte";
-  import ImportControls from "../lib/ImportControls.svelte";
-  import LayerGroup from "../lib/LayerGroup.svelte";
-  import Layout from "../lib/Layout.svelte";
-  import Map from "../lib/Map.svelte";
-  import Osm2streetsSettings from "../lib/Osm2streetsSettings.svelte";
-  import SelectImportArea from "../lib/SelectImportArea.svelte";
+  import LayerGroup from "../lib/common/LayerGroup.svelte";
+  import Layout from "../lib/common/Layout.svelte";
+  import Map from "../lib/common/Map.svelte";
+  import BuiltinImporter from "../lib/import/BuiltinImporter.svelte";
+  import ImportControls from "../lib/import/ImportControls.svelte";
+  import Osm2streetsSettings from "../lib/import/Osm2streetsSettings.svelte";
+  import SelectImportArea from "../lib/import/SelectImportArea.svelte";
   import ThickenRoadsMode from "../lib/ThickenRoadsMode.svelte";
   import VectorTileControls from "../lib/VectorTileControls.svelte";
   import { boundaryGJ, map, network } from "../store";

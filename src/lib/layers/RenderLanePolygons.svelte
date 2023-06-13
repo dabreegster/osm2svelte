@@ -2,7 +2,7 @@
   import type { GeoJSON } from "geojson";
   import { clickedLane, hoveredLane } from "../../store";
   import { caseHelper, featureStateToggle } from "../../style";
-  import Layer from "../Layer.svelte";
+  import Layer from "../common/Layer.svelte";
 
   // Input
   export let gj: GeoJSON;

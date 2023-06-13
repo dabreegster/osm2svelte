@@ -2,7 +2,7 @@
   import type { GeoJSON } from "geojson";
   import { map } from "../../store";
   import { bbox } from "../../style";
-  import Layer from "../Layer.svelte";
+  import Layer from "../common/Layer.svelte";
 
   // TODO Is there a way to plumb a bunch of generic Layer props like this?
   export let gj: GeoJSON;

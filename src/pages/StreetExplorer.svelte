@@ -8,16 +8,16 @@
     type Imported,
     type Settings,
   } from "../import";
-  import BuiltinImporter from "../lib/BuiltinImporter.svelte";
-  import ImportControls from "../lib/ImportControls.svelte";
-  import LayerGroup from "../lib/LayerGroup.svelte";
-  import Layout from "../lib/Layout.svelte";
-  import Map from "../lib/Map.svelte";
+  import LayerGroup from "../lib/common/LayerGroup.svelte";
+  import Layout from "../lib/common/Layout.svelte";
+  import Map from "../lib/common/Map.svelte";
+  import SequentialLayerGroup from "../lib/common/SequentialLayerGroup.svelte";
+  import BuiltinImporter from "../lib/import/BuiltinImporter.svelte";
+  import ImportControls from "../lib/import/ImportControls.svelte";
+  import Osm2streetsSettings from "../lib/import/Osm2streetsSettings.svelte";
+  import SelectImportArea from "../lib/import/SelectImportArea.svelte";
   import InfoMode from "../lib/modes/InfoMode.svelte";
   import RouteProfileMode from "../lib/modes/RouteProfileMode.svelte";
-  import Osm2streetsSettings from "../lib/Osm2streetsSettings.svelte";
-  import SelectImportArea from "../lib/SelectImportArea.svelte";
-  import SequentialLayerGroup from "../lib/SequentialLayerGroup.svelte";
   import Tabs from "../lib/Tabs.svelte";
   import { boundaryGJ, network } from "../store";
   import type { LayerSpec } from "../types";

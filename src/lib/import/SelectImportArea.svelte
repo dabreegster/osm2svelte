@@ -2,7 +2,7 @@
   import MapboxDraw from "@mapbox/mapbox-gl-draw";
   import type { IControl } from "maplibre-gl";
   import { createEventDispatcher, onDestroy, onMount } from "svelte";
-  import { map } from "../store";
+  import { map } from "../../store";
   import "@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css";
 
   let drawControls: MapboxDraw;

@@ -2,9 +2,9 @@
   import type { Feature, GeoJSON } from "geojson";
   import type { MapLayerMouseEvent, MapMouseEvent } from "maplibre-gl";
   import { onDestroy, onMount } from "svelte";
-  import { map } from "../store";
-  import { getLayerZorder } from "../style";
-  import { downloadGeneratedFile } from "../utils";
+  import { map } from "../../store";
+  import { getLayerZorder } from "../../style";
+  import { downloadGeneratedFile } from "../../utils";
 
   // Input
   export let source: string;
