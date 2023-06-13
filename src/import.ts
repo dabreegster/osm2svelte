@@ -38,7 +38,7 @@ export interface Settings {
   osm2lanes: boolean;
 }
 
-export function allLayers(
+export function mainLayers(
   network: JsStreetNetwork,
   boundaryGJ: Feature<Polygon>
 ): LayerSpec[] {
@@ -78,6 +78,30 @@ export function allLayers(
       content: RenderLaneMarkings,
       gj: JSON.parse(network.toLaneMarkingsGeojson()),
     },
+  ];
+
+  // TODO Some bizarre syntax error
+  /*debugLayers = debugSteps.map((step) => {
+          uuid: uuidv4(),
+          label: `${step.getLabel()}: Intersection polygons`,
+          show: true,
+          content: RenderIntersectionPolygons,
+          gj: JSON.parse(step.getNetwork().toGeojsonPlain()),
+      });
+      debugLayers = [];
+      for (let step of network.getDebugSteps()) {
+        debugLayers.push({
+          uuid: uuidv4(),
+          label: `${step.getLabel()}: Intersection polygons`,
+          show: true,
+          content: RenderIntersectionPolygons,
+          gj: JSON.parse(step.getNetwork().toGeojsonPlain()),
+        });
+      }*/
+}
+
+export function interactiveLayers(network: JsStreetNetwork): LayerSpec[] {
+  return [
     {
       uuid: uuidv4(),
       label: "Movement arrows",
@@ -100,25 +124,6 @@ export function allLayers(
       gj: emptyGeojson(),
     },
   ];
-
-  // TODO Some bizarre syntax error
-  /*debugLayers = debugSteps.map((step) => {
-          uuid: uuidv4(),
-          label: `${step.getLabel()}: Intersection polygons`,
-          show: true,
-          content: RenderIntersectionPolygons,
-          gj: JSON.parse(step.getNetwork().toGeojsonPlain()),
-      });
-      debugLayers = [];
-      for (let step of network.getDebugSteps()) {
-        debugLayers.push({
-          uuid: uuidv4(),
-          label: `${step.getLabel()}: Intersection polygons`,
-          show: true,
-          content: RenderIntersectionPolygons,
-          gj: JSON.parse(step.getNetwork().toGeojsonPlain()),
-        });
-      }*/
 }
 
 export async function importPolygon(

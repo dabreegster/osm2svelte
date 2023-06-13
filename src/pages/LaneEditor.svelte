@@ -2,8 +2,8 @@
   import init from "osm2streets-js";
   import { onMount } from "svelte";
   import {
-    allLayers,
     importPolygon,
+    mainLayers,
     type Imported,
     type Settings,
   } from "../import";
@@ -43,7 +43,7 @@
       network.set(imported.network);
       boundaryGJ.set(imported.boundaryGJ);
 
-      layers = allLayers(imported.network, imported.boundaryGJ);
+      layers = mainLayers(imported.network, imported.boundaryGJ);
     }
   }
 </script>
