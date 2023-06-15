@@ -1,25 +1,15 @@
 <script lang="ts">
-  import type { GeoJSONSource } from "maplibre-gl";
-  import { onDestroy } from "svelte";
   import { clickedLane, map } from "../store";
   import { emptyGeojson } from "../style";
+  import Layer from "./common/Layer.svelte";
 
-  let source = "building-hitboxes";
-  let layer = `${source}-layer`;
   let gj = emptyGeojson();
-
-  $map.addSource(source, {
-    type: "geojson",
-    data: gj,
-  });
-  $map.addLayer({
-    id: layer,
-    source,
+  let layerStyle = {
     type: "fill",
     paint: {
       "fill-color": "blue",
     },
-  });
+  };
 
   $: {
     gj = emptyGeojson();
@@ -31,17 +21,8 @@
         }
       }
     }
-    ($map.getSource(source) as GeoJSONSource).setData(gj);
+    gj = gj;
   }
-
-  onDestroy(() => {
-    if ($map) {
-      if ($map.getLayer(layer)) {
-        $map.removeLayer(layer);
-      }
-      $map.removeSource(source);
-    }
-  });
 </script>
 
 {#if $clickedLane}
@@ -49,3 +30,5 @@
 {:else}
   <p>Click a road</p>
 {/if}
+
+<Layer source="building-hitboxes" {gj} {layerStyle} />

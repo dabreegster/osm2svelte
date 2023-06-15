@@ -5,6 +5,7 @@
   import { emptyGeojson, featureStateToggle } from "../style";
   import Layer from "./common/Layer.svelte";
 
+  // TODO Careful if network changes
   let clickedFeature: Feature | null;
   let hoveredFeature: Feature | null;
 

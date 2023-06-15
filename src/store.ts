@@ -15,7 +15,7 @@ export const hoveredIntersection: Writable<Feature | null> = writable(null);
 // TODO Need to unsubscribe
 // Unset when the network changes
 network.subscribe((value) => {
-	clickedLane.set(null);
-	hoveredLane.set(null);
-	hoveredIntersection.set(null);
+  clickedLane.set(null);
+  hoveredLane.set(null);
+  hoveredIntersection.set(null);
 });
