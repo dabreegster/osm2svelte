@@ -2,6 +2,7 @@
   import type { GeoJSON } from "geojson";
   import { clickedLane, network } from "../../store";
   import Layer from "../common/Layer.svelte";
+  import Tags from "./Tags.svelte";
 
   let way: bigint | null;
   let gj: GeoJSON | null;
@@ -39,6 +40,10 @@
   <a href="http://openstreetmap.org/way/{way}" target="_blank">Way {way}</a>
 
   <Layer source="current-way" {gj} {layerStyle} />
+
+  {#key way}>
+    <Tags {way} />
+  {/key}
 {:else}
   Click a road to edit
 {/if}
