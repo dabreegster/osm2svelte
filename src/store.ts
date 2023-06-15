@@ -11,3 +11,11 @@ export const boundaryGJ: Writable<Feature<Polygon> | null> = writable(null);
 export const clickedLane: Writable<Feature | null> = writable(null);
 export const hoveredLane: Writable<Feature | null> = writable(null);
 export const hoveredIntersection: Writable<Feature | null> = writable(null);
+
+// TODO Need to unsubscribe
+// Unset when the network changes
+network.subscribe((value) => {
+	clickedLane.set(null);
+	hoveredLane.set(null);
+	hoveredIntersection.set(null);
+});
