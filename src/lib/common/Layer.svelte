@@ -1,6 +1,10 @@
 <script lang="ts">
   import type { Feature, GeoJSON } from "geojson";
-  import type { MapLayerMouseEvent, MapMouseEvent } from "maplibre-gl";
+  import type {
+    GeoJSONSource,
+    MapLayerMouseEvent,
+    MapMouseEvent,
+  } from "maplibre-gl";
   import { onDestroy, onMount } from "svelte";
   import { map } from "../../store";
   import { getLayerZorder } from "../../style";
@@ -21,24 +25,14 @@
   export let hoveredFeature: Feature | null = null;
   export let clickedFeature: Feature | null = null;
 
-  // An ID assigned by MapLibre
+  // An opaque ID assigned by this component
   let hoverId: number | undefined;
   let clickedId: number | undefined;
 
   let layer = `${source}-layer`;
 
   onMount(() => {
-    // Make sure every feature has a numeric ID. But don't use generateId,
-    // because we need to hold onto the full GeoJSON we give to MapLibre,
-    // because there's not a way to get it back out later.
-    //
-    // Also, if we've only been passed in one feature, don't bother with IDs
-    if ("features" in gj) {
-      for (let [idx, f] of gj.features.entries()) {
-        // 0 is problematic
-        f.id = idx + 1;
-      }
-    }
+    fixIDs();
 
     $map!.addSource(source, {
       type: "geojson",
@@ -79,6 +73,29 @@
     }
     $map!.removeSource(source);
   });
+
+  // Make sure every feature has a numeric ID. But don't use generateId,
+  // because we need to hold onto the full GeoJSON we give to MapLibre,
+  // because there's not a way to get it back out later.
+  function fixIDs() {
+    // If we've only been passed in one feature, don't bother with IDs
+    if ("features" in gj) {
+      for (let [idx, f] of gj.features.entries()) {
+        // 0 is problematic
+        f.id = idx + 1;
+      }
+    }
+    // DON'T do 'gj = gj', to avoid the reactive statement below running spuriously
+  }
+
+  $: {
+    // TODO This might happen spuriously?
+    let sourceObj = $map.getSource(source);
+    if (sourceObj) {
+      console.log(`GeoJSON data for ${source} changed, updating`);
+      (sourceObj as GeoJSONSource).setData(gj);
+    }
+  }
 
   function onMouseMove(e: MapLayerMouseEvent) {
     if (e.features.length > 0 && hoverId != e.features[0].id) {
