@@ -18,7 +18,6 @@
   export let interactive = false;
 
   // Output
-  // Per https://maplibre.org/maplibre-gl-js-docs/api/map/#map#queryrenderedfeatures, array and object properties don't work
   export let hoveredFeature: Feature | null = null;
   export let clickedFeature: Feature | null = null;
 
@@ -29,10 +28,21 @@
   let layer = `${source}-layer`;
 
   onMount(() => {
+    // Make sure every feature has a numeric ID. But don't use generateId,
+    // because we need to hold onto the full GeoJSON we give to MapLibre,
+    // because there's not a way to get it back out later.
+    //
+    // Also, if we've only been passed in one feature, don't bother with IDs
+    if (gj.features) {
+      for (let [idx, f] of gj.features.entries()) {
+        // 0 is problematic
+        f.id = idx + 1;
+      }
+    }
+
     $map!.addSource(source, {
       type: "geojson",
       data: gj,
-      generateId: true,
     });
     $map!.addLayer(
       {
@@ -73,10 +83,15 @@
   function onMouseMove(e: MapLayerMouseEvent) {
     if (e.features.length > 0 && hoverId != e.features[0].id) {
       unhover();
-      hoveredFeature = e.features[0];
       // generateId means this'll be a number
       hoverId = e.features[0].id as number;
       $map!.setFeatureState({ source, id: hoverId }, { hover: true });
+
+      // Per
+      // https://maplibre.org/maplibre-gl-js-docs/api/map/#map#queryrenderedfeatures,
+      // array and object properties aren't returned. So find the original
+      // object in the source.
+      hoveredFeature = gj.features.find((f) => f.id == hoverId)!;
     }
   }
 
@@ -93,9 +108,10 @@
 
     let features = $map!.queryRenderedFeatures(e.point, { layers: [layer] });
     if (features.length == 1) {
-      clickedFeature = features[0];
       clickedId = features[0].id as number;
       $map!.setFeatureState({ source, id: clickedId }, { clicked: true });
+
+      clickedFeature = gj.features.find((f) => f.id == clickedId)!;
     } else {
       clickedFeature = null;
       clickedId = undefined;

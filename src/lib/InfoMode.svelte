@@ -5,7 +5,7 @@
 </script>
 
 {#if $clickedLane}
-  <pre>{JSON.stringify($clickedLane.properties)}</pre>
+  <pre>{JSON.stringify($clickedLane.properties, null, "  ")}</pre>
 {:else}
   <p>Click something</p>
 {/if}
