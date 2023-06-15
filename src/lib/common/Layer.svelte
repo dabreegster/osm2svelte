@@ -33,7 +33,7 @@
     // because there's not a way to get it back out later.
     //
     // Also, if we've only been passed in one feature, don't bother with IDs
-    if (gj.features) {
+    if ("features" in gj) {
       for (let [idx, f] of gj.features.entries()) {
         // 0 is problematic
         f.id = idx + 1;
@@ -91,7 +91,9 @@
       // https://maplibre.org/maplibre-gl-js-docs/api/map/#map#queryrenderedfeatures,
       // array and object properties aren't returned. So find the original
       // object in the source.
-      hoveredFeature = gj.features.find((f) => f.id == hoverId)!;
+      if ("features" in gj) {
+        hoveredFeature = gj.features.find((f) => f.id == hoverId)!;
+      }
     }
   }
 
@@ -111,7 +113,9 @@
       clickedId = features[0].id as number;
       $map!.setFeatureState({ source, id: clickedId }, { clicked: true });
 
-      clickedFeature = gj.features.find((f) => f.id == clickedId)!;
+      if ("features" in gj) {
+        clickedFeature = gj.features.find((f) => f.id == clickedId)!;
+      }
     } else {
       clickedFeature = null;
       clickedId = undefined;
