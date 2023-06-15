@@ -2,6 +2,7 @@
   import type { LayerSpec } from "../../types";
 
   export let layers: LayerSpec[];
+  // TODO Reconsider. Don't use this component just to draw a bunch of immutable layers.
   export let showControls = true;
 
   // TODO Some of the components don't take gj or downloadable props. It shows

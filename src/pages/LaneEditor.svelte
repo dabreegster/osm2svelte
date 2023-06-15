@@ -3,12 +3,14 @@
   import { onMount } from "svelte";
   import { importPolygon, mainLayers, type Imported } from "../import";
   import AppSwitcher from "../lib/common/AppSwitcher.svelte";
+  // TODO This is really for controls; should we even use this?
   import LayerGroup from "../lib/common/LayerGroup.svelte";
   import Layout from "../lib/common/Layout.svelte";
   import Map from "../lib/common/Map.svelte";
   import BuiltinImporter from "../lib/import/BuiltinImporter.svelte";
   import ImportControls from "../lib/import/ImportControls.svelte";
   import SelectImportArea from "../lib/import/SelectImportArea.svelte";
+  import EditWayControls from "../lib/lane_editor/EditWayControls.svelte";
   import { boundaryGJ, network } from "../store";
   import type { LayerSpec } from "../types";
 
@@ -44,6 +46,8 @@
 
     <BuiltinImporter bind:imported {settings} />
     <ImportControls {imported} />
+
+    <EditWayControls />
 
     <div>
       <strong>Warnings:</strong>

@@ -8,6 +8,7 @@ export const map: Writable<Map | null> = writable(null);
 export const network: Writable<JsStreetNetwork | null> = writable(null);
 export const boundaryGJ: Writable<Feature<Polygon> | null> = writable(null);
 
-export const clickedLane = writable(null);
-export const hoveredLane = writable(null);
-export const hoveredIntersection = writable(null);
+// Array and object properties won't show up here
+export const clickedLane: Writable<Feature | null> = writable(null);
+export const hoveredLane: Writable<Feature | null> = writable(null);
+export const hoveredIntersection: Writable<Feature | null> = writable(null);
