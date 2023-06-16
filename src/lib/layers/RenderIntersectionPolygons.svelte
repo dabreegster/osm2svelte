@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { GeoJSON } from "geojson";
-  import { hoveredIntersection } from "../../store";
+  import { clickedIntersection, hoveredIntersection } from "../../store";
   import { caseHelper, featureStateToggle } from "../../style";
   import Layer from "../common/Layer.svelte";
 
@@ -33,6 +33,7 @@
   {layerStyle}
   interactive
   bind:hoveredFeature={$hoveredIntersection}
+  bind:clickedFeature={$clickedIntersection}
   bind:show
   {downloadable}
 />

@@ -17,7 +17,7 @@
   import ImportControls from "../lib/import/ImportControls.svelte";
   import Osm2streetsSettings from "../lib/import/Osm2streetsSettings.svelte";
   import SelectImportArea from "../lib/import/SelectImportArea.svelte";
-  import InfoMode from "../lib/street_explorer/InfoMode.svelte";
+  import Popups from "../lib/street_explorer/Popups.svelte";
   import { boundaryGJ, network } from "../store";
   import type { LayerSpec } from "../types";
 
@@ -50,8 +50,6 @@
     <Osm2streetsSettings bind:settings />
     <BuiltinImporter bind:imported {settings} />
     <ImportControls {imported} />
-
-    <InfoMode />
   </div>
   <div slot="main">
     <Map>
@@ -61,6 +59,7 @@
       <LayerGroup {layers}>
         <SequentialLayerGroup layers={debugLayers} />
       </LayerGroup>
+      <Popups />
     </Map>
   </div>
 </Layout>
