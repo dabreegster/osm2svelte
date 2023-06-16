@@ -2,7 +2,11 @@
   import type { GeoJSON } from "geojson";
   import { clickedLane, network } from "../../store";
   import Layer from "../common/Layer.svelte";
+  import AllEdits from "./AllEdits.svelte";
   import Tags from "./Tags.svelte";
+
+  // TODO Is this layering and event plumbing nice?
+  let allEdits: AllEdits;
 
   let way: bigint | null;
   let gj: GeoJSON | null;
@@ -36,13 +40,15 @@
   }
 </script>
 
+<AllEdits bind:this={allEdits} />
+
 {#if way}
   <a href="http://openstreetmap.org/way/{way}" target="_blank">Way {way}</a>
 
   <Layer source="current-way" {gj} {layerStyle} />
 
   {#key way}>
-    <Tags {way} />
+    <Tags {way} on:editedWay={(way) => allEdits.handleEditedWay(way)} />
   {/key}
 {:else}
   Click a road to edit

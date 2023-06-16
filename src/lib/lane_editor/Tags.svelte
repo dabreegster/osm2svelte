@@ -1,5 +1,8 @@
 <script lang="ts">
+  import { createEventDispatcher } from "svelte";
   import { network } from "../../store";
+
+  let dispatch = createEventDispatcher();
 
   // Immutable; use https://svelte.dev/tutorial/key-blocks around this entire
   // compoenent to change
@@ -22,7 +25,7 @@
     tags.push({
       id: uniqueID++,
       key,
-      value,
+      value: value as string,
     });
   }
 
@@ -50,8 +53,10 @@
     }
     console.log(`set to ${JSON.stringify(obj)}`);
     // TODO The user can cause a panic by passing invalid input, then everything stops working
-    // TODO Doesn't rerender or propagate; use an event listener
+    // TODO Doesn't rerender or propagate?
     $network!.overwriteOsmTagsForWay(way, JSON.stringify(obj));
+
+    dispatch("editedWay", way);
   }
 </script>
 
