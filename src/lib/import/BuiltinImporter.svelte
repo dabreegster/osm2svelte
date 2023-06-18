@@ -2,7 +2,6 @@
   import type { Feature, Polygon } from "geojson";
   import { JsStreetNetwork } from "osm2streets-js";
   import { onMount } from "svelte";
-  import listUrl from "../../../assets/tests.json?url";
   import type { Imported, Settings } from "../../import";
 
   export let imported: Imported;
@@ -12,7 +11,8 @@
   let list: string[] = [];
 
   onMount(async () => {
-    let resp = await fetch(listUrl);
+    // TODO Hardcodes the base path from vite config -- OK?
+    let resp = await fetch("/osm2svelte/tests.json");
     list = await resp.json();
   });
 
@@ -25,15 +25,13 @@
     // TODO Go through all the same states?
     try {
       let polygonResp = await fetch(
-        listUrl.replace("tests.json", `tests/${choice}/boundary.json`)
+        `/osm2svelte/tests/${choice}/boundary.json`
       );
       let polygon = await polygonResp.json();
       // Test input is always a FeatureCollection with one object. For uniformity...
       let boundaryGJ = polygon.features[0];
 
-      let resp = await fetch(
-        listUrl.replace("tests.json", `tests/${choice}/input.osm`)
-      );
+      let resp = await fetch(`/osm2svelte/tests/${choice}/input.osm`);
       let osmInput = await resp.text();
       let network = importOSM(boundaryGJ, osmInput);
 
