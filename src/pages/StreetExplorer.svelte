@@ -34,9 +34,13 @@
     if (imported.kind == "done") {
       network.set(imported.network);
       boundaryGJ.set(imported.boundaryGJ);
+    }
+  }
 
-      layers = mainLayers(imported.network, imported.boundaryGJ).concat(
-        interactiveLayers(imported.network)
+  $: {
+    if ($network && $boundaryGJ) {
+      layers = mainLayers($network, $boundaryGJ).concat(
+        interactiveLayers($network)
       );
     }
   }

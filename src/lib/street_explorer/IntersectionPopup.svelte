@@ -9,7 +9,7 @@
 
   function collapse() {
     $network.collapseIntersection(intersection.properties.id);
-    // TODO Rerender
+    $network = $network;
   }
 </script>
 

@@ -9,12 +9,12 @@
 
   function collapse() {
     $network.collapseShortRoad(lane.properties.rod);
-    // TODO Rerender
+    $network = $network;
   }
 
   function zip() {
     $network.zipSidepath(lane.properties.rod);
-    // TODO Rerender
+    $network = $network;
   }
 </script>
 
