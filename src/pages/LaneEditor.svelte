@@ -33,8 +33,12 @@
     if (imported.kind == "done") {
       network.set(imported.network);
       boundaryGJ.set(imported.boundaryGJ);
+    }
+  }
 
-      layers = mainLayers(imported.network, imported.boundaryGJ);
+  $: {
+    if ($network && $boundaryGJ) {
+      layers = mainLayers($network, $boundaryGJ);
     }
   }
 </script>

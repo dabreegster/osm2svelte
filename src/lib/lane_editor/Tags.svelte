@@ -52,8 +52,8 @@
       }
     }
     // TODO The user can cause a panic by passing invalid input, then everything stops working
-    // TODO Doesn't rerender. Need to calculate layers when network or boundary changes
     $network!.overwriteOsmTagsForWay(way, JSON.stringify(obj));
+    $network = $network;
 
     dispatch("editedWay", way);
   }
@@ -66,7 +66,9 @@
         <td><input type="text" bind:value={tag.key} /></td>
         <td><input type="text" bind:value={tag.value} /></td>
         <td>
-          <button type="button" on:click={() => deleteTag(tag.id)}>Delete</button>
+          <button type="button" on:click={() => deleteTag(tag.id)}
+            >Delete</button
+          >
         </td>
       </tr>
     {/each}
