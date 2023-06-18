@@ -51,9 +51,8 @@
         // TODO Warn for duplicate keys
       }
     }
-    console.log(`set to ${JSON.stringify(obj)}`);
     // TODO The user can cause a panic by passing invalid input, then everything stops working
-    // TODO Doesn't rerender or propagate?
+    // TODO Doesn't rerender. Need to calculate layers when network or boundary changes
     $network!.overwriteOsmTagsForWay(way, JSON.stringify(obj));
 
     dispatch("editedWay", way);
@@ -66,11 +65,9 @@
       <tr>
         <td><input type="text" bind:value={tag.key} /></td>
         <td><input type="text" bind:value={tag.value} /></td>
-        <td
-          ><button type="button" on:click={() => deleteTag(tag.id)}
-            >Delete</button
-          ></td
-        >
+        <td>
+          <button type="button" on:click={() => deleteTag(tag.id)}>Delete</button>
+        </td>
       </tr>
     {/each}
   </tbody>

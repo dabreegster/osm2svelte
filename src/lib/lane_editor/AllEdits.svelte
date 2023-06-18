@@ -4,8 +4,9 @@
 
   let editedWays: Set<bigint> = new Set();
 
-  export function handleEditedWay(way: bigint) {
-    editedWays.add(way);
+  export function handleEditedWay(e) {
+    editedWays.add(e.detail);
+    editedWays = editedWays;
   }
 
   function downloadOsc() {

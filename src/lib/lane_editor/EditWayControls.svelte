@@ -47,7 +47,7 @@
 
   <Layer source="current-way" {gj} {layerStyle} />
 
-  {#key way}>
+  {#key way}
     <Tags {way} on:editedWay={(way) => allEdits.handleEditedWay(way)} />
   {/key}
 {:else}
