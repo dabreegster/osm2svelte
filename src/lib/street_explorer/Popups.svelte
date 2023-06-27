@@ -19,20 +19,23 @@
     // TODO Not sure if we can get the DOM contents of a component by doing this
     if ($clickedLane) {
       let container = document.createElement("div");
-      let component = new LanePopup({
+      new LanePopup({
         target: container,
         props: { lane: $clickedLane },
       });
       // TODO Not sure what point to base the popup at. Use turf centroid at least, maybe
-      let center = $clickedLane.geometry.coordinates[0][0];
+      let center = $clickedLane.geometry.coordinates[0][0] as [number, number];
       popup.setLngLat(center).setDOMContent(container).addTo($map);
     } else if ($clickedIntersection) {
       let container = document.createElement("div");
-      let component = new IntersectionPopup({
+      new IntersectionPopup({
         target: container,
         props: { intersection: $clickedIntersection },
       });
-      let center = $clickedIntersection.geometry.coordinates[0][0];
+      let center = $clickedIntersection.geometry.coordinates[0][0] as [
+        number,
+        number
+      ];
       popup.setLngLat(center).setDOMContent(container).addTo($map);
     } else {
       popup.remove();
