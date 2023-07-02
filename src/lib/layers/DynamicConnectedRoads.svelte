@@ -1,10 +1,20 @@
 <script lang="ts">
-  import type { FeatureCollection } from "geojson";
+  import type { GeoJSON } from "geojson";
   import { hoveredIntersection, network } from "../../store";
-  import { emptyGeojson } from "../../style";
   import Layer from "../common/Layer.svelte";
+  import LayerControls from "../common/LayerControls.svelte";
 
-  export let show: boolean;
+  let gj: GeoJSON | undefined = undefined;
+  let show = true;
+  $: if ($network && $hoveredIntersection) {
+    gj = JSON.parse(
+      $network!.debugRoadsConnectedToIntersectionGeojson(
+        $hoveredIntersection.properties.id
+      )
+    );
+  } else {
+    gj = undefined;
+  }
 
   let layerStyle = {
     type: "fill",
@@ -13,22 +23,14 @@
       "fill-opacity": 0.5,
     },
   };
-
-  let gj: FeatureCollection = emptyGeojson();
-
-  $: {
-    // TODO Layer can't update GJ data; we have to forcibly recreate the whole Layer
-    gj = emptyGeojson();
-    if ($hoveredIntersection) {
-      gj = JSON.parse(
-        $network!.debugRoadsConnectedToIntersectionGeojson(
-          $hoveredIntersection.properties.id
-        )
-      );
-    }
-  }
 </script>
 
-{#if gj.features.length}
-  <Layer source="connected-roads" {gj} {layerStyle} bind:show />
+{#if gj}
+  <Layer source="connected-roads" {gj} {layerStyle} {show} />
+  <LayerControls
+    {gj}
+    name="Roads connected to intersection"
+    bind:show
+    downloadable={false}
+  />
 {/if}

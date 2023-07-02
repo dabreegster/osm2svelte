@@ -3,9 +3,9 @@
   import { onMount } from "svelte";
   import { type Imported } from "../import";
   import AppSwitcher from "../lib/common/AppSwitcher.svelte";
-  import LayerGroup from "../lib/common/LayerGroup.svelte";
   import Layout from "../lib/common/Layout.svelte";
   import Map from "../lib/common/Map.svelte";
+  import TopLeftPanel from "../lib/common/TopLeftPanel.svelte";
   import ImportControls from "../lib/import/ImportControls.svelte";
   import MainLayers from "../lib/layers/MainLayers.svelte";
   import RouteProfileMode from "../lib/RouteProfileMode.svelte";
@@ -40,9 +40,9 @@
   </div>
   <div slot="main">
     <Map>
-      <LayerGroup {layers}>
+      <TopLeftPanel>
         <MainLayers />
-      </LayerGroup>
+      </TopLeftPanel>
     </Map>
   </div>
 </Layout>

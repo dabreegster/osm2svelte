@@ -4,7 +4,7 @@
 
   export let gj: GeoJSON;
   export let name: string;
-  export let show = true;
+  export let show: boolean;
   export let downloadable = true;
 
   function download() {

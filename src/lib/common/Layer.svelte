@@ -15,8 +15,6 @@
   export let gj: GeoJSON;
   // TODO LayerSpecification doesn't work
   export let layerStyle: any;
-  // TODO Rethink or remove
-  export let downloadable = false;
   // Make objects hoverable and clickable. The caller should do something with
   // ["feature-state", "hover"] and ["feature-state", "clicked"]
   export let interactive = false;

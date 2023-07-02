@@ -3,8 +3,6 @@
   import { onMount } from "svelte";
   import { type Imported } from "../import";
   import AppSwitcher from "../lib/common/AppSwitcher.svelte";
-  // TODO This is really for controls; should we even use this?
-  import LayerGroup from "../lib/common/LayerGroup.svelte";
   import Layout from "../lib/common/Layout.svelte";
   import Map from "../lib/common/Map.svelte";
   import ImportControls from "../lib/import/ImportControls.svelte";
@@ -49,7 +47,7 @@
   </div>
   <div slot="main">
     <Map>
-      <MainLayers style:display="none" />
+      <div style:display="none"><MainLayers /></div>
     </Map>
   </div>
 </Layout>

@@ -2,12 +2,11 @@
   import { Popup } from "maplibre-gl";
   import { hoveredIntersection, map, network } from "../../store";
 
-  export let show: boolean;
-
   // TODO UX bug: if the mouse winds up on any popup, $hoveredIntersection
   // becomes null, and everything flickers. Can we display them on top visually,
   // but not block mouseover?
   let popups: Popup[] = [];
+  let show = false;
 
   $: {
     // Clear anything existing
@@ -37,3 +36,12 @@
     }
   }
 </script>
+
+{#if $network}
+  <div>
+    <label>
+      <input type="checkbox" bind:checked={show} />
+      Clockwise ordering of roads
+    </label>
+  </div>
+{/if}

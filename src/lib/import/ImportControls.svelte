@@ -1,6 +1,6 @@
 <script lang="ts">
   import { JsStreetNetwork } from "osm2streets-js";
-  import type { Imported, Settings } from "../../import";
+  import type { Imported } from "../../import";
   import { map } from "../../store";
   import { bbox } from "../../style";
   import { downloadGeneratedFile } from "../../utils";
@@ -8,6 +8,14 @@
   import OverpassSelector from "../common/osm_input/OverpassSelector.svelte";
   import type { OsmSelection } from "../common/osm_input/types";
   import Osm2streetsSettings from "./Osm2streetsSettings.svelte";
+
+  interface Settings {
+    debug_each_step: boolean;
+    dual_carriageway_experiment: boolean;
+    sidepath_zipping_experiment: boolean;
+    inferred_sidewalks: boolean;
+    osm2lanes: boolean;
+  }
 
   export let imported: Imported;
 
