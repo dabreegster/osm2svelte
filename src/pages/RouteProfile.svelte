@@ -1,7 +1,6 @@
 <script lang="ts">
   import init from "osm2streets-js";
   import { onMount } from "svelte";
-  import { type Imported } from "../import";
   import AppSwitcher from "../lib/common/AppSwitcher.svelte";
   import Layout from "../lib/common/Layout.svelte";
   import Map from "../lib/common/Map.svelte";
@@ -9,20 +8,11 @@
   import ImportControls from "../lib/import/ImportControls.svelte";
   import MainLayers from "../lib/layers/MainLayers.svelte";
   import RouteProfileMode from "../lib/RouteProfileMode.svelte";
-  import { boundaryGJ, network } from "../store";
-
-  let imported: Imported = { kind: "nothing" };
+  import { network } from "../store";
 
   onMount(async () => {
     await init();
   });
-
-  $: {
-    if (imported.kind == "done") {
-      network.set(imported.network);
-      boundaryGJ.set(imported.boundaryGJ);
-    }
-  }
 </script>
 
 <Layout>
@@ -31,7 +21,7 @@
     <AppSwitcher />
     <hr />
 
-    <ImportControls bind:imported />
+    <ImportControls />
     <hr />
 
     {#if $network}

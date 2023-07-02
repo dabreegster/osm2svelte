@@ -1,13 +1,19 @@
 <script lang="ts">
+  import type { Feature, Polygon } from "geojson";
   import { JsStreetNetwork } from "osm2streets-js";
-  import type { Imported } from "../../import";
-  import { map } from "../../store";
+  import {
+    boundaryGJ as boundaryGjStore,
+    map,
+    network as networkStore,
+  } from "../../store";
   import { bbox } from "../../style";
   import { downloadGeneratedFile } from "../../utils";
   import BuiltInSelector from "../common/osm_input/BuiltInSelector.svelte";
   import OverpassSelector from "../common/osm_input/OverpassSelector.svelte";
   import type { OsmSelection } from "../common/osm_input/types";
   import Osm2streetsSettings from "./Osm2streetsSettings.svelte";
+
+  // This component sets the global network and boundaryGj stores
 
   interface Settings {
     debug_each_step: boolean;
@@ -17,7 +23,17 @@
     osm2lanes: boolean;
   }
 
-  export let imported: Imported;
+  type Imported =
+    | { kind: "nothing" }
+    | { kind: "error"; msg: string }
+    | {
+        kind: "done";
+        boundaryGJ: Feature<Polygon>;
+        osmInput: string;
+        network: JsStreetNetwork;
+      };
+
+  let imported: Imported = { kind: "nothing" };
 
   let settings: Settings;
   let overpassSelector;
@@ -58,6 +74,9 @@
         osmInput: e.detail.osmXML,
         network,
       };
+
+      networkStore.set(imported.network);
+      boundaryGjStore.set(imported.boundaryGJ);
     } catch (err) {
       imported = { kind: "error", msg: err.toString() };
     }
