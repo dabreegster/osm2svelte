@@ -6,6 +6,7 @@
   import "@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css";
   import type { OsmSelection } from "./types";
 
+  // TODO Breaks unless map is loaded. svelte-maplibre uses a different pattern here.
   export let map: Map;
 
   const dispatch = createEventDispatcher<{
@@ -35,21 +36,7 @@
     map.on("draw.create", async (e) => {
       let boundaryGj = e.features[0];
       drawControls.deleteAll();
-
-      try {
-        // TODO We could plumb through events for "loading" if the UI wants to
-        // be more detailed
-        let resp = await fetch(overpassQueryForPolygon(boundaryGj));
-        let osmXML = await resp.text();
-
-        dispatch("load", {
-          testCase: undefined,
-          boundaryGj,
-          osmXML,
-        });
-      } catch (err) {
-        dispatch("error", err.toString());
-      }
+      await importPolygon(boundaryGj);
     });
   });
 
@@ -57,9 +44,26 @@
     map.removeControl(drawControls as unknown as IControl);
   });
 
+  async function importPolygon(boundaryGj: Feature<Polygon>) {
+    try {
+      // TODO We could plumb through events for "loading" if the UI wants to be
+      // more detailed
+      let resp = await fetch(overpassQueryForPolygon(boundaryGj));
+      let osmXML = await resp.text();
+
+      dispatch("load", {
+        testCase: undefined,
+        boundaryGj,
+        osmXML,
+      });
+    } catch (err) {
+      dispatch("error", err.toString());
+    }
+  }
+
+  // Construct a query to extract all XML data in the polygon clip. See
+  // https://wiki.openstreetmap.org/wiki/Overpass_API/Overpass_QL
   function overpassQueryForPolygon(feature: Feature<Polygon>): string {
-    // Construct a query to extract all XML data in the polygon clip. See
-    // https://wiki.openstreetmap.org/wiki/Overpass_API/Overpass_QL
     let filter = 'poly:"';
     for (let [lng, lat] of feature.geometry.coordinates[0]) {
       filter += `${lat} ${lng} `;
@@ -68,7 +72,42 @@
     let query = `(nwr(${filter}); node(w)->.x; <;); out meta;`;
     return `https://overpass-api.de/api/interpreter?data=${query}`;
   }
+
+  function latLngToGeojson(pt): [number, number] {
+    return [pt.lng, pt.lat];
+  }
+
+  // Turn the current viewport into a rectangular boundary
+  function mapBoundsToGeojson(map: Map): Feature<Polygon> {
+    let b = map.getBounds();
+    return {
+      type: "Feature",
+      properties: {},
+      geometry: {
+        coordinates: [
+          [
+            latLngToGeojson(b.getSouthWest()),
+            latLngToGeojson(b.getNorthWest()),
+            latLngToGeojson(b.getNorthEast()),
+            latLngToGeojson(b.getSouthEast()),
+            latLngToGeojson(b.getSouthWest()),
+          ],
+        ],
+        type: "Polygon",
+      },
+    };
+  }
+
+  async function importCurrentView() {
+    if (map.getZoom() < 15) {
+      dispatch("error", "Zoom in more to import");
+      return;
+    }
+    await importPolygon(mapBoundsToGeojson(map));
+  }
 </script>
+
+<button type="button" on:click={importCurrentView}>Import current view</button>
 
 <style>
   /* TODO: These really do belong here, but getting a warning */
