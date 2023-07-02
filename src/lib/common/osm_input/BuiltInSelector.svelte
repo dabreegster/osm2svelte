@@ -45,12 +45,9 @@
   }
 </script>
 
-<div>
-  Test case:
-  <select bind:value={choice} on:change={reload}>
-    <option value="none">None</option>
-    {#each list as x}
-      <option value={x}>{x}</option>
-    {/each}
-  </select>
-</div>
+<select bind:value={choice} on:change={reload}>
+  <option value="none">None</option>
+  {#each list as x}
+    <option value={x}>{x}</option>
+  {/each}
+</select>

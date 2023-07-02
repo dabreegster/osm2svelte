@@ -40,6 +40,7 @@
   <div slot="left">
     <h1>osm2streets Street Explorer</h1>
     <AppSwitcher />
+    <hr />
 
     <ImportControls bind:imported />
   </div>

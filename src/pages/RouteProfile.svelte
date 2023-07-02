@@ -32,8 +32,10 @@
   <div slot="left">
     <h1>osm2streets route profile tool</h1>
     <AppSwitcher />
+    <hr />
 
     <ImportControls bind:imported />
+    <hr />
 
     {#if $network}
       <RouteProfileMode />

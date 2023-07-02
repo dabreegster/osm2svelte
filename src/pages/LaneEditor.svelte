@@ -37,8 +37,10 @@
   <div slot="left">
     <h1>osm2streets lane editor</h1>
     <AppSwitcher />
+    <hr />
 
     <ImportControls bind:imported />
+    <hr />
 
     <EditWayControls />
 

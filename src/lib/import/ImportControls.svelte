@@ -71,18 +71,26 @@
   on:resetToNone={resetToNone}
   on:error={error}
 />
-<BuiltInSelector on:load={load} on:resetToNone={resetToNone} on:error={error} />
+<fieldset>
+  <legend>
+    <BuiltInSelector
+      on:load={load}
+      on:resetToNone={resetToNone}
+      on:error={error}
+    />
+  </legend>
 
-{#if imported.kind === "nothing"}
-  <p>Use the polygon tool to select an area to import</p>
-{:else if imported.kind === "error"}
-  <p>Error: {imported.msg}</p>
-{:else if imported.kind === "done"}
-  <div>
-    <button type="button" on:click={update}>Update OSM data</button>
-    <button type="button" on:click={download}>Download osm.xml</button>
-    <button type="button" on:click={resetView}>Reset view</button>
-  </div>
-{/if}
+  {#if imported.kind === "nothing"}
+    <p>Use the polygon tool to select an area to import</p>
+  {:else if imported.kind === "error"}
+    <p>Error: {imported.msg}</p>
+  {:else if imported.kind === "done"}
+    <div>
+      <button type="button" on:click={update}>Update OSM data</button>
+      <button type="button" on:click={download}>Download osm.xml</button>
+      <button type="button" on:click={resetView}>Reset view</button>
+    </div>
+  {/if}
+</fieldset>
 
 <Osm2streetsSettings bind:settings />

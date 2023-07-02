@@ -33,8 +33,10 @@
   <div slot="left">
     <h1>osm2streets road width tool</h1>
     <AppSwitcher />
+    <hr />
 
     <ImportControls bind:imported />
+    <hr />
 
     {#if $map}
       <ThickenRoadsMode />
