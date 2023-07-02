@@ -18,7 +18,6 @@
   }
 
   function load(e: CustomEvent<OsmSelection>) {
-    window.x = e;
     console.log(`got osm ${e.detail.osmXML.length}`);
   }
 
@@ -27,7 +26,7 @@
   }
 
   function error(e: CustomEvent<string>) {
-    window.alert(`Something broke: ${e.detail.error}`);
+    window.alert(`Something broke: ${e.detail}`);
   }
 </script>
 

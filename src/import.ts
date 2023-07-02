@@ -16,13 +16,7 @@ import type { LayerSpec } from "./types";
 // TODO Maybe this is what's in the store? Right now, derived stuff is in there
 export type Imported =
   | { kind: "nothing" }
-  | { kind: "LoadingOverpass"; polygon: Polygon }
   | { kind: "error"; msg: string }
-  | {
-      kind: "osm2streets import";
-      boundaryPolygon: Polygon;
-      osmInput: string;
-    }
   | {
       kind: "done";
       boundaryGJ: Feature<Polygon>;
@@ -124,47 +118,4 @@ export function interactiveLayers(network: JsStreetNetwork): LayerSpec[] {
       gj: emptyGeojson(),
     },
   ];
-}
-
-export async function importPolygon(
-  e: CustomEvent<Polygon>,
-  imported: Imported,
-  settings: Settings
-) {
-  let polygon = e.detail;
-  imported = { kind: "LoadingOverpass", polygon };
-
-  try {
-    let resp = await fetch(overpassQueryForPolygon(polygon));
-    let osmInput = await resp.text();
-    imported = {
-      kind: "osm2streets import",
-      // TODO Maybe we don't need to plumb this here
-      boundaryPolygon: polygon,
-      osmInput,
-    };
-
-    let [network, boundaryGJ] = importOSM(polygon, osmInput, settings);
-    imported = {
-      kind: "done",
-      boundaryGJ,
-      network,
-      osmInput,
-    };
-  } catch (err) {
-    imported = { kind: "error", msg: err.toString() };
-  }
-}
-
-function importOSM(
-  boundaryPolygon: Polygon,
-  osmXML: string,
-  settings: Settings
-): [JsStreetNetwork, Feature<Polygon>] {
-  let gj: Feature<Polygon> = {
-    type: "Feature",
-    geometry: boundaryPolygon,
-    properties: {},
-  };
-  return [new JsStreetNetwork(osmXML, JSON.stringify(gj), settings), gj];
 }

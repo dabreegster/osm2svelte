@@ -35,6 +35,7 @@
         let osmXML = await resp.text();
 
         dispatch("load", {
+          testCase: undefined,
           boundaryGj,
           osmXML,
         });
