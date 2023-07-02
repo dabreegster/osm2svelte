@@ -2,7 +2,7 @@
   import type { GeoJSON } from "geojson";
   import { downloadGeneratedFile } from "../../utils";
 
-  export let gj: GeoJSON;
+  export let gj: GeoJSON | undefined;
   export let name: string;
   export let show: boolean;
   export let downloadable = true;
@@ -19,6 +19,6 @@
   </label>
 
   {#if downloadable}
-    <button type="button" on:click={download}>Download</button>
+    <button type="button" on:click={download} disabled={!gj}>Download</button>
   {/if}
 </div>

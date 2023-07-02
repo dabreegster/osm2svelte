@@ -44,5 +44,5 @@
     bind:clickedFeature={$clickedIntersection}
     {show}
   />
-  <LayerControls {gj} name="Intersection polygons" bind:show />
 {/if}
+<LayerControls {gj} name="Intersection polygons" bind:show />

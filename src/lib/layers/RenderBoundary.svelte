@@ -25,5 +25,5 @@
 
 {#if gj}
   <Layer source="boundary" {gj} {layerStyle} {show} />
-  <LayerControls {gj} name="Boundary" bind:show />
 {/if}
+<LayerControls {gj} name="Boundary" bind:show />

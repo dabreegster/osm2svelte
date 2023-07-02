@@ -37,11 +37,9 @@
   }
 </script>
 
-{#if $network}
-  <div>
-    <label>
-      <input type="checkbox" bind:checked={show} />
-      Clockwise ordering of roads
-    </label>
-  </div>
-{/if}
+<div>
+  <label>
+    <input type="checkbox" bind:checked={show} />
+    Clockwise ordering of roads
+  </label>
+</div>

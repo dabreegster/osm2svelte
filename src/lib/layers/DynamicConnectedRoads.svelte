@@ -27,10 +27,10 @@
 
 {#if gj}
   <Layer source="connected-roads" {gj} {layerStyle} {show} />
-  <LayerControls
-    {gj}
-    name="Roads connected to intersection"
-    bind:show
-    downloadable={false}
-  />
 {/if}
+<LayerControls
+  {gj}
+  name="Roads connected to intersection"
+  bind:show
+  downloadable={false}
+/>

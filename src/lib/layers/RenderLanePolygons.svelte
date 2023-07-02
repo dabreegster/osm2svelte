@@ -49,5 +49,5 @@
     bind:hoveredFeature={$hoveredLane}
     {show}
   />
-  <LayerControls {gj} name="Lane polygons" bind:show />
 {/if}
+<LayerControls {gj} name="Lane polygons" bind:show />
