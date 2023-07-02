@@ -44,7 +44,8 @@
     map.removeControl(drawControls as unknown as IControl);
   });
 
-  async function importPolygon(boundaryGj: Feature<Polygon>) {
+  // Also exported for callers to trigger manually
+  export async function importPolygon(boundaryGj: Feature<Polygon>) {
     try {
       // TODO We could plumb through events for "loading" if the UI wants to be
       // more detailed

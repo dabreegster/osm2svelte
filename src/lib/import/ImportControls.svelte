@@ -12,12 +12,19 @@
   export let imported: Imported;
 
   let settings: Settings;
+  let overpassSelector;
 
   function download() {
     // This type-check is always true; the button only appears sometimes
     if (imported.kind === "done") {
       // TODO If we have a name for the imported area, use that
       downloadGeneratedFile("osm.xml", imported.osmInput);
+    }
+  }
+
+  async function update() {
+    if (imported.kind === "done") {
+      overpassSelector.importPolygon(imported.boundaryGJ);
     }
   }
 
@@ -58,6 +65,7 @@
 </script>
 
 <OverpassSelector
+  bind:this={overpassSelector}
   map={$map}
   on:load={load}
   on:resetToNone={resetToNone}
@@ -71,6 +79,7 @@
   <p>Error: {imported.msg}</p>
 {:else if imported.kind === "done"}
   <div>
+    <button type="button" on:click={update}>Update OSM data</button>
     <button type="button" on:click={download}>Download osm.xml</button>
     <button type="button" on:click={resetView}>Reset view</button>
   </div>
