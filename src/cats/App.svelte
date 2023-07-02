@@ -2,6 +2,9 @@
   import type { Map } from "maplibre-gl";
   import { MapLibre } from "svelte-maplibre";
   import Layout from "../lib/common/Layout.svelte";
+  import BuiltInSelector from "../lib/common/osm_input/BuiltInSelector.svelte";
+  import OverpassSelector from "../lib/common/osm_input/OverpassSelector.svelte";
+  import type { OsmSelection } from "../lib/common/osm_input/types";
 
   let map: Map;
 
@@ -13,11 +16,37 @@
       }
     }
   }
+
+  function load(e: CustomEvent<OsmSelection>) {
+    window.x = e;
+    console.log(`got osm ${e.detail.osmXML.length}`);
+  }
+
+  function resetToNone(e: CustomEvent<void>) {
+    console.log(`reset to nil`);
+  }
+
+  function error(e: CustomEvent<string>) {
+    window.alert(`Something broke: ${e.detail.error}`);
+  }
 </script>
 
 <Layout>
   <div slot="left">
     <h1>Maps for Cats</h1>
+    <BuiltInSelector
+      on:load={load}
+      on:resetToNone={resetToNone}
+      on:error={error}
+    />
+    {#if map}
+      <OverpassSelector
+        {map}
+        on:load={load}
+        on:resetToNone={resetToNone}
+        on:error={error}
+      />
+    {/if}
   </div>
   <div slot="main" style="position:relative; width: 100%; height: 100vh;">
     <MapLibre
