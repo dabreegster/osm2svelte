@@ -5,6 +5,7 @@
   import { bbox } from "../../style";
   import { downloadGeneratedFile } from "../../utils";
   import BuiltInSelector from "../common/osm_input/BuiltInSelector.svelte";
+  import OverpassSelector from "../common/osm_input/OverpassSelector.svelte";
   import type { OsmSelection } from "../common/osm_input/types";
   import Osm2streetsSettings from "./Osm2streetsSettings.svelte";
 
@@ -56,6 +57,12 @@
   }
 </script>
 
+<OverpassSelector
+  map={$map}
+  on:load={load}
+  on:resetToNone={resetToNone}
+  on:error={error}
+/>
 <BuiltInSelector on:load={load} on:resetToNone={resetToNone} on:error={error} />
 
 {#if imported.kind === "nothing"}
