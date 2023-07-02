@@ -8,7 +8,6 @@
   import { onDestroy, onMount } from "svelte";
   import { map } from "../../store";
   import { getLayerZorder } from "../../style";
-  import { downloadGeneratedFile } from "../../utils";
 
   // Input
   export let source: string;
@@ -16,6 +15,7 @@
   export let gj: GeoJSON;
   // TODO LayerSpecification doesn't work
   export let layerStyle: any;
+  // TODO Rethink or remove
   export let downloadable = false;
   // Make objects hoverable and clickable. The caller should do something with
   // ["feature-state", "hover"] and ["feature-state", "clicked"]
@@ -151,13 +151,4 @@
       $map!.setFeatureState({ source, id: hoverId }, { hover: false });
     }
   }
-
-  function download() {
-    // TODO Plumb down a name/label for this layer?
-    downloadGeneratedFile("layer.geojson", JSON.stringify(gj));
-  }
 </script>
-
-{#if downloadable}
-  <button type="button" on:click={download}>Download</button>
-{/if}

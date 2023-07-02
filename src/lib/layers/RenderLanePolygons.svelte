@@ -1,13 +1,15 @@
 <script lang="ts">
   import type { GeoJSON } from "geojson";
-  import { clickedLane, hoveredLane } from "../../store";
+  import { clickedLane, hoveredLane, network } from "../../store";
   import { caseHelper, featureStateToggle } from "../../style";
   import Layer from "../common/Layer.svelte";
+  import LayerControls from "../common/LayerControls.svelte";
 
-  // Input
-  export let gj: GeoJSON;
-  export let show: boolean;
-  export let downloadable: boolean;
+  let gj: GeoJSON | undefined = undefined;
+  let show = true;
+  $: if ($network) {
+    gj = JSON.parse($network.toLanePolygonsGeojson());
+  }
 
   let layerStyle = {
     type: "fill",
@@ -37,13 +39,15 @@
   };
 </script>
 
-<Layer
-  source="lane-polygons"
-  {gj}
-  {layerStyle}
-  interactive
-  bind:clickedFeature={$clickedLane}
-  bind:hoveredFeature={$hoveredLane}
-  bind:show
-  {downloadable}
-/>
+{#if gj}
+  <Layer
+    source="lane-polygons"
+    {gj}
+    {layerStyle}
+    interactive
+    bind:clickedFeature={$clickedLane}
+    bind:hoveredFeature={$hoveredLane}
+    {show}
+  />
+  <LayerControls {gj} name="Lane polygons" bind:show />
+{/if}

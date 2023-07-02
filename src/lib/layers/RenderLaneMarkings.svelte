@@ -1,11 +1,15 @@
 <script lang="ts">
   import type { GeoJSON } from "geojson";
+  import { network } from "../../store";
   import { caseHelper } from "../../style";
   import Layer from "../common/Layer.svelte";
+  import LayerControls from "../common/LayerControls.svelte";
 
-  export let gj: GeoJSON;
-  export let show: boolean;
-  export let downloadable: boolean;
+  let gj: GeoJSON | undefined = undefined;
+  let show = true;
+  $: if ($network) {
+    gj = JSON.parse($network.toLaneMarkingsGeojson());
+  }
 
   let layerStyle = {
     type: "fill",
@@ -28,4 +32,7 @@
   };
 </script>
 
-<Layer source="lane-markings" {gj} {layerStyle} bind:show {downloadable} />
+{#if gj}
+  <Layer source="lane-markings" {gj} {layerStyle} {show} />
+  <LayerControls {gj} name="Lane markings " bind:show />
+{/if}

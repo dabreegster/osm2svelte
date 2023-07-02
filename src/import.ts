@@ -5,11 +5,6 @@ import { v4 as uuidv4 } from "uuid";
 import DynamicConnectedRoads from "./lib/layers/DynamicConnectedRoads.svelte";
 import DynamicMovementArrows from "./lib/layers/DynamicMovementArrows.svelte";
 import DynamicRoadOrdering from "./lib/layers/DynamicRoadOrdering.svelte";
-import RenderBoundary from "./lib/layers/RenderBoundary.svelte";
-import RenderIntersectionMarkings from "./lib/layers/RenderIntersectionMarkings.svelte";
-import RenderIntersectionPolygons from "./lib/layers/RenderIntersectionPolygons.svelte";
-import RenderLaneMarkings from "./lib/layers/RenderLaneMarkings.svelte";
-import RenderLanePolygons from "./lib/layers/RenderLanePolygons.svelte";
 import { emptyGeojson } from "./style";
 import type { LayerSpec } from "./types";
 
@@ -32,50 +27,8 @@ export interface Settings {
   osm2lanes: boolean;
 }
 
-export function mainLayers(
-  network: JsStreetNetwork,
-  boundaryGJ: Feature<Polygon>
-): LayerSpec[] {
-  return [
-    {
-      uuid: uuidv4(),
-      label: "Boundary",
-      show: true,
-      content: RenderBoundary,
-      gj: boundaryGJ,
-    },
-    {
-      uuid: uuidv4(),
-      label: "Intersection polygons",
-      show: true,
-      content: RenderIntersectionPolygons,
-      gj: JSON.parse(network.toGeojsonPlain()),
-    },
-    {
-      uuid: uuidv4(),
-      label: "Intersection markings",
-      show: true,
-      content: RenderIntersectionMarkings,
-      gj: JSON.parse(network.toIntersectionMarkingsGeojson()),
-    },
-    {
-      uuid: uuidv4(),
-      label: "Lane polygons",
-      show: true,
-      content: RenderLanePolygons,
-      gj: JSON.parse(network.toLanePolygonsGeojson()),
-    },
-    {
-      uuid: uuidv4(),
-      label: "Lane markings",
-      show: true,
-      content: RenderLaneMarkings,
-      gj: JSON.parse(network.toLaneMarkingsGeojson()),
-    },
-  ];
-
-  // TODO Some bizarre syntax error
-  /*debugLayers = debugSteps.map((step) => {
+// TODO Some bizarre syntax error
+/*debugLayers = debugSteps.map((step) => {
           uuid: uuidv4(),
           label: `${step.getLabel()}: Intersection polygons`,
           show: true,
@@ -92,7 +45,6 @@ export function mainLayers(
           gj: JSON.parse(step.getNetwork().toGeojsonPlain()),
         });
       }*/
-}
 
 export function interactiveLayers(network: JsStreetNetwork): LayerSpec[] {
   return [

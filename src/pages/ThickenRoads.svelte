@@ -45,6 +45,7 @@
   <div slot="main">
     <Map>
       <LayerGroup {layers}>
+        <MainLayers />
         <VectorTileControls />
       </LayerGroup>
     </Map>

@@ -1,13 +1,14 @@
 <script lang="ts">
   import init from "osm2streets-js";
   import { onMount } from "svelte";
-  import { interactiveLayers, mainLayers, type Imported } from "../import";
+  import { interactiveLayers, type Imported } from "../import";
   import AppSwitcher from "../lib/common/AppSwitcher.svelte";
   import LayerGroup from "../lib/common/LayerGroup.svelte";
   import Layout from "../lib/common/Layout.svelte";
   import Map from "../lib/common/Map.svelte";
   import SequentialLayerGroup from "../lib/common/SequentialLayerGroup.svelte";
   import ImportControls from "../lib/import/ImportControls.svelte";
+  import MainLayers from "../lib/layers/MainLayers.svelte";
   import Popups from "../lib/street_explorer/Popups.svelte";
   import { boundaryGJ, network } from "../store";
   import type { LayerSpec } from "../types";
@@ -29,9 +30,7 @@
 
   $: {
     if ($network && $boundaryGJ) {
-      layers = mainLayers($network, $boundaryGJ).concat(
-        interactiveLayers($network)
-      );
+      layers = interactiveLayers($network);
     }
   }
 </script>
@@ -47,6 +46,7 @@
   <div slot="main">
     <Map>
       <LayerGroup {layers}>
+        <MainLayers />
         <SequentialLayerGroup layers={debugLayers} />
       </LayerGroup>
       <Popups />

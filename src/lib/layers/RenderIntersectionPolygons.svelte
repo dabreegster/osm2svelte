@@ -1,12 +1,19 @@
 <script lang="ts">
   import type { GeoJSON } from "geojson";
-  import { clickedIntersection, hoveredIntersection } from "../../store";
+  import {
+    clickedIntersection,
+    hoveredIntersection,
+    network,
+  } from "../../store";
   import { caseHelper, featureStateToggle } from "../../style";
   import Layer from "../common/Layer.svelte";
+  import LayerControls from "../common/LayerControls.svelte";
 
-  export let gj: GeoJSON;
-  export let show: boolean;
-  export let downloadable: boolean;
+  let gj: GeoJSON | undefined = undefined;
+  let show = true;
+  $: if ($network) {
+    gj = JSON.parse($network.toGeojsonPlain());
+  }
 
   let layerStyle = {
     type: "fill",
@@ -27,13 +34,15 @@
   };
 </script>
 
-<Layer
-  source="intersection-polygons"
-  {gj}
-  {layerStyle}
-  interactive
-  bind:hoveredFeature={$hoveredIntersection}
-  bind:clickedFeature={$clickedIntersection}
-  bind:show
-  {downloadable}
-/>
+{#if gj}
+  <Layer
+    source="intersection-polygons"
+    {gj}
+    {layerStyle}
+    interactive
+    bind:hoveredFeature={$hoveredIntersection}
+    bind:clickedFeature={$clickedIntersection}
+    {show}
+  />
+  <LayerControls {gj} name="Intersection polygons" bind:show />
+{/if}
