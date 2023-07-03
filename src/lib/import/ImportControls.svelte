@@ -29,7 +29,7 @@
     | {
         kind: "done";
         boundaryGj: Feature<Polygon>;
-        osmInput: string;
+        osmXml: string;
         network: JsStreetNetwork;
       };
 
@@ -38,15 +38,43 @@
   let settings: Settings;
   let overpassSelector;
 
+  $: {
+    if (imported.kind == "done" && settings) {
+      console.log("Settings changed, re-importing");
+      importNetwork(imported.osmXml, imported.boundaryGj);
+    }
+  }
+
+  function importNetwork(osmXml: string, boundaryGj: Feature<Polygon>) {
+    try {
+      let network = new JsStreetNetwork(
+        osmXml,
+        JSON.stringify(boundaryGj),
+        settings
+      );
+      imported = {
+        kind: "done",
+        boundaryGj,
+        osmXml,
+        network,
+      };
+
+      networkStore.set(imported.network);
+      boundaryGjStore.set(imported.boundaryGj);
+    } catch (err) {
+      imported = { kind: "error", msg: err.toString() };
+    }
+  }
+
   function download() {
     // This type-check is always true; the button only appears sometimes
     if (imported.kind === "done") {
       // TODO If we have a name for the imported area, use that
-      downloadGeneratedFile("osm.xml", imported.osmInput);
+      downloadGeneratedFile("osm.xml", imported.osmXml);
     }
   }
 
-  async function update() {
+  function update() {
     if (imported.kind === "done") {
       overpassSelector.importPolygon(imported.boundaryGj);
     }
@@ -62,24 +90,7 @@
   }
 
   function load(e: CustomEvent<OsmSelection>) {
-    try {
-      let network = new JsStreetNetwork(
-        e.detail.osmXml,
-        JSON.stringify(e.detail.boundaryGj),
-        settings
-      );
-      imported = {
-        kind: "done",
-        boundaryGj: e.detail.boundaryGj,
-        osmInput: e.detail.osmXml,
-        network,
-      };
-
-      networkStore.set(imported.network);
-      boundaryGjStore.set(imported.boundaryGj);
-    } catch (err) {
-      imported = { kind: "error", msg: err.toString() };
-    }
+    importNetwork(e.detail.osmXml, e.detail.boundaryGj);
   }
 
   function resetToNone(e: CustomEvent<void>) {
