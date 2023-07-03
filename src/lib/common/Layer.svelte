@@ -31,7 +31,6 @@
 
   onMount(() => {
     fixIDs();
-
     $map!.addSource(source, {
       type: "geojson",
       data: gj,
@@ -87,11 +86,23 @@
   }
 
   $: {
-    // TODO This might happen spuriously?
     let sourceObj = $map.getSource(source);
     if (sourceObj) {
       console.log(`GeoJSON data for ${source} changed, updating`);
+      fixIDs();
       (sourceObj as GeoJSONSource).setData(gj);
+
+      hoveredFeature = null;
+      hoverId = undefined;
+      clickedFeature = null;
+      clickedId = undefined;
+    }
+  }
+
+  // Show/hide
+  $: {
+    if ($map!.getLayer(layer)) {
+      $map!.setLayoutProperty(layer, "visibility", show ? "visible" : "none");
     }
   }
 
@@ -134,13 +145,6 @@
     } else {
       clickedFeature = null;
       clickedId = undefined;
-    }
-  }
-
-  // Show/hide
-  $: {
-    if ($map!.getLayer(layer)) {
-      $map!.setLayoutProperty(layer, "visibility", show ? "visible" : "none");
     }
   }
 
