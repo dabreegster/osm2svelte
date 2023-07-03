@@ -2,7 +2,7 @@
   import MapboxDraw from "@mapbox/mapbox-gl-draw";
   import type { Feature, Polygon } from "geojson";
   import type { IControl, Map } from "maplibre-gl";
-  import { createEventDispatcher, onDestroy, onMount } from "svelte";
+  import { createEventDispatcher, onDestroy } from "svelte";
   import "@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css";
   import type { OsmSelection } from "./types";
 
@@ -15,9 +15,9 @@
     error: string;
   }>();
 
-  let drawControls: MapboxDraw;
+  let drawControls: MapboxDraw | null = null;
 
-  onMount(async () => {
+  $: if (map && !drawControls) {
     // TODO Hack from https://github.com/maplibre/maplibre-gl-js/issues/2601.
     // Remove dependency on this entirely.
     MapboxDraw.constants.classes.CONTROL_BASE = "maplibregl-ctrl";
@@ -38,10 +38,12 @@
       drawControls.deleteAll();
       await importPolygon(boundaryGj);
     });
-  });
+  }
 
   onDestroy(() => {
-    map.removeControl(drawControls as unknown as IControl);
+    if (map?.loaded() && drawControls) {
+      map.removeControl(drawControls as unknown as IControl);
+    }
   });
 
   // Also exported for callers to trigger manually
