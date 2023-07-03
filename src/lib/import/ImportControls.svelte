@@ -2,7 +2,7 @@
   import type { Feature, Polygon } from "geojson";
   import { JsStreetNetwork } from "osm2streets-js";
   import {
-    boundaryGJ as boundaryGjStore,
+    boundaryGj as boundaryGjStore,
     map,
     network as networkStore,
   } from "../../store";
@@ -28,7 +28,7 @@
     | { kind: "error"; msg: string }
     | {
         kind: "done";
-        boundaryGJ: Feature<Polygon>;
+        boundaryGj: Feature<Polygon>;
         osmInput: string;
         network: JsStreetNetwork;
       };
@@ -48,13 +48,13 @@
 
   async function update() {
     if (imported.kind === "done") {
-      overpassSelector.importPolygon(imported.boundaryGJ);
+      overpassSelector.importPolygon(imported.boundaryGj);
     }
   }
 
   function resetView() {
     if (imported.kind === "done") {
-      $map!.fitBounds(bbox(imported.boundaryGJ), {
+      $map!.fitBounds(bbox(imported.boundaryGj), {
         animate: false,
         padding: 10,
       });
@@ -64,19 +64,19 @@
   function load(e: CustomEvent<OsmSelection>) {
     try {
       let network = new JsStreetNetwork(
-        e.detail.osmXML,
+        e.detail.osmXml,
         JSON.stringify(e.detail.boundaryGj),
         settings
       );
       imported = {
         kind: "done",
-        boundaryGJ: e.detail.boundaryGj,
-        osmInput: e.detail.osmXML,
+        boundaryGj: e.detail.boundaryGj,
+        osmInput: e.detail.osmXml,
         network,
       };
 
       networkStore.set(imported.network);
-      boundaryGjStore.set(imported.boundaryGJ);
+      boundaryGjStore.set(imported.boundaryGj);
     } catch (err) {
       imported = { kind: "error", msg: err.toString() };
     }

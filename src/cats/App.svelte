@@ -18,7 +18,7 @@
   }
 
   function load(e: CustomEvent<OsmSelection>) {
-    console.log(`got osm ${e.detail.osmXML.length}`);
+    console.log(`got osm ${e.detail.osmXml.length}`);
   }
 
   function resetToNone(e: CustomEvent<void>) {

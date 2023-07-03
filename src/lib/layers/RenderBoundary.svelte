@@ -1,14 +1,14 @@
 <script lang="ts">
   import type { GeoJSON } from "geojson";
-  import { boundaryGJ, map } from "../../store";
+  import { boundaryGj, map } from "../../store";
   import { bbox } from "../../style";
   import Layer from "../common/Layer.svelte";
   import LayerControls from "../common/LayerControls.svelte";
 
   let gj: GeoJSON | undefined = undefined;
   let show = true;
-  $: if ($boundaryGJ) {
-    gj = structuredClone($boundaryGJ);
+  $: if ($boundaryGj) {
+    gj = structuredClone($boundaryGj);
 
     // Initially zoom to fit the imported boundary
     $map.fitBounds(bbox(gj), { animate: false, padding: 10 });

@@ -52,12 +52,12 @@
       // TODO We could plumb through events for "loading" if the UI wants to be
       // more detailed
       let resp = await fetch(overpassQueryForPolygon(boundaryGj));
-      let osmXML = await resp.text();
+      let osmXml = await resp.text();
 
       dispatch("load", {
         testCase: undefined,
         boundaryGj,
-        osmXML,
+        osmXml,
       });
     } catch (err) {
       dispatch("error", err.toString());

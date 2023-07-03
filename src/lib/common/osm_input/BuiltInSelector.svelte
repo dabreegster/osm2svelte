@@ -32,12 +32,12 @@
       let boundaryGj = polygon.features[0];
 
       let osmResp = await fetch(`/osm2svelte/tests/${choice}/input.osm`);
-      let osmXML = await osmResp.text();
+      let osmXml = await osmResp.text();
 
       dispatch("load", {
         testCase: choice,
         boundaryGj,
-        osmXML,
+        osmXml,
       });
     } catch (err) {
       dispatch("error", err.toString());

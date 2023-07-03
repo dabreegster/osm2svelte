@@ -6,5 +6,5 @@ export interface OsmSelection {
   // Undefined for boundaries from Overpass
   testCase: string | undefined;
   boundaryGj: Feature<Polygon>;
-  osmXML: string;
+  osmXml: string;
 }
