@@ -8,10 +8,9 @@
   // TODO Is this layering and event plumbing nice?
   let allEdits: AllEdits;
 
-  let way: bigint | null;
-  let gj: GeoJSON | null;
+  let way: bigint | null = null;
+  let gj: GeoJSON | null = null;
 
-  // TODO Maybe move to another component
   let layerStyle = {
     type: "fill",
     paint: {
@@ -33,14 +32,12 @@
         way = BigInt($clickedLane.properties.osm_way_ids[0]);
         gj = JSON.parse($network!.getGeometryForWay(way));
       }
-    } else {
-      way = null;
-      gj = null;
     }
   }
 </script>
 
 <AllEdits bind:this={allEdits} />
+<hr />
 
 {#if way}
   <a href="http://openstreetmap.org/way/{way}" target="_blank">Way {way}</a>

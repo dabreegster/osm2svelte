@@ -23,6 +23,7 @@
     <hr />
 
     <EditWayControls />
+    <hr />
 
     <div>
       <strong>Warnings:</strong>

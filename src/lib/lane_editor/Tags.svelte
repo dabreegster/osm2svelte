@@ -2,7 +2,9 @@
   import { createEventDispatcher } from "svelte";
   import { network } from "../../store";
 
-  let dispatch = createEventDispatcher();
+  const dispatch = createEventDispatcher<{
+    editedWay: bigint;
+  }>();
 
   // Immutable; use https://svelte.dev/tutorial/key-blocks around this entire
   // compoenent to change

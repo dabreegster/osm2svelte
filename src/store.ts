@@ -17,7 +17,6 @@ export const clickedIntersection: Writable<Feature<Polygon> | null> =
 
 // TODO Need to unsubscribe
 // Unset when the network changes
-// TODO It depends how the network changes, though. Editing a road is fine, but changing maps isn't. Maybe have a "current test" identity and listen to that instead
 network.subscribe((value) => {
   clickedLane.set(null);
   hoveredLane.set(null);
