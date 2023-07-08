@@ -8,7 +8,7 @@
     error: string;
   }>();
 
-  let choice = "none";
+  export let testCase = "none";
   let list: string[] = [];
 
   onMount(async () => {
@@ -18,24 +18,24 @@
   });
 
   async function reload() {
-    if (choice == "none") {
+    if (testCase == "none") {
       dispatch("resetToNone");
       return;
     }
 
     try {
       let polygonResp = await fetch(
-        `/osm2svelte/tests/${choice}/boundary.json`
+        `/osm2svelte/tests/${testCase}/boundary.json`
       );
       let polygon = await polygonResp.json();
       // Test input is always a FeatureCollection with one object. For uniformity...
       let boundaryGj = polygon.features[0];
 
-      let osmResp = await fetch(`/osm2svelte/tests/${choice}/input.osm`);
+      let osmResp = await fetch(`/osm2svelte/tests/${testCase}/input.osm`);
       let osmXml = await osmResp.text();
 
       dispatch("load", {
-        testCase: choice,
+        testCase,
         boundaryGj,
         osmXml,
       });
@@ -45,7 +45,7 @@
   }
 </script>
 
-<select bind:value={choice} on:change={reload}>
+<select bind:value={testCase} on:change={reload}>
   <option value="none">None</option>
   {#each list as x}
     <option value={x}>{x}</option>

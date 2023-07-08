@@ -37,6 +37,7 @@
 
   let settings: Settings;
   let overpassSelector;
+  let testCase = "none";
 
   $: {
     if (imported.kind == "done" && settings) {
@@ -91,6 +92,7 @@
 
   function load(e: CustomEvent<OsmSelection>) {
     importNetwork(e.detail.osmXml, e.detail.boundaryGj);
+    testCase = e.detail.testCase ?? "none";
   }
 
   function resetToNone(e: CustomEvent<void>) {
@@ -114,6 +116,7 @@
 <fieldset>
   <legend>
     <BuiltInSelector
+      bind:testCase
       on:load={load}
       on:resetToNone={resetToNone}
       on:error={error}
