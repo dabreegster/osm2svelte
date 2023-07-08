@@ -3,6 +3,7 @@
   import type { OsmSelection } from "./types";
 
   const dispatch = createEventDispatcher<{
+    loading: string;
     load: OsmSelection;
     resetToNone: void;
     error: string;
@@ -29,6 +30,7 @@
     }
 
     try {
+      dispatch("loading", "Loading built-in boundary and OSM XML");
       let polygonResp = await fetch(
         `/osm2svelte/tests/${testCase}/boundary.json`
       );

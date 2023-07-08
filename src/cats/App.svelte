@@ -7,6 +7,7 @@
   import type { OsmSelection } from "../lib/common/osm_input/types";
 
   let map: Map;
+  let testCase = "none";
 
   // Hide basemap roads and some other features
   function onLoad() {
@@ -34,6 +35,7 @@
   <div slot="left">
     <h1>Maps for Cats</h1>
     <BuiltInSelector
+      bind:testCase
       on:load={load}
       on:resetToNone={resetToNone}
       on:error={error}

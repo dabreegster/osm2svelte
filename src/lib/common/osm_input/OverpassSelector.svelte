@@ -10,8 +10,8 @@
   export let map: Map;
 
   const dispatch = createEventDispatcher<{
+    loading: string;
     load: OsmSelection;
-    resetToNone: void;
     error: string;
   }>();
 
@@ -51,6 +51,7 @@
     try {
       // TODO We could plumb through events for "loading" if the UI wants to be
       // more detailed
+      dispatch("loading", "Loading from Overpass");
       let resp = await fetch(overpassQueryForPolygon(boundaryGj));
       let osmXml = await resp.text();
 

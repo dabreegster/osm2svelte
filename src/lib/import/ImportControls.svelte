@@ -25,6 +25,7 @@
 
   type Imported =
     | { kind: "nothing" }
+    | { kind: "loading"; msg: string }
     | { kind: "error"; msg: string }
     | {
         kind: "done";
@@ -62,6 +63,7 @@
 
   function importNetwork(osmXml: string, boundaryGj: Feature<Polygon>) {
     try {
+      imported = { kind: "loading", msg: "Running osm2streets" };
       let network = new JsStreetNetwork(
         osmXml,
         JSON.stringify(boundaryGj),
@@ -118,11 +120,16 @@
   function error(e: CustomEvent<string>) {
     imported = { kind: "error", msg: e.detail };
   }
+
+  function loading(e: CustomEvent<string>) {
+    imported = { kind: "loading", msg: e.detail };
+  }
 </script>
 
 <OverpassSelector
   bind:this={overpassSelector}
   map={$map}
+  on:loading={loading}
   on:load={load}
   on:resetToNone={resetToNone}
   on:error={error}
@@ -131,6 +138,7 @@
   <legend>
     <BuiltInSelector
       bind:testCase
+      on:loading={loading}
       on:load={load}
       on:resetToNone={resetToNone}
       on:error={error}
@@ -139,6 +147,8 @@
 
   {#if imported.kind === "nothing"}
     <p>Use the polygon tool to select an area to import</p>
+  {:else if imported.kind === "loading"}
+    <p>{imported.msg}</p>
   {:else if imported.kind === "error"}
     <p>Error: {imported.msg}</p>
   {:else if imported.kind === "done"}
