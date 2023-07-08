@@ -95,6 +95,8 @@
 
   function resetToNone(e: CustomEvent<void>) {
     imported = { kind: "nothing" };
+    networkStore.set(null);
+    boundaryGjStore.set(null);
   }
 
   function error(e: CustomEvent<string>) {

@@ -9,6 +9,8 @@
   let show = true;
   $: if ($network) {
     gj = JSON.parse($network.toIntersectionMarkingsGeojson());
+  } else {
+    gj = undefined;
   }
 
   let layerStyle = {

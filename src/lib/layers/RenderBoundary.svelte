@@ -12,6 +12,8 @@
 
     // Initially zoom to fit the imported boundary
     $map.fitBounds(bbox(gj), { animate: false, padding: 10 });
+  } else {
+    gj = undefined;
   }
 
   let layerStyle = {

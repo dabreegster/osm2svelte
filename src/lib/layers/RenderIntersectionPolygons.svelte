@@ -13,6 +13,8 @@
   let show = true;
   $: if ($network) {
     gj = JSON.parse($network.toGeojsonPlain());
+  } else {
+    gj = undefined;
   }
 
   let layerStyle = {
