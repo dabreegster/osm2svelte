@@ -25,9 +25,7 @@
   };
 </script>
 
-{#if gj}
-  <Layer source="connected-roads" {gj} {layerStyle} {show} />
-{/if}
+<Layer source="connected-roads" {gj} {layerStyle} {show} />
 <LayerControls
   {gj}
   name="Roads connected to intersection"

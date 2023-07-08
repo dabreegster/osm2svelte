@@ -7,12 +7,12 @@
   } from "maplibre-gl";
   import { onDestroy, onMount } from "svelte";
   import { map } from "../../store";
-  import { getLayerZorder } from "../../style";
+  import { emptyGeojson, getLayerZorder } from "../../style";
 
   // Input
   export let source: string;
   export let show = true;
-  export let gj: GeoJSON;
+  export let gj: GeoJSON | undefined;
   // TODO LayerSpecification doesn't work
   export let layerStyle: any;
   // Make objects hoverable and clickable. The caller should do something with
@@ -33,7 +33,7 @@
     fixIDs();
     $map!.addSource(source, {
       type: "geojson",
-      data: gj,
+      data: gj ?? emptyGeojson(),
     });
     $map!.addLayer(
       {
@@ -76,7 +76,7 @@
   // because there's not a way to get it back out later.
   function fixIDs() {
     // If we've only been passed in one feature, don't bother with IDs
-    if ("features" in gj) {
+    if (gj && "features" in gj) {
       for (let [idx, f] of gj.features.entries()) {
         // 0 is problematic
         f.id = idx + 1;
@@ -90,7 +90,7 @@
     if (sourceObj) {
       console.log(`GeoJSON data for ${source} changed, updating`);
       fixIDs();
-      (sourceObj as GeoJSONSource).setData(gj);
+      (sourceObj as GeoJSONSource).setData(gj ?? emptyGeojson());
 
       hoveredFeature = null;
       hoverId = undefined;

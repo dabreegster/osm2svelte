@@ -36,15 +36,13 @@
   };
 </script>
 
-{#if gj}
-  <Layer
-    source="intersection-polygons"
-    {gj}
-    {layerStyle}
-    interactive
-    bind:hoveredFeature={$hoveredIntersection}
-    bind:clickedFeature={$clickedIntersection}
-    {show}
-  />
-{/if}
+<Layer
+  source="intersection-polygons"
+  {gj}
+  {layerStyle}
+  interactive
+  bind:hoveredFeature={$hoveredIntersection}
+  bind:clickedFeature={$clickedIntersection}
+  {show}
+/>
 <LayerControls {gj} name="Intersection polygons" bind:show />

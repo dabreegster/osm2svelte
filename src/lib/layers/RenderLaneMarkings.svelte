@@ -34,7 +34,5 @@
   };
 </script>
 
-{#if gj}
-  <Layer source="lane-markings" {gj} {layerStyle} {show} />
-{/if}
+<Layer source="lane-markings" {gj} {layerStyle} {show} />
 <LayerControls {gj} name="Lane markings " bind:show />

@@ -28,7 +28,5 @@
   };
 </script>
 
-{#if gj}
-  <Layer source="intersection-markings" {gj} {layerStyle} {show} />
-{/if}
+<Layer source="intersection-markings" {gj} {layerStyle} {show} />
 <LayerControls {gj} name="Intersection markings" bind:show />

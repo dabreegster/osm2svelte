@@ -41,15 +41,13 @@
   };
 </script>
 
-{#if gj}
-  <Layer
-    source="lane-polygons"
-    {gj}
-    {layerStyle}
-    interactive
-    bind:clickedFeature={$clickedLane}
-    bind:hoveredFeature={$hoveredLane}
-    {show}
-  />
-{/if}
+<Layer
+  source="lane-polygons"
+  {gj}
+  {layerStyle}
+  interactive
+  bind:clickedFeature={$clickedLane}
+  bind:hoveredFeature={$hoveredLane}
+  {show}
+/>
 <LayerControls {gj} name="Lane polygons" bind:show />

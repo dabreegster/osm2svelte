@@ -24,7 +24,5 @@
   };
 </script>
 
-{#if gj}
-  <Layer source="movements" {gj} {layerStyle} {show} />
-{/if}
+<Layer source="movements" {gj} {layerStyle} {show} />
 <LayerControls {gj} name="Movement arrows" bind:show downloadable={false} />
