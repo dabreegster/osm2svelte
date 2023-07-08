@@ -52,7 +52,7 @@
 
   $: {
     // Track the testCase in the URL
-    let url = new URL(window.location);
+    let url = new URL(window.location.href);
     if (testCase != "none") {
       url.searchParams.set("test", testCase);
     } else {
