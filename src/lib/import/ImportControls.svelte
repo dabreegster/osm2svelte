@@ -37,13 +37,25 @@
 
   let settings: Settings;
   let overpassSelector;
-  let testCase = "none";
+  let testCase =
+    new URLSearchParams(window.location.search).get("test") || "none";
 
   $: {
     if (imported.kind == "done" && settings) {
       console.log("Settings changed, re-importing");
       importNetwork(imported.osmXml, imported.boundaryGj);
     }
+  }
+
+  $: {
+    // Track the testCase in the URL
+    let url = new URL(window.location);
+    if (testCase != "none") {
+      url.searchParams.set("test", testCase);
+    } else {
+      url.searchParams.delete("test");
+    }
+    window.history.pushState({}, "", url);
   }
 
   function importNetwork(osmXml: string, boundaryGj: Feature<Polygon>) {
@@ -92,7 +104,7 @@
 
   function load(e: CustomEvent<OsmSelection>) {
     importNetwork(e.detail.osmXml, e.detail.boundaryGj);
-    testCase = e.detail.testCase ?? "none";
+    testCase = e.detail.testCase;
   }
 
   function resetToNone(e: CustomEvent<void>) {

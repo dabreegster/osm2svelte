@@ -8,13 +8,18 @@
     error: string;
   }>();
 
-  export let testCase = "none";
+  export let testCase;
   let list: string[] = [];
 
   onMount(async () => {
     // TODO Hardcodes the base path from vite config -- OK?
     let resp = await fetch("/osm2svelte/tests.json");
     list = await resp.json();
+
+    // Initially load a test case?
+    if (testCase != "none") {
+      await reload();
+    }
   });
 
   async function reload() {
@@ -43,6 +48,18 @@
       dispatch("error", err.toString());
     }
   }
+
+  // TODO Hack to have this here, but the rest in ImportControls. We need
+  // access to reload here, though... unless we export it?
+  async function popState() {
+    let prev =
+      new URLSearchParams(window.location.search).get("test") || "none";
+    console.log(
+      `Navigated back in history -- changing test case from ${testCase} to ${prev}`
+    );
+    testCase = prev;
+    await reload();
+  }
 </script>
 
 <select bind:value={testCase} on:change={reload}>
@@ -51,3 +68,5 @@
     <option value={x}>{x}</option>
   {/each}
 </select>
+
+<svelte:window on:popstate={popState} />
