@@ -40,12 +40,14 @@
   let testCase =
     new URLSearchParams(window.location.search).get("test") || "none";
 
-  $: {
+  // Only update when settings change
+  function updateForSettings(settings: Settings) {
     if (imported.kind == "done" && settings) {
       console.log("Settings changed, re-importing");
       importNetwork(imported.osmXml, imported.boundaryGj);
     }
   }
+  $: updateForSettings(settings);
 
   $: {
     // Track the testCase in the URL
