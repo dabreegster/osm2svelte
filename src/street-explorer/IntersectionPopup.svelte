@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { Feature } from "geojson";
-  import { network } from "osm2streets-svelte/src/store";
+  import { network } from "../osm2streets-svelte/store";
 
   export let intersection: Feature;
 

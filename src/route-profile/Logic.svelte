@@ -1,12 +1,12 @@
 <script lang="ts">
   // TODO When this mode is active, we want to hide some of the base layers!
   import type { Feature, FeatureCollection } from "geojson";
-  import Layer from "osm2streets-svelte/src/Layer.svelte";
-  import { network } from "osm2streets-svelte/src/store";
+  import Layer from "../osm2streets-svelte/Layer.svelte";
+  import { network } from "../osm2streets-svelte/store";
   import {
     emptyGeojson,
     featureStateToggle,
-  } from "osm2streets-svelte/src/utils";
+  } from "../osm2streets-svelte/utils";
 
   // TODO Careful if network changes
   let clickedFeature: Feature | null;

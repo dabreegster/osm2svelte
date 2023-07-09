@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { map } from "osm2streets-svelte/src/store";
+  import { map } from "../osm2streets-svelte/store";
 
   let showRoads = true;
   let showBuildings = true;

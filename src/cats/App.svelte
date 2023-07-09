@@ -1,10 +1,10 @@
 <script lang="ts">
   import type { Map } from "maplibre-gl";
-  import Layout from "osm2streets-svelte/src/Layout.svelte";
-  import BuiltInSelector from "osm2streets-svelte/src/osm_input/BuiltInSelector.svelte";
-  import OverpassSelector from "osm2streets-svelte/src/osm_input/OverpassSelector.svelte";
-  import type { OsmSelection } from "osm2streets-svelte/src/osm_input/types";
   import { MapLibre } from "svelte-maplibre";
+  import Layout from "../osm2streets-svelte/Layout.svelte";
+  import BuiltInSelector from "../osm2streets-svelte/osm_input/BuiltInSelector.svelte";
+  import OverpassSelector from "../osm2streets-svelte/osm_input/OverpassSelector.svelte";
+  import type { OsmSelection } from "../osm2streets-svelte/osm_input/types";
 
   let map: Map;
   let testCase = "none";

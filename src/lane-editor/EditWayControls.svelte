@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { GeoJSON } from "geojson";
-  import Layer from "osm2streets-svelte/src/Layer.svelte";
-  import { clickedLane, network } from "osm2streets-svelte/src/store";
+  import Layer from "../osm2streets-svelte/Layer.svelte";
+  import { clickedLane, network } from "../osm2streets-svelte/store";
   import AllEdits from "./AllEdits.svelte";
   import Tags from "./Tags.svelte";
 

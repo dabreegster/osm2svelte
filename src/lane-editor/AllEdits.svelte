@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { network } from "osm2streets-svelte/src/store";
-  import { downloadGeneratedFile } from "osm2streets-svelte/src/utils";
+  import { network } from "../osm2streets-svelte/store";
+  import { downloadGeneratedFile } from "../osm2streets-svelte/utils";
 
   let editedWays: Set<bigint> = new Set();
 

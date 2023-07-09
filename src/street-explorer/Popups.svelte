@@ -1,11 +1,11 @@
 <script lang="ts">
   import { Popup } from "maplibre-gl";
+  import { onDestroy } from "svelte";
   import {
     clickedIntersection,
     clickedLane,
     map,
-  } from "osm2streets-svelte/src/store";
-  import { onDestroy } from "svelte";
+  } from "../osm2streets-svelte/store";
   import IntersectionPopup from "./IntersectionPopup.svelte";
   import LanePopup from "./LanePopup.svelte";
 
