@@ -13,7 +13,7 @@
   let list: string[] = [];
 
   onMount(async () => {
-    let resp = await fetch("/tests.json");
+    let resp = await fetch(`${import.meta.env.BASE_URL}/tests.json`);
     list = await resp.json();
 
     // Initially load a test case?
@@ -30,12 +30,16 @@
 
     try {
       dispatch("loading", "Loading built-in boundary and OSM XML");
-      let polygonResp = await fetch(`/tests/${testCase}/boundary.json`);
+      let polygonResp = await fetch(
+        `${import.meta.env.BASE_URL}/tests/${testCase}/boundary.json`
+      );
       let polygon = await polygonResp.json();
       // Test input is always a FeatureCollection with one object. For uniformity...
       let boundaryGj = polygon.features[0];
 
-      let osmResp = await fetch(`/tests/${testCase}/input.osm`);
+      let osmResp = await fetch(
+        `${import.meta.env.BASE_URL}/tests/${testCase}/input.osm`
+      );
       let osmXml = await osmResp.text();
 
       dispatch("load", {
