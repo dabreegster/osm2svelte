@@ -13,8 +13,7 @@
   let list: string[] = [];
 
   onMount(async () => {
-    // TODO Hardcodes the base path from vite config -- OK?
-    let resp = await fetch("/osm2svelte/tests.json");
+    let resp = await fetch("/tests.json");
     list = await resp.json();
 
     // Initially load a test case?
@@ -31,14 +30,12 @@
 
     try {
       dispatch("loading", "Loading built-in boundary and OSM XML");
-      let polygonResp = await fetch(
-        `/osm2svelte/tests/${testCase}/boundary.json`
-      );
+      let polygonResp = await fetch(`/tests/${testCase}/boundary.json`);
       let polygon = await polygonResp.json();
       // Test input is always a FeatureCollection with one object. For uniformity...
       let boundaryGj = polygon.features[0];
 
-      let osmResp = await fetch(`/osm2svelte/tests/${testCase}/input.osm`);
+      let osmResp = await fetch(`/tests/${testCase}/input.osm`);
       let osmXml = await osmResp.text();
 
       dispatch("load", {
