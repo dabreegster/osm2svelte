@@ -13,9 +13,8 @@
 <div>
   App:
   <select bind:value={page} on:change={gotoPage}>
-    <option value="index.html">Street Explorer</option>
-    <option value="lane_editor.html">Lane editor</option>
-    <option value="route_profile.html">Route profile tool</option>
+    <option value="index.html">Route profile tool</option>
     <option value="thicken_roads.html">Road width tool</option>
+    <option value="cats.html">Maps for Cats</option>
   </select>
 </div>

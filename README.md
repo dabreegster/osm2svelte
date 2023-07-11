@@ -2,6 +2,8 @@
 
 Stay tuned
 
+Build notes: using gitpkg to depend on a nested folder in a git repo. This
+should be a temporary state, until osm2streets-svelte is on NPM.
 
 ## Design patterns
 

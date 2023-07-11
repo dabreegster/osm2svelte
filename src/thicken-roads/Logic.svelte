@@ -1,7 +1,10 @@
 <script lang="ts">
-  import Layer from "../osm2streets-svelte/Layer.svelte";
-  import { clickedLane, map } from "../osm2streets-svelte/store";
-  import { emptyGeojson } from "../osm2streets-svelte/utils";
+  import Layer from "osm2streets-web/src/osm2streets-svelte/Layer.svelte";
+  import {
+    clickedLane,
+    map,
+  } from "osm2streets-web/src/osm2streets-svelte/store";
+  import { emptyGeojson } from "osm2streets-web/src/osm2streets-svelte/utils";
 
   let gj = emptyGeojson();
   let layerStyle = {
